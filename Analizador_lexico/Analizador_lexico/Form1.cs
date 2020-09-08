@@ -42,10 +42,10 @@ namespace Analizador_lexico
         private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
-            TextWriter guardar = new StreamWriter(@"C:\Users\jalej\Documents\C# Projects\Analizador Lexico\Archivos\prueba.txt",true);
+            TextWriter guardar = new StreamWriter(@"C:\Users\jalej\Documents\C# Projects\Analizador Lexico\Archivos\prueba.txt");
             try
             {
-                guardar.WriteLine("Archivo de prueba");
+                //guardar.WriteLine("Archivo de prueba "+"\n"+areaTexto.Text);
                 guardar.WriteLine(areaTexto.Text);
                 MessageBox.Show("Se ha guardado correctamente.");
             }
@@ -60,22 +60,28 @@ namespace Analizador_lexico
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            StreamReader abrir = new StreamReader(@"C:\Users\jalej\Documents\C# Projects\Analizador Lexico\Archivos\prueba.txt");
+            TextReader abrir = new StreamReader(@"C:\Users\jalej\Documents\C# Projects\Analizador Lexico\Archivos\prueba.txt");
             String linea;
             try
             {
-                linea = abrir.ReadLine();
-                while (linea!=null)
-                {
-                    areaTexto.AppendText(linea+"\n");
-                    linea = abrir.ReadLine();
-                }
+                /* linea = abrir.ReadLine();
+                 while (linea!=null)
+                 {
+                     areaTexto.AppendText(linea+"\n");
+                     linea = abrir.ReadLine();
+                 }*/
+                areaTexto.AppendText(abrir.ReadToEnd());
             }
             catch
             {
                 MessageBox.Show("Error");
             }
             abrir.Close();
+        }
+
+        private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            areaTexto.Clear();
         }
     }
 }
