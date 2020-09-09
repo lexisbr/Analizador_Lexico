@@ -31,6 +31,8 @@ namespace Analizador_lexico
 
         private void guardarComoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+         
+
             try
             {
                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
