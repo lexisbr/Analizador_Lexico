@@ -8,14 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-
+using Analizador_lexico.Clases;
 
 namespace Analizador_lexico
 {
     public partial class Form1 : Form
     {
+
+        Archivo archivo = new Archivo();
         public Form1()
         {
+            
             InitializeComponent();
         }
 
@@ -31,36 +34,11 @@ namespace Analizador_lexico
 
         private void guardarComoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-         
-
-            try
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    if (File.Exists(saveFileDialog1.FileName))
-                    {
-                        string direccion = saveFileDialog1.FileName;
-                        StreamWriter guardar = File.CreateText(direccion);
-                        guardar.Write(areaTexto.Text);
-                        guardar.Close();
-                        MessageBox.Show("Se ha guardado correctamente.");
-
-
-                    }
-                    else
-                    {
-                        string direccion = saveFileDialog1.FileName;
-                        StreamWriter guardar = File.CreateText(direccion);
-                        guardar.Write(areaTexto.Text);
-                        guardar.Close();
-                        MessageBox.Show("Se ha guardado correctamente.");
-                    }
-                }
-
-            }
-            catch
-            {
-                MessageBox.Show("Error");
+                String path = saveFileDialog1.FileName;
+                String texto = areaTexto.Text;
+                archivo.guardarArchivoComo(path, texto);
             }
         }
 
@@ -81,33 +59,20 @@ namespace Analizador_lexico
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                openFileDialog1.Title = "Busca tu archivo";
-                openFileDialog1.ShowDialog();
-
-                if (File.Exists(openFileDialog1.FileName))
-                {
-                    String direccion = openFileDialog1.FileName;
-                    TextReader abrir = new StreamReader(direccion);
-                    String texto;
-                    texto = abrir.ReadToEnd();
-                    areaTexto.Text = texto;
-                    abrir.Close();
-                }
-                
-
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Error ");
-            }
+          
+           openFileDialog1.Title = "Busca tu archivo";
+           openFileDialog1.ShowDialog();
+           String nombre = openFileDialog1.FileName; 
+           areaTexto.Text = archivo.abrirArchivo(nombre);
+            archivo.setdireccionActual(nombre);
+            
            
         }
 
         private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             areaTexto.Clear();
+            archivo.setdireccionActual("");
         }
     }
 }
