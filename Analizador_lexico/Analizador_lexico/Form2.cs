@@ -18,8 +18,8 @@ namespace Analizador_lexico
         Archivo archivo = new Archivo();
         public Form1()
         {
-            
             InitializeComponent();
+            this.Text = "IDE - Lexees";
         }
 
         private void Form1_Load(object sender, EventArgs e)

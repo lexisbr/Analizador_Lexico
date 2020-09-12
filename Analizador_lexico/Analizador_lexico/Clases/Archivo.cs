@@ -9,6 +9,7 @@ namespace Analizador_lexico.Clases
 {
     class Archivo
     {
+        //Atributo de la direccion actual del archivo
         private String direccionActual = "";
 
         public Archivo()
@@ -20,19 +21,22 @@ namespace Analizador_lexico.Clases
         {
             return direccionActual;
         }
-        public void setdireccionActual(String direccion)
+        public void setdireccionActual(String direccionActual)
         {
-            direccionActual = direccion;
+            this.direccionActual = direccionActual;
         }
 
+
+        /* Metodo para guardar archivo ingresando direccion y nombre*/
         public void guardarArchivoComo(String direccion, String texto)
         {
             try
             {
-                    StreamWriter guardar = File.CreateText(direccion);
-                    guardar.Write(texto);
-                    guardar.Close();
-                    System.Windows.Forms.MessageBox.Show("Archivo guardado exitosamente.");
+                setdireccionActual(direccion);
+                StreamWriter guardar = File.CreateText(direccion+".gt");
+                guardar.Write(texto);
+                guardar.Close();
+                System.Windows.Forms.MessageBox.Show("Archivo guardado exitosamente.");
             }
             catch
             {
@@ -41,24 +45,38 @@ namespace Analizador_lexico.Clases
 
         }
 
-        public void guardarArchivo()
+        /* Metodo para guardar archivo en la direccion actual*/
+        public void guardarArchivo(String texto)
         {
+            TextWriter guardar = new StreamWriter(@getdireccionActual()) ;
+            try
+            {
+                guardar.WriteLine(texto);
+                System.Windows.Forms.MessageBox.Show("Se ha guardado correctamente.");
+            }
+            catch
+            {
+                System.Windows.Forms.MessageBox.Show("Error");
+            }
+            guardar.Close();
 
         }
 
+        /* Metodo para abrir un archivo */
         public String abrirArchivo(String direccion)
         {
+            String texto;
             try
             {
                 TextReader abrir = new StreamReader(direccion);
-                String texto;
                 texto = abrir.ReadToEnd();
+                setdireccionActual(direccion);
                 abrir.Close();
                 return texto;
             }
             catch
             {
-                System.Windows.Forms.MessageBox.Show("Error ");
+                //System.Windows.Forms.MessageBox.Show("Error ");
                 return "";
             }
         }
