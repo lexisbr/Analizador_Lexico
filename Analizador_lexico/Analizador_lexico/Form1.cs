@@ -18,8 +18,9 @@ namespace Analizador_lexico
         Archivo archivo = new Archivo();
         public Form1()
         {
-            
             InitializeComponent();
+            label1.Text = "Proyecto actual: "+"SinTitulo";
+        
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -44,15 +45,13 @@ namespace Analizador_lexico
 
         private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (archivo.getdireccionActual().Equals(""))
+            if (archivo.getDireccionActual().Equals(""))
             {
                 guardarComo();
             }
             else
             {
-                String texto = areaTexto.Text;
-                archivo.guardarArchivo(texto);
-
+                guardar();
             }
             
         }
@@ -63,16 +62,33 @@ namespace Analizador_lexico
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 String nombre = openFileDialog1.FileName;
-                vaciar();
-                areaTexto.Text = archivo.abrirArchivo(nombre);
-                this.Text = Path.GetFileName(nombre);
+                if (archivo.getTextoCambiado()){
+                    verificarGuardar();
+                    areaTexto.Text = archivo.abrirArchivo(nombre);
+                    cargarTitulo();
+                }
+                else
+                {
+                    areaTexto.Text = archivo.abrirArchivo(nombre);
+                    cargarTitulo();
+                }
+               
             }
 
         }
 
         private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            vaciar();
+            Console.WriteLine(archivo.getTextoCambiado());
+
+            if (archivo.getTextoCambiado())
+            {
+                verificarGuardar();
+            }
+            else
+            {
+                vaciar();
+            }
         }
 
 
@@ -84,13 +100,24 @@ namespace Analizador_lexico
                 String path = saveFileDialog1.FileName;
                 String texto = areaTexto.Text;
                 archivo.guardarArchivoComo(path, texto);
+                cargarTitulo();
             }
+        }
+
+        public void guardar()
+        {
+            String texto = areaTexto.Text;
+            archivo.guardarArchivo(texto);
+            cargarTitulo();
+          
         }
 
         public void vaciar()
         {
             areaTexto.Clear();
-            archivo.setdireccionActual("");
+            label1.Text = "Proyecto actual: " + "SinTitulo";
+            archivo.setDireccionActual("");
+            archivo.setTextoCambiado(false);
         }
 
         public void setOpenFile()
@@ -107,5 +134,49 @@ namespace Analizador_lexico
             saveFileDialog1.FileName = "";
         }
 
+        public void cargarTitulo()
+        {
+            label1.Text = "Proyecto actual: " + Path.GetFileName(archivo.getDireccionActual());
+        }
+
+        private void areaTexto_TextChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine(archivo.getTextoCambiado());
+            if (archivo.getDireccionActual().Equals(""))
+            {
+                label1.Text = "Proyecto actual: " + "SinTitulo"+"*";            
+            }
+            else {
+                label1.Text = "Proyecto actual: " + Path.GetFileName(archivo.getDireccionActual()) + "*"; 
+            }
+            archivo.setTextoCambiado(true);
+
+        }
+
+        public void verificarGuardar()
+        {
+            DialogResult dialogResult = MessageBox.Show("Desea guardar el archivo actual?", "Advertencia", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                if (archivo.getDireccionActual().Equals(""))
+                {
+                    guardarComo();
+                }
+                else
+                {
+                    guardar();
+                }
+                vaciar();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                vaciar();
+            }
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -11,19 +11,30 @@ namespace Analizador_lexico.Clases
     {
         //Atributo de la direccion actual del archivo
         private String direccionActual = "";
+        private Boolean textoCambiado = false;
 
         public Archivo()
         {
-           
+            textoCambiado = false;
+            direccionActual = "";
         }
 
-        public String getdireccionActual()
+        public String getDireccionActual()
         {
             return direccionActual;
         }
-        public void setdireccionActual(String direccionActual)
+        public void setDireccionActual(String direccionActual)
         {
             this.direccionActual = direccionActual;
+        }
+
+        public void setTextoCambiado(Boolean textoCambiado)
+        {
+            this.textoCambiado = textoCambiado;
+        }
+        public Boolean getTextoCambiado()
+        {
+            return textoCambiado;
         }
 
 
@@ -32,11 +43,12 @@ namespace Analizador_lexico.Clases
         {
             try
             {
-                setdireccionActual(direccion);
-                StreamWriter guardar = File.CreateText(direccion+".gt");
+                setDireccionActual(direccion);
+                StreamWriter guardar = File.CreateText(direccion);
                 guardar.Write(texto);
                 guardar.Close();
                 System.Windows.Forms.MessageBox.Show("Archivo guardado exitosamente.");
+                setTextoCambiado(false);
             }
             catch
             {
@@ -48,11 +60,12 @@ namespace Analizador_lexico.Clases
         /* Metodo para guardar archivo en la direccion actual*/
         public void guardarArchivo(String texto)
         {
-            TextWriter guardar = new StreamWriter(@getdireccionActual()) ;
+            TextWriter guardar = new StreamWriter(@getDireccionActual()) ;
             try
             {
                 guardar.WriteLine(texto);
                 System.Windows.Forms.MessageBox.Show("Se ha guardado correctamente.");
+                setTextoCambiado(false);
             }
             catch
             {
@@ -70,8 +83,9 @@ namespace Analizador_lexico.Clases
             {
                 TextReader abrir = new StreamReader(direccion);
                 texto = abrir.ReadToEnd();
-                setdireccionActual(direccion);
+                setDireccionActual(direccion);
                 abrir.Close();
+                setTextoCambiado(true);
                 return texto;
             }
             catch
