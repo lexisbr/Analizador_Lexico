@@ -178,5 +178,20 @@ namespace Analizador_lexico
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            areaErrores.Clear();
+            String[] tokens;
+            Automata analizador = new Automata();
+            analizador.analizadorAutomata(areaTexto.Text);
+            tokens = new string[analizador.getTokenValido().Length];
+            tokens = analizador.getTokenValido();
+
+            for(int i =0; i<tokens.Length; i++)
+            {
+                areaErrores.AppendText(tokens[i]);
+            }
+        }
     }
 }

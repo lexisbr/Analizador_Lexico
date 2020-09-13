@@ -43,6 +43,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.areaErrores = new System.Windows.Forms.RichTextBox();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -57,7 +58,7 @@
             this.archivoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(739, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(973, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -114,7 +115,7 @@
             this.areaTexto.Location = new System.Drawing.Point(13, 13);
             this.areaTexto.Name = "areaTexto";
             this.areaTexto.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.areaTexto.Size = new System.Drawing.Size(682, 345);
+            this.areaTexto.Size = new System.Drawing.Size(916, 345);
             this.areaTexto.TabIndex = 2;
             this.areaTexto.Text = "";
             this.areaTexto.TextChanged += new System.EventHandler(this.areaTexto_TextChanged);
@@ -135,7 +136,7 @@
             this.panel1.ForeColor = System.Drawing.Color.White;
             this.panel1.Location = new System.Drawing.Point(25, 31);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(679, 74);
+            this.panel1.Size = new System.Drawing.Size(913, 74);
             this.panel1.TabIndex = 3;
             // 
             // button1
@@ -146,7 +147,7 @@
             this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Image = global::Analizador_lexico.Properties.Resources.jugar__1___1_;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(549, 16);
+            this.button1.Location = new System.Drawing.Point(783, 16);
             this.button1.Margin = new System.Windows.Forms.Padding(0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(114, 43);
@@ -154,6 +155,7 @@
             this.button1.Text = "Compilar";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // pictureBox1
             // 
@@ -186,8 +188,16 @@
             this.panel2.Controls.Add(this.areaTexto);
             this.panel2.Location = new System.Drawing.Point(12, 111);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(715, 376);
+            this.panel2.Size = new System.Drawing.Size(949, 376);
             this.panel2.TabIndex = 4;
+            // 
+            // areaErrores
+            // 
+            this.areaErrores.Location = new System.Drawing.Point(132, 535);
+            this.areaErrores.Name = "areaErrores";
+            this.areaErrores.Size = new System.Drawing.Size(711, 108);
+            this.areaErrores.TabIndex = 5;
+            this.areaErrores.Text = "";
             // 
             // Form1
             // 
@@ -196,7 +206,8 @@
             this.BackColor = System.Drawing.Color.Goldenrod;
             this.BackgroundImage = global::Analizador_lexico.Properties.Resources.fondo1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(739, 533);
+            this.ClientSize = new System.Drawing.Size(973, 737);
+            this.Controls.Add(this.areaErrores);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
@@ -234,6 +245,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RichTextBox areaErrores;
     }
 }
 
