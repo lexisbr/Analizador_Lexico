@@ -129,7 +129,7 @@ namespace Analizador_lexico.Clases
                                 case '\n':
                                 case '\b':
                                 case '\f':
-                                    insertarLexema(tempToken,getEstadoActual());
+                                    setTokenErroneo(tempToken);
                                     tempToken = "";
                                     setEstadoActual(0);
                                     break;
@@ -217,6 +217,16 @@ namespace Analizador_lexico.Clases
                         {
                             switch (caracter)
                             {
+                                case ' ':
+                                case '\r':
+                                case '\t':
+                                case '\n':
+                                case '\b':
+                                case '\f':
+                                    setTokenErroneo(tempToken);
+                                    tempToken = "";
+                                    setEstadoActual(0);
+                                    break;
                                 case 'e':     
                                     tempToken += caracter;
                                     setEstadoActual(6);
@@ -232,6 +242,16 @@ namespace Analizador_lexico.Clases
                         {
                             switch (caracter)
                             {
+                                case ' ':
+                                case '\r':
+                                case '\t':
+                                case '\n':
+                                case '\b':
+                                case '\f':
+                                    setTokenErroneo(tempToken);
+                                    tempToken = "";
+                                    setEstadoActual(0);
+                                    break;
                                 case 'r':
                                     tempToken += caracter;
                                     setEstadoActual(7);
@@ -247,6 +267,16 @@ namespace Analizador_lexico.Clases
                         {
                             switch (caracter)
                             {
+                                case ' ':
+                                case '\r':
+                                case '\t':
+                                case '\n':
+                                case '\b':
+                                case '\f':
+                                    setTokenErroneo(tempToken);
+                                    tempToken = "";
+                                    setEstadoActual(0);
+                                    break;
                                 case 'd':
                                     tempToken += caracter;
                                     setEstadoActual(8);
@@ -262,6 +292,16 @@ namespace Analizador_lexico.Clases
                         {
                             switch (caracter)
                             {
+                                case ' ':
+                                case '\r':
+                                case '\t':
+                                case '\n':
+                                case '\b':
+                                case '\f':
+                                    setTokenErroneo(tempToken);
+                                    tempToken = "";
+                                    setEstadoActual(0);
+                                    break;
                                 case 'a':
                                     tempToken += caracter;
                                     setEstadoActual(9);
@@ -277,6 +317,16 @@ namespace Analizador_lexico.Clases
                         {
                             switch (caracter)
                             {
+                                case ' ':
+                                case '\r':
+                                case '\t':
+                                case '\n':
+                                case '\b':
+                                case '\f':
+                                    setTokenErroneo(tempToken);
+                                    tempToken = "";
+                                    setEstadoActual(0);
+                                    break;
                                 case 'd':
                                     tempToken += caracter;
                                     setEstadoActual(10);
@@ -292,6 +342,16 @@ namespace Analizador_lexico.Clases
                         {
                             switch (caracter)
                             {
+                                case ' ':
+                                case '\r':
+                                case '\t':
+                                case '\n':
+                                case '\b':
+                                case '\f':
+                                    setTokenErroneo(tempToken);
+                                    tempToken = "";
+                                    setEstadoActual(0);
+                                    break;
                                 case 'e':
                                     tempToken += caracter;
                                     setEstadoActual(11);
@@ -307,6 +367,16 @@ namespace Analizador_lexico.Clases
                         {
                             switch (caracter)
                             {
+                                case ' ':
+                                case '\r':
+                                case '\t':
+                                case '\n':
+                                case '\b':
+                                case '\f':
+                                    setTokenErroneo(tempToken);
+                                    tempToken = "";
+                                    setEstadoActual(0);
+                                    break;
                                 case 'r':
                                     tempToken += caracter;
                                     setEstadoActual(12);
@@ -322,6 +392,16 @@ namespace Analizador_lexico.Clases
                         {
                             switch (caracter)
                             {
+                                case ' ':
+                                case '\r':
+                                case '\t':
+                                case '\n':
+                                case '\b':
+                                case '\f':
+                                    setTokenErroneo(tempToken);
+                                    tempToken = "";
+                                    setEstadoActual(0);
+                                    break;
                                 case 'o':
                                     tempToken += caracter;
                                     setEstadoActual(13);
