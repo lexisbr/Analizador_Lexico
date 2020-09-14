@@ -14,14 +14,9 @@ namespace Analizador_lexico.Clases
         private int estadoActual = 0;
         private String token = "";
         private char caracter;
-        private String tempToken = "";
-        private String[] tokenValido;
-        private String[] tokens;
-        private string color;
-        private int cont = 0;
         private ArrayList listaLexemas = new ArrayList();
         private ArrayList listaErrores = new ArrayList();
-
+        private Boolean inicio = false;
         public Automata()
         {
             estadoInicial = 0;
@@ -30,11 +25,12 @@ namespace Analizador_lexico.Clases
         }
         public void analizadorAutomata(String cadena)
         {
+            String tempToken = "";
             cadena = cadena + " ";
             for(estadoInicial=0; estadoInicial < cadena.Length; estadoInicial++)
             {
                 caracter = cadena[estadoInicial];
-                //MessageBox.Show("estado actual "+estadoActual +" caracter "+caracter);
+                Console.WriteLine("estado actual "+estadoActual +" caracter "+caracter);
                 switch (estadoActual)
                 {
                     case 0:
@@ -47,9 +43,6 @@ namespace Analizador_lexico.Clases
                                 case '\n':
                                 case '\b':
                                 case '\f':
-                                    insertarLexema(tempToken, getEstadoActual());
-                                    tempToken = "";
-                                    setEstadoActual(0);
                                     break;
                                 case '0':
                                 case '1':
@@ -64,6 +57,10 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(1);
                                     break;
+                                case '-':
+                                    tempToken += caracter;
+                                    setEstadoActual(18);
+                                    break;
                                 case '"':
                                     tempToken += caracter;
                                     setEstadoActual(4);
@@ -72,9 +69,14 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(5);
                                     break;
+                                case 'f':
+                                    tempToken += caracter;
+                                    setEstadoActual(13);
+                                    break;
+
                                 default:
                                     tempToken += caracter;
-                                    setEstadoActual(66);
+                                    setEstadoActual(16);
                                     break;
                             }
                             break;
@@ -223,7 +225,7 @@ namespace Analizador_lexico.Clases
                                 case '\n':
                                 case '\b':
                                 case '\f':
-                                    setTokenErroneo(tempToken);
+                                    insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     setEstadoActual(0);
                                     break;
@@ -404,7 +406,7 @@ namespace Analizador_lexico.Clases
                                     break;
                                 case 'o':
                                     tempToken += caracter;
-                                    setEstadoActual(13);
+                                    setEstadoActual(65);
                                     break;
                                 default:
                                     tempToken += caracter;
@@ -414,6 +416,138 @@ namespace Analizador_lexico.Clases
                             break;
                         }
                     case 13:
+                        {
+                            switch (caracter)
+                            {
+                                case ' ':
+                                case '\r':
+                                case '\t':
+                                case '\n':
+                                case '\b':
+                                case '\f':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    setEstadoActual(0);
+                                    break;
+                                case 'a':
+                                    tempToken += caracter;
+                                    setEstadoActual(14);
+                                    break;
+                                default:
+                                    tempToken += caracter;
+                                    setEstadoActual(66);
+                                    break;
+                            }
+                            break;
+                        }
+                    case 14:
+                        {
+                            switch (caracter)
+                            {
+                                case ' ':
+                                case '\r':
+                                case '\t':
+                                case '\n':
+                                case '\b':
+                                case '\f':
+                                    setTokenErroneo(tempToken);
+                                    tempToken = "";
+                                    setEstadoActual(0);
+                                    break;
+                                case 'l':
+                                    tempToken += caracter;
+                                    setEstadoActual(15);
+                                    break;
+                                default:
+                                    tempToken += caracter;
+                                    setEstadoActual(66);
+                                    break;
+                            }
+                            break;
+                        }
+                    case 15:
+                        {
+                            switch (caracter)
+                            {
+                                case ' ':
+                                case '\r':
+                                case '\t':
+                                case '\n':
+                                case '\b':
+                                case '\f':
+                                    setTokenErroneo(tempToken);
+                                    tempToken = "";
+                                    setEstadoActual(0);
+                                    break;
+                                case 's':
+                                    tempToken += caracter;
+                                    setEstadoActual(12);
+                                    break;
+                                default:
+                                    tempToken += caracter;
+                                    setEstadoActual(66);
+                                    break;
+                            }
+                            break;
+                        }
+                    case 16:
+                        {
+                           
+                            switch (caracter)
+                            {
+
+                                case ' ':
+                                case '\r':
+                                case '\t':
+                                case '\n':
+                                case '\b':
+                                case '\f':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    setEstadoActual(0);
+                                    break;
+                                default:
+                                    tempToken += caracter;
+                                    setEstadoActual(66);
+                                    break;
+                            }
+                            break;
+                        }
+                    case 18:
+                        {
+                            switch (caracter)
+                            {
+                                case ' ':
+                                case '\r':
+                                case '\t':
+                                case '\n':
+                                case '\b':
+                                case '\f':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    setEstadoActual(0);
+                                    break;
+                                case '0':
+                                case '1':
+                                case '2':
+                                case '3':
+                                case '4':
+                                case '5':
+                                case '6':
+                                case '7':
+                                case '8':
+                                case '9':
+                                    tempToken += caracter;
+                                    setEstadoActual(1);
+                                    break;
+                                default:
+                                    tempToken += caracter;
+                                    setEstadoActual(66);
+                                    break;
+                            }
+                            break;
+                        }
+                    case 65:
                         {
                             switch (caracter)
                             {
@@ -448,6 +582,12 @@ namespace Analizador_lexico.Clases
                                     tempToken = "";
                                     setEstadoActual(0);
                                     break;
+                                case '"':
+                                    setTokenErroneo(tempToken);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(4);
+                                    break;
                                 default:
                                     tempToken += caracter;
                                     break;
@@ -460,23 +600,7 @@ namespace Analizador_lexico.Clases
             }
         }
 
-        private void setTokenValido(String lexema, char siguiente)
-        {
-            switch (siguiente)
-            {
-                case ' ':
-                    tokenValido[0] = lexema;
-                    break;
-                default:
-                    tokenValido[0] = lexema;
-                    break;
-            }
-        }
-
-        public String [] getTokenValido()
-        {
-            return tokenValido;
-        }
+   
         public void setEstadoActual(int estadoActual)
         {
             this.estadoActual = estadoActual;
@@ -520,8 +644,18 @@ namespace Analizador_lexico.Clases
                     nuevoToken = new Lexema(token, "Gris", "Cadena");
                     listaLexemas.Add(nuevoToken);
                     break;
-                case 13:
+                case 65:
                     nuevoToken = new Lexema(token, "Naranja", "Booleano");
+                    listaLexemas.Add(nuevoToken);
+                    break;
+                case 16:
+                case 5:
+                case 13:
+                    nuevoToken = new Lexema(token, "Cafe", "Caracter");
+                    listaLexemas.Add(nuevoToken);
+                    break;
+                case 18:
+                    nuevoToken = new Lexema(token, "Azul", "Operador Aritmetico");
                     listaLexemas.Add(nuevoToken);
                     break;
             }
@@ -542,19 +676,8 @@ namespace Analizador_lexico.Clases
                 MessageBox.Show(cadena + " Error");
         }
 
-        public void setTempToken(String tempToken)
-        {
-            if (!tempToken.Equals(""))
-            {
-                this.tempToken = tempToken;
-            }
-            
-        }
-
-        public String getTempToken()
-        {
-            return tempToken;
-        }
+       
+        
 
 
     }
