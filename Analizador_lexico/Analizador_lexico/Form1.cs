@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using Analizador_lexico.Clases;
+using System.Collections;
 
 namespace Analizador_lexico
 {
@@ -16,6 +17,8 @@ namespace Analizador_lexico
     {
 
         Archivo archivo = new Archivo();
+        ArrayList tokens;
+        int contadorToken = 0;
         public Form1()
         {
             InitializeComponent();
@@ -181,7 +184,7 @@ namespace Analizador_lexico
 
         private void button1_Click(object sender, EventArgs e)
         {
-            areaErrores.Clear();
+            /*areaErrores.Clear();
             String[] tokens;
             Automata analizador = new Automata();
             analizador.analizadorAutomata(areaTexto.Text);
@@ -191,7 +194,144 @@ namespace Analizador_lexico
             for(int i =0; i<tokens.Length; i++)
             {
                 areaErrores.AppendText(tokens[i]);
+            }*/
+
+            /* generarTokens(areaTexto.Text);
+             mostrarTokens();*/
+            Automata analizador = new Automata();
+            analizador.analizadorAutomata(areaTexto.Text);
+            analizador.mostrarTokens();
+            analizador.mostrarErrores();
+        }
+
+
+
+        private void generarTokens(String texto)
+        {
+            Boolean comillas = false;
+            tokens = new ArrayList();
+            texto = texto + " ";
+            char caracter;
+            string tempToken = "";
+            contadorToken = 0;
+            try
+            {
+                for (int i = 0; i < texto.Length; i++)
+                {
+                    caracter = texto[i];
+                    switch (caracter)
+                    {
+                        case '\r':
+                        case '\t':     
+                        case '\b':
+                        case '\f':
+                            if (!tempToken.Equals("")&&!comillas)
+                            {
+                                guardarTokens(tempToken);
+                                tempToken = "";
+                            }
+                            else
+                            {
+                                tempToken = tempToken + caracter;
+                            }
+                          
+                            break;
+                        case '\n':
+                            if (!tempToken.Equals("")&&!comillas)
+                            {
+                                guardarTokens(tempToken);
+                                tempToken = "";
+                                guardarTokens("ENTER");
+                            }
+                            else
+                            {
+                                tempToken = tempToken + caracter;
+                            }
+                            break;
+                        case ' ':
+                            if (!tempToken.Equals("")&&!comillas)
+                            {
+                                guardarTokens(tempToken);
+                                tempToken = "";
+                                guardarTokens("ESPACIO");
+                            }
+                            else
+                            {
+                                tempToken = tempToken + caracter;
+                            }
+                            break;
+                        case '+':       
+                        case '-':
+                        case '*':
+                        case '<':
+                        case '>':
+                        case '=':
+                        case '(':
+                        case ')':
+                        case ';':
+                        case '!':
+                           if (!tempToken.Equals(""))
+                            {
+                                guardarTokens(tempToken);
+                                tempToken = "";
+                            }
+                            guardarTokens(caracter.ToString());
+                            break;
+                        case '"':
+                            
+                            if (!comillas)
+                            {
+                                if (!tempToken.Equals(""))
+                                {
+                                    guardarTokens(tempToken);
+                                    tempToken = "";
+                                }
+                                
+                                 tempToken = tempToken + caracter;
+                                 comillas = true;              
+                                
+                            }
+                            else if(!tempToken.Equals(""))
+                            {
+                                tempToken = tempToken + caracter;
+                                guardarTokens(tempToken);
+                                tempToken = "";
+                                comillas = false;
+
+                            }
+                            
+                            break;
+                        case '/':
+
+                        default:
+                            tempToken = tempToken + caracter;
+                            break;
+
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Error");
             }
         }
+
+    private void guardarTokens(String token)
+        {
+            tokens.Add(token);
+           
+        }
+
+    private void mostrarTokens()
+        {
+            foreach(string cadena in tokens)
+                MessageBox.Show(cadena);
+        }
+    
+    private void validarTokens(String [] tokens)
+        {
+
+        }
+
     }
 }
