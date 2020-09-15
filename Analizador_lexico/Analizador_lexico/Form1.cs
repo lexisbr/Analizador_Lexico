@@ -17,8 +17,8 @@ namespace Analizador_lexico
     {
 
         Archivo archivo = new Archivo();
-        ArrayList tokens;
-        int contadorToken = 0;
+        ArrayList tokens = new ArrayList();
+        
         public Form1()
         {
             InitializeComponent();
@@ -184,154 +184,37 @@ namespace Analizador_lexico
 
         private void button1_Click(object sender, EventArgs e)
         {
-            /*areaErrores.Clear();
-            String[] tokens;
-            Automata analizador = new Automata();
-            analizador.analizadorAutomata(areaTexto.Text);
-            tokens = new string[analizador.getTokenValido().Length];
-            tokens = analizador.getTokenValido();
-
-            for(int i =0; i<tokens.Length; i++)
-            {
-                areaErrores.AppendText(tokens[i]);
-            }*/
-
-            /* generarTokens(areaTexto.Text);
-             mostrarTokens();*/
             Automata analizador = new Automata();
             analizador.analizadorAutomata(areaTexto.Text);
             analizador.mostrarTokens();
-            analizador.mostrarErrores();
-        }
 
-
-
-        private void generarTokens(String texto)
-        {
-            Boolean comillas = false;
-            tokens = new ArrayList();
-            texto = texto + " ";
-            char caracter;
-            string tempToken = "";
-            contadorToken = 0;
-            try
-            {
-                for (int i = 0; i < texto.Length; i++)
-                {
-                    caracter = texto[i];
-                    switch (caracter)
-                    {
-                        case '\r':
-                        case '\t':     
-                        case '\b':
-                        case '\f':
-                            if (!tempToken.Equals("")&&!comillas)
-                            {
-                                guardarTokens(tempToken);
-                                tempToken = "";
-                            }
-                            else
-                            {
-                                tempToken = tempToken + caracter;
-                            }
-                          
-                            break;
-                        case '\n':
-                            if (!tempToken.Equals("")&&!comillas)
-                            {
-                                guardarTokens(tempToken);
-                                tempToken = "";
-                                guardarTokens("ENTER");
-                            }
-                            else
-                            {
-                                tempToken = tempToken + caracter;
-                            }
-                            break;
-                        case ' ':
-                            if (!tempToken.Equals("")&&!comillas)
-                            {
-                                guardarTokens(tempToken);
-                                tempToken = "";
-                                guardarTokens("ESPACIO");
-                            }
-                            else
-                            {
-                                tempToken = tempToken + caracter;
-                            }
-                            break;
-                        case '+':       
-                        case '-':
-                        case '*':
-                        case '<':
-                        case '>':
-                        case '=':
-                        case '(':
-                        case ')':
-                        case ';':
-                        case '!':
-                           if (!tempToken.Equals(""))
-                            {
-                                guardarTokens(tempToken);
-                                tempToken = "";
-                            }
-                            guardarTokens(caracter.ToString());
-                            break;
-                        case '"':
-                            
-                            if (!comillas)
-                            {
-                                if (!tempToken.Equals(""))
-                                {
-                                    guardarTokens(tempToken);
-                                    tempToken = "";
-                                }
-                                
-                                 tempToken = tempToken + caracter;
-                                 comillas = true;              
-                                
-                            }
-                            else if(!tempToken.Equals(""))
-                            {
-                                tempToken = tempToken + caracter;
-                                guardarTokens(tempToken);
-                                tempToken = "";
-                                comillas = false;
-
-                            }
-                            
-                            break;
-                        case '/':
-
-                        default:
-                            tempToken = tempToken + caracter;
-                            break;
-
-                    }
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Error");
-            }
-        }
-
-    private void guardarTokens(String token)
-        {
-            tokens.Add(token);
+            tokens =(ArrayList)analizador.getListaLexema().Clone();
            
-        }
 
-    private void mostrarTokens()
+        }
+        
+      /* public void mostrarTokens()
         {
-            foreach(string cadena in tokens)
-                MessageBox.Show(cadena);
-        }
-    
-    private void validarTokens(String [] tokens)
-        {
-
-        }
-
+            for (int i = 0; i < tokens.Count; i++)
+            {
+                Lexema lexema = (Lexema)tokens[i];
+                if (tokens[i].Equals("ESPACIO"))
+                {
+                    areaTexto.SelectionColor = Color.Red;
+                    areaTexto.AppendText(" ");
+                }
+                else if (tokens[i].Equals("ENTER"))
+                {
+                    areaTexto.SelectionColor = Color.Red;
+                    areaTexto.AppendText(Environment.NewLine + "");
+                }
+                else
+                {
+                    areaTexto.SelectionColor = Color.Red;
+                    areaTexto.AppendText(tokens[i]);
+                }
+                MessageBox.Show(i + ") " + lexema.getLexema() + " " + lexema.getTipo());
+            }
+        }*/
     }
 }
