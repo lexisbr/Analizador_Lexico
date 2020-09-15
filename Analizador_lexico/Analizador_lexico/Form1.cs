@@ -144,7 +144,7 @@ namespace Analizador_lexico
 
         private void areaTexto_TextChanged(object sender, EventArgs e)
         {
-            Console.WriteLine(archivo.getTextoCambiado());
+            areaTexto.SelectionColor = Color.Black;
             if (archivo.getDireccionActual().Equals(""))
             {
                 label1.Text = "Proyecto actual: " + "SinTitulo"+"*";            
@@ -186,35 +186,72 @@ namespace Analizador_lexico
         {
             Automata analizador = new Automata();
             analizador.analizadorAutomata(areaTexto.Text);
-            analizador.mostrarTokens();
+            
 
             tokens =(ArrayList)analizador.getListaLexema().Clone();
-           
-
+            mostrarTokens();
+            
         }
         
-      /* public void mostrarTokens()
+      public void mostrarTokens()
         {
+            int contErrores = 1;
+            areaTexto.Clear();
+            areaErrores.Clear();
+
             for (int i = 0; i < tokens.Count; i++)
             {
                 Lexema lexema = (Lexema)tokens[i];
-                if (tokens[i].Equals("ESPACIO"))
+
+                if (lexema.getTipo().Equals("Entero"))
                 {
-                    areaTexto.SelectionColor = Color.Red;
-                    areaTexto.AppendText(" ");
+                    areaTexto.SelectionColor = Color.Purple;
+                    areaTexto.AppendText(lexema.getLexema());
                 }
-                else if (tokens[i].Equals("ENTER"))
+                else if (lexema.getTipo().Equals("Decimal"))
                 {
-                    areaTexto.SelectionColor = Color.Red;
-                    areaTexto.AppendText(Environment.NewLine + "");
+                    areaTexto.SelectionColor = Color.LightSkyBlue;
+                    areaTexto.AppendText(lexema.getLexema());
+                }
+                else if (lexema.getTipo().Equals("Cadena"))
+                {
+                    areaTexto.SelectionColor = Color.Gray;
+                    areaTexto.AppendText(lexema.getLexema());
+                }
+                else if (lexema.getTipo().Equals("Booleano"))
+                {
+                    areaTexto.SelectionColor = Color.Orange;
+                    areaTexto.AppendText(lexema.getLexema());
+                }
+                else if (lexema.getTipo().Equals("Caracter"))
+                {
+                    areaTexto.SelectionColor = Color.Brown;
+                    areaTexto.AppendText(lexema.getLexema());
+                }
+                else if (lexema.getTipo().Equals("Operador Aritmetico"))
+                {
+                    areaTexto.SelectionColor = Color.Blue;
+                    areaTexto.AppendText(lexema.getLexema());
+                }
+                else if (lexema.getTipo().Equals("Error"))
+                {
+                    areaTexto.SelectionColor = Color.Black;
+                    areaTexto.AppendText(lexema.getLexema());
+                    areaErrores.AppendText(contErrores+") "+lexema.getLexema());
+                    contErrores++;
+                    areaErrores.AppendText("\n");
+                }
+                
+                
+                if (lexema.getTipo().Equals("Enter"))
+                {
+                    areaTexto.AppendText("\n");
                 }
                 else
                 {
-                    areaTexto.SelectionColor = Color.Red;
-                    areaTexto.AppendText(tokens[i]);
+                    areaTexto.AppendText(" ");
                 }
-                MessageBox.Show(i + ") " + lexema.getLexema() + " " + lexema.getTipo());
             }
-        }*/
+        }
     }
 }

@@ -44,6 +44,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.areaErrores = new System.Windows.Forms.RichTextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -193,11 +194,25 @@
             // 
             // areaErrores
             // 
-            this.areaErrores.Location = new System.Drawing.Point(132, 535);
+            this.areaErrores.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.areaErrores.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.areaErrores.Location = new System.Drawing.Point(130, 522);
             this.areaErrores.Name = "areaErrores";
-            this.areaErrores.Size = new System.Drawing.Size(711, 108);
+            this.areaErrores.Size = new System.Drawing.Size(711, 171);
             this.areaErrores.TabIndex = 5;
             this.areaErrores.Text = "";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(126, 499);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(122, 20);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Errores Lexicos:";
             // 
             // Form1
             // 
@@ -207,6 +222,7 @@
             this.BackgroundImage = global::Analizador_lexico.Properties.Resources.fondo1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(973, 737);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.areaErrores);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -246,6 +262,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.RichTextBox areaErrores;
+        private System.Windows.Forms.Label label2;
     }
 }
 
