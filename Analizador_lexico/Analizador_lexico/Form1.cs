@@ -82,8 +82,6 @@ namespace Analizador_lexico
 
         private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(archivo.getTextoCambiado());
-
             if (archivo.getTextoCambiado())
             {
                 verificarGuardar();
@@ -118,6 +116,7 @@ namespace Analizador_lexico
         public void vaciar()
         {
             areaTexto.Clear();
+            areaErrores.Clear();
             label1.Text = "Proyecto actual: " + "SinTitulo";
             archivo.setDireccionActual("");
             archivo.setTextoCambiado(false);
@@ -136,6 +135,12 @@ namespace Analizador_lexico
             saveFileDialog1.Title = "Guarda tu archivo";
             saveFileDialog1.FileName = "";
         }
+        public void setSaveErrores()
+        {
+            saveFileDialog1.Filter = "gtE files (*.gtE)|*.gtE";
+            saveFileDialog1.Title = "Guarda tu archivo";
+            saveFileDialog1.FileName = "";
+        }
 
         public void cargarTitulo()
         {
@@ -144,6 +149,7 @@ namespace Analizador_lexico
 
         private void areaTexto_TextChanged(object sender, EventArgs e)
         {
+            getColumnaFila();
             areaTexto.SelectionColor = Color.Black;
             if (archivo.getDireccionActual().Equals(""))
             {
@@ -177,6 +183,49 @@ namespace Analizador_lexico
             }
         }
 
+        public void verificarEliminar()
+        {
+            if (archivo.getDireccionActual().Equals(""))
+            {
+                MessageBox.Show("Este proyecto aun no ha sido guardado");
+            }
+            else
+            {
+                DialogResult dialogResult = MessageBox.Show("Desea eliminar el archivo actual?", "Advertencia", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    eliminarArchivo();
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    
+                }
+            }
+            
+        }
+
+        public void eliminarArchivo()
+        {
+            try
+            {
+                File.Delete(archivo.getDireccionActual());
+                if (File.Exists(archivo.getDireccionActual()))
+                {
+                    Console.WriteLine("El archivo sigue existiendo.");
+                }
+                else
+                {
+                    MessageBox.Show("Se ha borrado exitosamente");
+                    vaciar();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Error");
+            }
+            
+        }
+
         private void label1_Click_1(object sender, EventArgs e)
         {
 
@@ -186,10 +235,16 @@ namespace Analizador_lexico
         {
             Automata analizador = new Automata();
             analizador.analizadorAutomata(areaTexto.Text);
-            
-
             tokens =(ArrayList)analizador.getListaLexema().Clone();
             mostrarTokens();
+            if (verificarErrores())
+            {
+                MessageBox.Show("Compilacion correcta.");
+            }
+            else
+            {
+                MessageBox.Show("Hay errores lexicos.");
+            }
             
         }
         
@@ -202,7 +257,6 @@ namespace Analizador_lexico
             for (int i = 0; i < tokens.Count; i++)
             {
                 Lexema lexema = (Lexema)tokens[i];
-
                 if (lexema.getTipo().Equals("Entero"))
                 {
                     areaTexto.SelectionColor = Color.Purple;
@@ -233,6 +287,21 @@ namespace Analizador_lexico
                     areaTexto.SelectionColor = Color.Blue;
                     areaTexto.AppendText(lexema.getLexema());
                 }
+                else if (lexema.getTipo().Equals("Asignacion"))
+                {
+                    areaTexto.SelectionColor = Color.DeepPink;
+                    areaTexto.AppendText(lexema.getLexema());
+                }
+                else if (lexema.getTipo().Equals("Comentario"))
+                {
+                    areaTexto.SelectionColor = Color.Red;
+                    areaTexto.AppendText(lexema.getLexema());
+                }
+                 else if (lexema.getLexema().Equals("SI")|| lexema.getLexema().Equals("SINO")|| lexema.getLexema().Equals("SINO_SI")|| lexema.getLexema().Equals("MIENTRAS") || lexema.getLexema().Equals("HACER") || lexema.getLexema().Equals("DESDE") || lexema.getLexema().Equals("HASTA") || lexema.getLexema().Equals("INCREMENTO"))
+                {
+                    areaTexto.SelectionColor = Color.DarkGreen;
+                    areaTexto.AppendText(lexema.getLexema());
+                }
                 else if (lexema.getTipo().Equals("Error")&& !(lexema.getLexema().Equals("entero") || lexema.getLexema().Equals("decimal") || lexema.getLexema().Equals("cadena") || lexema.getLexema().Equals("booleano") || lexema.getLexema().Equals("caracter")))
                 {
                     areaTexto.SelectionColor = Color.Yellow;
@@ -254,9 +323,99 @@ namespace Analizador_lexico
                 {
                     areaTexto.AppendText(" ");
                 }
+                areaTexto.SelectionColor = Color.Black;
 
 
             }
         }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (archivo.getTextoCambiado())
+            {
+                verificarGuardar();
+            }
+        }
+
+        private void eliminarProyectoActualToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            verificarEliminar();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void exportarButton_Click(object sender, EventArgs e)
+        {
+            exportarArchivo();
+        }
+
+        public void exportarArchivo()
+        {
+            setSaveErrores();
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                String proyectoActual = Path.GetFileName(archivo.getDireccionActual());
+                String path = saveFileDialog1.FileName;
+                String texto = areaErrores.Text;
+                archivo.guardarErrorComo(path, texto, proyectoActual);
+                cargarTitulo();
+            }
+        }
+
+        private void areaTexto_MouseClick(object sender, MouseEventArgs e)
+        {
+            getColumnaFila();
+            areaTexto.SelectionColor = Color.Black;
+        }
+
+        public void getColumnaFila()
+        {
+            int index = areaTexto.SelectionStart;
+            int line = areaTexto.GetLineFromCharIndex(index);
+
+            int firstChar = areaTexto.GetFirstCharIndexFromLine(line);
+            int column = index - firstChar;
+            label3.Text = Convert.ToString("Linea: " + (line + 1));
+            label4.Text = Convert.ToString("Columna: " + column);
+        }
+
+        public Boolean verificarErrores()
+        {
+            if (areaErrores.Text.Equals(""))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void areaTexto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            getColumnaFila();
+            areaTexto.SelectionColor = Color.Black;
+        }
+
+        private void areaTexto_KeyUp(object sender, KeyEventArgs e)
+        {
+            getColumnaFila();
+            areaTexto.SelectionColor = Color.Black;
+        }
+
+        private void areaTexto_KeyDown(object sender, KeyEventArgs e)
+        {
+            getColumnaFila();
+            areaTexto.SelectionColor = Color.Black;
+        }
+
+
+       
+
+
     }
 }
+

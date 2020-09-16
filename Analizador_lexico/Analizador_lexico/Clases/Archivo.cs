@@ -57,6 +57,26 @@ namespace Analizador_lexico.Clases
 
         }
 
+        public void guardarErrorComo(String direccion, String texto, String nombreProyecto)
+        {
+            try
+            {
+                setDireccionActual(direccion);
+                StreamWriter guardar = File.CreateText(direccion);
+                guardar.WriteLine("Errores lexicos");
+                guardar.WriteLine("Proyecto: "+nombreProyecto);
+                guardar.Write(texto);
+                guardar.Close();
+                System.Windows.Forms.MessageBox.Show("Archivo guardado exitosamente.");
+                setTextoCambiado(false);
+            }
+            catch
+            {
+                System.Windows.Forms.MessageBox.Show("Error");
+            }
+
+        }
+
         /* Metodo para guardar archivo en la direccion actual*/
         public void guardarArchivo(String texto)
         {

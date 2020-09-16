@@ -122,5 +122,23 @@
   <ItemGroup>
     <None Include="Resources\salvar %281%29.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pngfind.com-bin-png-4577925.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\toppng.com-icono-guardar-todo-419x419.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pngegg %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pngegg %282%29 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kisspng-computer-icons-error-download-triangle-icon-5b41d8cf40b6e3.1645135015310419992651.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\kisspng-computer-icons-error-download-triangle-icon-5b41d8cf40b6e3.1645135015310419992651 %281%29.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

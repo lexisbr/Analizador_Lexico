@@ -1,20 +1,19 @@
-55.55 verders verdadero falsd falso fdf 55.56 .55 5...55 5.53 
-"fddffd" ++ d +dfdf dfd++ a+ b -"h" 55+d+55.66
-fdff ds s 5+5--5++5 ++ 5-5-+5005+5 
-5555 hola dffd falso "vf fa;sp" falso 
-aa ve pues "va" verdadero*5
-a f -55-5+5.55+a+asdf+s+9*5*66.5-656+6a+/d5+d+/5/5.66-55*85
-v verdadero 
-vvv -- 6 -66 - 656 -665 -66.5 
-ss d 
-555. +5+b+5+bv+v+f+verdadero*ff*f*+f>=falso==hola<=55!=+><!+=
-555a 
-55f - "hola" + verdadero + verda falso + falso 
-a 
-55 
-a 
-"dvdfsfd
-dffd" 
+entero = 55 ; 
+55 + 55 = entero 
+booleano = verdadero ; 
+caracter a ; 
+entero = ( 55 * 55 ) / 88 
+cadena = "hola mundo" 
+// un comentario 
+/* dos comentarios si o no rasa
+si va como emcamc*/ 
+decimal 55.66 * 88.99 
+SI entero == 55 HACER 
+55 && 66 == 55 ; 
+656 > 64 ; 
+MIENTRAS 
+! verdadero = 55 ; 
+entero 0 = 5 + 5 ; 
 
 
 

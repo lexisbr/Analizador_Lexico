@@ -143,9 +143,61 @@ namespace Analizador_lexico.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap kisspng_computer_icons_error_download_triangle_icon_5b41d8cf40b6e3_1645135015310419992651 {
+            get {
+                object obj = ResourceManager.GetObject("kisspng_computer_icons_error_download_triangle_icon_5b41d8cf40b6e3_16451350153104" +
+                        "19992651", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap kisspng_computer_icons_error_download_triangle_icon_5b41d8cf40b6e3_1645135015310419992651__1_ {
+            get {
+                object obj = ResourceManager.GetObject("kisspng_computer_icons_error_download_triangle_icon_5b41d8cf40b6e3_16451350153104" +
+                        "19992651__1_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap nuevo {
             get {
                 object obj = ResourceManager.GetObject("nuevo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pngegg__1_ {
+            get {
+                object obj = ResourceManager.GetObject("pngegg__1_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pngegg__2___1_ {
+            get {
+                object obj = ResourceManager.GetObject("pngegg__2___1_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pngfind_com_bin_png_4577925 {
+            get {
+                object obj = ResourceManager.GetObject("pngfind_com_bin_png_4577925", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -186,6 +238,16 @@ namespace Analizador_lexico.Properties {
         internal static System.Drawing.Bitmap salvar__1_ {
             get {
                 object obj = ResourceManager.GetObject("salvar__1_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap toppng_com_icono_guardar_todo_419x419 {
+            get {
+                object obj = ResourceManager.GetObject("toppng_com_icono_guardar_todo_419x419", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
