@@ -29,6 +29,7 @@ namespace Analizador_lexico.Clases
                 
                 switch (estadoActual)
                 {
+                    /* Estado inicial */
                     case 0:
                         {
                             switch (caracter)
@@ -63,11 +64,11 @@ namespace Analizador_lexico.Clases
                                     break;
                                 case '/':
                                     tempToken += caracter;
-                                    setEstadoActual(22);
+                                    setEstadoActual(21);
                                     break;
                                 case '*':
                                     tempToken += caracter;
-                                    setEstadoActual(23);
+                                    setEstadoActual(22);
                                     break;
                                 case '"':
                                     tempToken += caracter;
@@ -81,6 +82,13 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(13);
                                     break;
+                                case '>':                             
+                                case '<':
+                                case '=':
+                                case '!':
+                                    tempToken += caracter;
+                                    setEstadoActual(23);
+                                    break;
 
                                 default:
                                     tempToken += caracter;
@@ -90,6 +98,7 @@ namespace Analizador_lexico.Clases
                             break;
                             
                         }
+                        /*Estado para numeros*/
                     case 1:
                         {
                             switch (caracter)
@@ -143,8 +152,15 @@ namespace Analizador_lexico.Clases
                                     insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     tempToken += caracter;
-                                    setEstadoActual(23);
+                                    setEstadoActual(21);
                                     break;
+                                case '"':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(4);
+                                    break;
+                                
                                 default:
                                     tempToken += caracter;
                                     setEstadoActual(66);
@@ -153,6 +169,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
+                        /*Estado para transicion cuando viene un punto"*/
                     case 2:
                         {
                             switch (caracter)
@@ -187,6 +204,7 @@ namespace Analizador_lexico.Clases
                             }             
                             break;
                         }
+                        /*Estado para numeros decimales*/
                     case 3:
                         {
                             switch (caracter)
@@ -236,7 +254,25 @@ namespace Analizador_lexico.Clases
                                     insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     tempToken += caracter;
-                                    setEstadoActual(23);
+                                    setEstadoActual(21);
+                                    break;
+                                case '"':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(4);
+                                    break;
+                                case 'v':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(5);
+                                    break;
+                                case 'f':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(13);
                                     break;
                                 default:
                                     tempToken += caracter;
@@ -245,6 +281,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
+                        /*Estado para cadena con comillas*/
                     case 4:
                         {
                             switch (caracter)
@@ -276,6 +313,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
+                        /* Estado para cuando viene un verdadero*/
                     case 5:
                         {
                             switch (caracter)
@@ -293,6 +331,36 @@ namespace Analizador_lexico.Clases
                                 case 'e':     
                                     tempToken += caracter;
                                     setEstadoActual(6);
+                                    break;
+                                case '"':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(4);
+                                    break;
+                                case '-':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(18);
+                                    break;
+                                case '+':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(19);
+                                    break;
+                                case '*':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(22);
+                                    break;
+                                case '/':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(21);
                                     break;
                                 default:
                                     tempToken += caracter;
@@ -319,6 +387,36 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(7);
                                     break;
+                                case '"':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(4);
+                                    break;
+                                case '-':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(18);
+                                    break;
+                                case '+':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(19);
+                                    break;
+                                case '*':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(22);
+                                    break;
+                                case '/':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(21);
+                                    break;
                                 default:
                                     tempToken += caracter;
                                     setEstadoActual(66);
@@ -343,6 +441,36 @@ namespace Analizador_lexico.Clases
                                 case 'd':
                                     tempToken += caracter;
                                     setEstadoActual(8);
+                                    break;
+                                case '"':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(4);
+                                    break;
+                                case '-':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(18);
+                                    break;
+                                case '+':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(19);
+                                    break;
+                                case '*':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(22);
+                                    break;
+                                case '/':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(21);
                                     break;
                                 default:
                                     tempToken += caracter;
@@ -369,6 +497,36 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(9);
                                     break;
+                                case '"':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(4);
+                                    break;
+                                case '-':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(18);
+                                    break;
+                                case '+':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(19);
+                                    break;
+                                case '*':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(22);
+                                    break;
+                                case '/':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(21);
+                                    break;
                                 default:
                                     tempToken += caracter;
                                     setEstadoActual(66);
@@ -393,6 +551,36 @@ namespace Analizador_lexico.Clases
                                 case 'd':
                                     tempToken += caracter;
                                     setEstadoActual(10);
+                                    break;
+                                case '"':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(4);
+                                    break;
+                                case '-':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(18);
+                                    break;
+                                case '+':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(19);
+                                    break;
+                                case '*':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(22);
+                                    break;
+                                case '/':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(21);
                                     break;
                                 default:
                                     tempToken += caracter;
@@ -419,6 +607,36 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(11);
                                     break;
+                                case '"':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(4);
+                                    break;
+                                case '-':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(18);
+                                    break;
+                                case '+':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(19);
+                                    break;
+                                case '*':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(22);
+                                    break;
+                                case '/':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(21);
+                                    break;
                                 default:
                                     tempToken += caracter;
                                     setEstadoActual(66);
@@ -444,6 +662,36 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(12);
                                     break;
+                                case '"':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(4);
+                                    break;
+                                case '+':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(19);
+                                    break;
+                                case '-':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(18);
+                                    break;
+                                case '*':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(22);
+                                    break;
+                                case '/':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(21);
+                                    break;
                                 default:
                                     tempToken += caracter;
                                     setEstadoActual(66);
@@ -451,6 +699,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
+                        /*Estado final para falso y verdadero*/
                     case 12:
                         {
                             switch (caracter)
@@ -469,6 +718,36 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(65);
                                     break;
+                                case '"':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(4);
+                                    break;
+                                case '-':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(18);
+                                    break;
+                                case '+':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(19);
+                                    break;
+                                case '*':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(22);
+                                    break;
+                                case '/':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(21);
+                                    break;
                                 default:
                                     tempToken += caracter;
                                     setEstadoActual(66);
@@ -476,6 +755,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
+                        /* Estados para falso*/
                     case 13:
                         {
                             switch (caracter)
@@ -493,6 +773,36 @@ namespace Analizador_lexico.Clases
                                 case 'a':
                                     tempToken += caracter;
                                     setEstadoActual(14);
+                                    break;
+                                case '"':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(4);
+                                    break;
+                                case '-':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(18);
+                                    break;
+                                case '+':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(19);
+                                    break;
+                                case '*':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(22);
+                                    break;
+                                case '/':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(21);
                                     break;
                                 default:
                                     tempToken += caracter;
@@ -519,6 +829,36 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(15);
                                     break;
+                                case '"':
+                                    insertarLexema(tempToken,66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(4);
+                                    break;
+                                case '-':
+                                    insertarLexema(tempToken,66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(18);
+                                    break;
+                                case '+':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(19);
+                                    break;
+                                case '*':
+                                    insertarLexema(tempToken,66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(22);
+                                    break;
+                                case '/':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(21);
+                                    break;
                                 default:
                                     tempToken += caracter;
                                     setEstadoActual(66);
@@ -544,6 +884,36 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(12);
                                     break;
+                                case '"':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(4);
+                                    break;
+                                case '-':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(18);
+                                    break;
+                                case '+':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(19);
+                                    break;
+                                case '*':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(22);
+                                    break;
+                                case '/':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(21);
+                                    break;
                                 default:
                                     tempToken += caracter;
                                     setEstadoActual(66);
@@ -551,6 +921,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
+                        /*Estado para caracter*/
                     case 16:
                         {
                            
@@ -588,7 +959,7 @@ namespace Analizador_lexico.Clases
                                     insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     tempToken += caracter;
-                                    setEstadoActual(23);
+                                    setEstadoActual(21);
                                     break;
                                 default:
                                     tempToken += caracter;
@@ -597,6 +968,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
+                        /*Estado para cuando viene un -*/
                    case 18:
                         {
                             switch (caracter)
@@ -646,6 +1018,24 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(13);
                                     break;
+                                case '+':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(19);
+                                    break;
+                                case '*':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(22);
+                                    break;
+                                case '/':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(21);
+                                    break;
                                 default:
                                     tempToken += caracter;
                                     setEstadoActual(66);
@@ -653,6 +1043,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
+                        /*Estado cuando viene un +*/
                     case 19:
                         {
                             switch (caracter)
@@ -704,13 +1095,34 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(13);
                                     break;
-                                default:
+                                case '-':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
                                     tempToken += caracter;
-                                    setEstadoActual(66);
+                                    setEstadoActual(18);
+                                    break;
+                                case '*':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(22);
+                                    break;
+                                case '/':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(21);
+                                    break;
+                                default:
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(16);
                                     break;
                             }
                             break;
                         }
+                        /* Estado final para cuando viene un ++ o --*/
                     case 20:
                         {
                             switch (caracter)
@@ -724,33 +1136,6 @@ namespace Analizador_lexico.Clases
                                     insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     setEstadoActual(0);
-                                    break;
-                                default:
-                                    insertarLexema(tempToken, getEstadoActual());
-                                    tempToken = "";
-                                    tempToken += caracter;
-                                    setEstadoActual(16);
-                                    break;
-                            }
-                            break;
-                        }
-                    case 21:
-                        {
-                            switch (caracter)
-                            {
-                                case ' ':
-                                case '\r':
-                                case '\t':
-                                case '\n':
-                                case '\b':
-                                case '\f':
-                                    insertarLexema(tempToken, getEstadoActual());
-                                    tempToken = "";
-                                    setEstadoActual(0);
-                                    break;
-                                case '+':
-                                    tempToken += caracter;
-                                    setEstadoActual(20);
                                     break;
                                 case '0':
                                 case '1':
@@ -767,13 +1152,135 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(1);
                                     break;
-                                default:
+                                case '"':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
                                     tempToken += caracter;
-                                    setEstadoActual(66);
+                                    setEstadoActual(4);
+                                    break;
+                                case 'v':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(5);
+                                    break;
+                                case 'f':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(13);
+                                    break;
+                                case '-':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(18);
+                                    break;
+                                case '+':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(19);
+                                    break;
+                                case '*':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(22);
+                                    break;
+                                case '/':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(21);
+                                    break;
+                                default:
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(16);
                                     break;
                             }
                             break;
                         }
+                        /*Estado para division*/
+                    case 21:
+                        {
+                            switch (caracter)
+                            {
+                                case ' ':
+                                case '\r':
+                                case '\t':
+                                case '\n':
+                                case '\b':
+                                case '\f':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    setEstadoActual(0);
+                                    break;
+                                case '0':
+                                case '1':
+                                case '2':
+                                case '3':
+                                case '4':
+                                case '5':
+                                case '6':
+                                case '7':
+                                case '8':
+                                case '9':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(1);
+                                    break;
+                                case '"':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(4);
+                                    break;
+                                case 'v':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(5);
+                                    break;
+                                case 'f':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(13);
+                                    break;
+                                case '-':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(18);
+                                    break;
+                                case '+':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(19);
+                                    break;
+                                case '*':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(22);
+                                    break;
+                                default:
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(16);
+                                    break;
+                            }
+                            break;
+                        }
+                        /*Estado para multiplicacion*/
                     case 22:
                         {
                             switch (caracter)
@@ -821,13 +1328,34 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(13);
                                     break;
-                                default:
+                                case '-':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
                                     tempToken += caracter;
-                                    setEstadoActual(66);
+                                    setEstadoActual(18);
+                                    break;
+                                case '+':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(19);
+                                    break;
+                                case '/':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(21);
+                                    break;
+                                default:
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(16);
                                     break;
                             }
                             break;
                         }
+                        /*Estado para >, < o = */
                     case 23:
                         {
                             switch (caracter)
@@ -842,46 +1370,44 @@ namespace Analizador_lexico.Clases
                                     tempToken = "";
                                     setEstadoActual(0);
                                     break;
-                                case '0':
-                                case '1':
-                                case '2':
-                                case '3':
-                                case '4':
-                                case '5':
-                                case '6':
-                                case '7':
-                                case '8':
-                                case '9':
-                                    insertarLexema(tempToken, getEstadoActual());
-                                    tempToken = "";
+                                case '=':
                                     tempToken += caracter;
-                                    setEstadoActual(1);
-                                    break;
-                                case '"':
-                                    insertarLexema(tempToken, getEstadoActual());
-                                    tempToken = "";
-                                    tempToken += caracter;
-                                    setEstadoActual(4);
-                                    break;
-                                case 'v':
-                                    insertarLexema(tempToken, getEstadoActual());
-                                    tempToken = "";
-                                    tempToken += caracter;
-                                    setEstadoActual(5);
-                                    break;
-                                case 'f':
-                                    insertarLexema(tempToken, getEstadoActual());
-                                    tempToken = "";
-                                    tempToken += caracter;
-                                    setEstadoActual(13);
+                                    setEstadoActual(24);
                                     break;
                                 default:
-                                    tempToken += caracter;
-                                    setEstadoActual(66);
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    estadoInicial = estadoInicial - 1;
+                                    setEstadoActual(0);
                                     break;
                             }
                             break;
                         }
+                        /* Estado por si viene un = despues */
+                    case 24:
+                        {
+                            switch (caracter)
+                            {
+                                case ' ':
+                                case '\r':
+                                case '\t':
+                                case '\n':
+                                case '\b':
+                                case '\f':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    setEstadoActual(0);
+                                    break;
+                                default:
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    estadoInicial = estadoInicial - 1;
+                                    setEstadoActual(0);
+                                    break;
+                            }
+                            break;
+                        }
+                    /*Estado final para booleano*/
                     case 65:
                         {
                             switch (caracter)
@@ -908,7 +1434,18 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(19);
                                     break;
-
+                                case '*':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(22);
+                                    break;
+                                case '/':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(21);
+                                    break;
                                 default:
                                     tempToken += caracter;
                                     setEstadoActual(66);
@@ -916,6 +1453,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
+                        /*Estado para errores*/
                     case 66:
                         {
                             switch (caracter)
@@ -948,6 +1486,18 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(19);
                                     break;
+                                case '*':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(22);
+                                    break;
+                                case '/':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    tempToken += caracter;
+                                    setEstadoActual(21);
+                                    break;
                                 default:
                                     tempToken += caracter;
                                     break;
@@ -955,6 +1505,7 @@ namespace Analizador_lexico.Clases
                             break;
                         }
                 }
+
                 if (caracter.Equals('\n')&&(!enterComillas))
                 {
                     insertarLexema(caracter.ToString(), 67);
@@ -1031,9 +1582,11 @@ namespace Analizador_lexico.Clases
                 case 18:
                 case 19:
                 case 20:
+                case 21:
                 case 22:
                 case 23:
-                    nuevoToken = new Lexema(token, "Azul", "Operador Aritmetico");
+                case 24:
+                    nuevoToken = new Lexema(token, "Azul", "Operador");
                     listaLexemas.Add(nuevoToken);
                     break;
             }

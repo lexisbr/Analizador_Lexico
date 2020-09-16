@@ -228,21 +228,24 @@ namespace Analizador_lexico
                     areaTexto.SelectionColor = Color.Brown;
                     areaTexto.AppendText(lexema.getLexema());
                 }
-                else if (lexema.getTipo().Equals("Operador Aritmetico"))
+                else if (lexema.getTipo().Equals("Operador"))
                 {
                     areaTexto.SelectionColor = Color.Blue;
                     areaTexto.AppendText(lexema.getLexema());
                 }
-                else if (lexema.getTipo().Equals("Error"))
+                else if (lexema.getTipo().Equals("Error")&& !(lexema.getLexema().Equals("entero") || lexema.getLexema().Equals("decimal") || lexema.getLexema().Equals("cadena") || lexema.getLexema().Equals("booleano") || lexema.getLexema().Equals("caracter")))
                 {
-                    areaTexto.SelectionColor = Color.Black;
+                    areaTexto.SelectionColor = Color.Yellow;
                     areaTexto.AppendText(lexema.getLexema());
                     areaErrores.AppendText(contErrores+") "+lexema.getLexema());
                     contErrores++;
                     areaErrores.AppendText("\n");
                 }
-                
-                
+                else if(!lexema.getTipo().Equals("Enter"))
+                {
+                    areaTexto.SelectionColor = Color.Black;
+                    areaTexto.AppendText(lexema.getLexema());             
+                }
                 if (lexema.getTipo().Equals("Enter"))
                 {
                     areaTexto.AppendText("\n");
@@ -251,6 +254,8 @@ namespace Analizador_lexico
                 {
                     areaTexto.AppendText(" ");
                 }
+
+
             }
         }
     }
