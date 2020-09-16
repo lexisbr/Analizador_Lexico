@@ -22,7 +22,7 @@ namespace Analizador_lexico
         public Form1()
         {
             InitializeComponent();
-            label1.Text = "Proyecto actual: "+"SinTitulo";
+            lblProyectoActual.Text = "Proyecto actual: "+"SinTitulo";
         
         }
 
@@ -67,6 +67,8 @@ namespace Analizador_lexico
                 String nombre = openFileDialog1.FileName;
                 if (archivo.getTextoCambiado()){
                     verificarGuardar();
+                    areaTexto.Clear();
+                    areaTexto.SelectionColor = Color.Black;
                     areaTexto.Text = archivo.abrirArchivo(nombre);
                     cargarTitulo();
                 }
@@ -117,7 +119,7 @@ namespace Analizador_lexico
         {
             areaTexto.Clear();
             areaErrores.Clear();
-            label1.Text = "Proyecto actual: " + "SinTitulo";
+            lblProyectoActual.Text = "Proyecto actual: " + "SinTitulo";
             archivo.setDireccionActual("");
             archivo.setTextoCambiado(false);
         }
@@ -144,7 +146,7 @@ namespace Analizador_lexico
 
         public void cargarTitulo()
         {
-            label1.Text = "Proyecto actual: " + Path.GetFileName(archivo.getDireccionActual());
+            lblProyectoActual.Text = "Proyecto actual: " + Path.GetFileName(archivo.getDireccionActual());
         }
 
         private void areaTexto_TextChanged(object sender, EventArgs e)
@@ -153,10 +155,10 @@ namespace Analizador_lexico
             areaTexto.SelectionColor = Color.Black;
             if (archivo.getDireccionActual().Equals(""))
             {
-                label1.Text = "Proyecto actual: " + "SinTitulo"+"*";            
+                lblProyectoActual.Text = "Proyecto actual: " + "SinTitulo"+"*";            
             }
             else {
-                label1.Text = "Proyecto actual: " + Path.GetFileName(archivo.getDireccionActual()) + "*"; 
+                lblProyectoActual.Text = "Proyecto actual: " + Path.GetFileName(archivo.getDireccionActual()) + "*"; 
             }
             archivo.setTextoCambiado(true);
 
@@ -378,8 +380,8 @@ namespace Analizador_lexico
 
             int firstChar = areaTexto.GetFirstCharIndexFromLine(line);
             int column = index - firstChar;
-            label3.Text = Convert.ToString("Linea: " + (line + 1));
-            label4.Text = Convert.ToString("Columna: " + column);
+            lblLinea.Text = Convert.ToString("Linea: " + (line + 1));
+            lblColumna.Text = Convert.ToString("Columna: " + column);
         }
 
         public Boolean verificarErrores()
@@ -412,10 +414,20 @@ namespace Analizador_lexico
             areaTexto.SelectionColor = Color.Black;
         }
 
+        private void archivoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
-       
+        }
 
+        private void menuStrip1_KeyPress(object sender, KeyPressEventArgs e)
+        {
 
+        }
+
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            areaTexto.SelectionColor = Color.Black;
+        }
     }
 }
 

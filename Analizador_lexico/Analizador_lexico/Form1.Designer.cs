@@ -43,13 +43,13 @@
             this.exportarButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblProyectoActual = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.areaErrores = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblLinea = new System.Windows.Forms.Label();
+            this.lblColumna = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -68,6 +68,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(973, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.menuStrip1_KeyPress);
             // 
             // archivoToolStripMenuItem
             // 
@@ -77,9 +78,11 @@
             this.guardarToolStripMenuItem,
             this.guardarComoToolStripMenuItem,
             this.eliminarProyectoActualToolStripMenuItem});
+            this.archivoToolStripMenuItem.Image = global::Analizador_lexico.Properties.Resources.carpeta;
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
-            this.archivoToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
+            this.archivoToolStripMenuItem.Size = new System.Drawing.Size(87, 24);
             this.archivoToolStripMenuItem.Text = "Archivo";
+            this.archivoToolStripMenuItem.Click += new System.EventHandler(this.archivoToolStripMenuItem_Click);
             // 
             // nuevoToolStripMenuItem
             // 
@@ -127,10 +130,10 @@
             this.areaTexto.BackColor = System.Drawing.Color.White;
             this.areaTexto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.areaTexto.ForeColor = System.Drawing.Color.Black;
-            this.areaTexto.Location = new System.Drawing.Point(13, 16);
+            this.areaTexto.Location = new System.Drawing.Point(13, 17);
             this.areaTexto.Name = "areaTexto";
             this.areaTexto.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.areaTexto.Size = new System.Drawing.Size(918, 405);
+            this.areaTexto.Size = new System.Drawing.Size(918, 417);
             this.areaTexto.TabIndex = 2;
             this.areaTexto.Text = "";
             this.areaTexto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.areaTexto_MouseClick);
@@ -152,7 +155,7 @@
             this.panel1.Controls.Add(this.exportarButton);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.lblProyectoActual);
             this.panel1.ForeColor = System.Drawing.Color.White;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
@@ -213,30 +216,30 @@
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
-            // label1
+            // lblProyectoActual
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Brown;
-            this.label1.Font = new System.Drawing.Font("Open Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(60, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(155, 26);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Proyecto actual:";
-            this.label1.Click += new System.EventHandler(this.label1_Click_1);
+            this.lblProyectoActual.AutoSize = true;
+            this.lblProyectoActual.BackColor = System.Drawing.Color.Brown;
+            this.lblProyectoActual.Font = new System.Drawing.Font("Open Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProyectoActual.ForeColor = System.Drawing.Color.Transparent;
+            this.lblProyectoActual.Location = new System.Drawing.Point(60, 16);
+            this.lblProyectoActual.Name = "lblProyectoActual";
+            this.lblProyectoActual.Size = new System.Drawing.Size(155, 26);
+            this.lblProyectoActual.TabIndex = 0;
+            this.lblProyectoActual.Text = "Proyecto actual:";
+            this.lblProyectoActual.Click += new System.EventHandler(this.label1_Click_1);
             // 
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.Orange;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.lblColumna);
+            this.panel2.Controls.Add(this.lblLinea);
             this.panel2.Controls.Add(this.areaTexto);
-            this.panel2.Location = new System.Drawing.Point(12, 113);
+            this.panel2.Location = new System.Drawing.Point(12, 94);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(949, 446);
+            this.panel2.Size = new System.Drawing.Size(949, 465);
             this.panel2.TabIndex = 4;
             // 
             // areaErrores
@@ -276,31 +279,31 @@
             this.pictureBox2.TabIndex = 7;
             this.pictureBox2.TabStop = false;
             // 
-            // label3
+            // lblLinea
             // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(28, 424);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(48, 18);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Linea:";
+            this.lblLinea.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblLinea.AutoSize = true;
+            this.lblLinea.BackColor = System.Drawing.Color.Transparent;
+            this.lblLinea.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLinea.ForeColor = System.Drawing.Color.Black;
+            this.lblLinea.Location = new System.Drawing.Point(28, 437);
+            this.lblLinea.Name = "lblLinea";
+            this.lblLinea.Size = new System.Drawing.Size(48, 18);
+            this.lblLinea.TabIndex = 3;
+            this.lblLinea.Text = "Linea:";
             // 
-            // label4
+            // lblColumna
             // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(99, 424);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(71, 18);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Columna:";
+            this.lblColumna.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblColumna.AutoSize = true;
+            this.lblColumna.BackColor = System.Drawing.Color.Transparent;
+            this.lblColumna.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblColumna.ForeColor = System.Drawing.Color.Black;
+            this.lblColumna.Location = new System.Drawing.Point(96, 437);
+            this.lblColumna.Name = "lblColumna";
+            this.lblColumna.Size = new System.Drawing.Size(71, 18);
+            this.lblColumna.TabIndex = 4;
+            this.lblColumna.Text = "Columna:";
             // 
             // Form1
             // 
@@ -324,6 +327,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -349,7 +353,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblProyectoActual;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel2;
@@ -358,8 +362,8 @@
         private System.Windows.Forms.ToolStripMenuItem eliminarProyectoActualToolStripMenuItem;
         private System.Windows.Forms.Button exportarButton;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblColumna;
+        private System.Windows.Forms.Label lblLinea;
     }
 }
 

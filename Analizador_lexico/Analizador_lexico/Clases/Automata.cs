@@ -24,9 +24,7 @@ namespace Analizador_lexico.Clases
             cadena = cadena + " ";
             for(estadoInicial=0; estadoInicial < cadena.Length; estadoInicial++)
             {
-                caracter = cadena[estadoInicial];
-                Console.WriteLine("estado actual "+estadoActual +" caracter "+caracter);
-                
+                caracter = cadena[estadoInicial];                
                 switch (estadoActual)
                 {
                     /* Estado inicial */
