@@ -18,7 +18,7 @@ namespace Analizador_lexico
         /*Instancio objeto para manejo de archivos*/
         Archivo archivo = new Archivo();
         /*Lista para los tokens generados para automatas*/
-        ArrayList tokens = new ArrayList();
+        private ArrayList tokens = new ArrayList();
         
         public Form1()
         {

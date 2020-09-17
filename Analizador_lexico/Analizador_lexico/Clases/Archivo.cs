@@ -116,11 +116,5 @@ namespace Analizador_lexico.Clases
                 return "";
             }
         }
-
-        public void nuevoArchivo()
-        {
-
-        }
-
     }
 }
