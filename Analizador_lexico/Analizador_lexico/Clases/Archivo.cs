@@ -11,6 +11,7 @@ namespace Analizador_lexico.Clases
     {
         //Atributo de la direccion actual del archivo
         private String direccionActual = "";
+        //Atributo para saber si se ha cambiado el texto
         private Boolean textoCambiado = false;
 
         public Archivo()
@@ -57,6 +58,7 @@ namespace Analizador_lexico.Clases
 
         }
 
+         /*Metodo para exportar errores*/
         public void guardarErrorComo(String direccion, String texto, String nombreProyecto)
         {
             try

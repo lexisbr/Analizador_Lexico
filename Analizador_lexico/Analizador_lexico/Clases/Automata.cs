@@ -6,24 +6,33 @@ namespace Analizador_lexico.Clases
 {
     class Automata
     {
+        //Atributo de estado inicial de automata
         private int estadoInicial = 0;
+        //Atributo del estado actual de automata
         private int estadoActual = 0;
-        private String token = "";
+        //Atributo para obtener caracteres de la cadena
         private char caracter;
+        //Atributo de arraylist para lexemas
         private ArrayList listaLexemas = new ArrayList();
+        //Para que no tome el enter entre comillas
         private Boolean enterComillas = false;
+
+        /*Metodo constructor*/
         public Automata()
         {
             estadoInicial = 0;
             estadoActual = 0;
-            token = "";
         }
         public void analizadorAutomata(String cadena)
         {
+            //Variable temporal para concatenar caracteres
             String tempToken = "";
+            //Se agrega espacio vacio al final de la cadena para que guarde ultima palabra
             cadena = cadena + " ";
+            //For para recorrer cadena
             for(estadoInicial=0; estadoInicial < cadena.Length; estadoInicial++)
             {
+                // se obtiene caracter en la cadena
                 caracter = cadena[estadoInicial];                
                 switch (estadoActual)
                 {
@@ -169,7 +178,6 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(66);
                                     break;
-
                             }
                             break;
                         }
@@ -1294,6 +1302,8 @@ namespace Analizador_lexico.Clases
                         }
                 }
 
+
+                /*Guarda los enters*/
                 if (caracter.Equals('\n')&&(!enterComillas))
                 {
                     insertarLexema(caracter.ToString(), 67);
@@ -1305,32 +1315,26 @@ namespace Analizador_lexico.Clases
             }
         }
 
-   
+        /*Establece el estado actual*/
         public void setEstadoActual(int estadoActual)
         {
             this.estadoActual = estadoActual;
         }
+        /*Regresa el estado actual*/
         public int getEstadoActual()
         {
             return estadoActual;
         }
 
-        public void setToken(String token)
-        {
-            this.token = token;
-            
-        }
 
-        public string getToken()
-        {
-            return token;
-        }
-
+        /*Metodo para guardar lexema con su tipo*/
         public void insertarLexema(String token, int estadoActual)
         {
             Lexema nuevoToken;
+            //Dependiendo del estado de aceptacion lo guarda con su tipo
             switch (estadoActual)
             {
+                //Estado de aceptacion define el tipo de token segun el caso
                 case 1:
                     nuevoToken = new Lexema(token, "Morado", "Entero");
                     listaLexemas.Add(nuevoToken);
@@ -1386,6 +1390,8 @@ namespace Analizador_lexico.Clases
           
         }
 
+
+        /*Imprime tokens*/
         public void mostrarTokens()
         {
             for (int i = 0; i < listaLexemas.Count; i++)
@@ -1395,6 +1401,7 @@ namespace Analizador_lexico.Clases
             }
         }
 
+        /*Devuelve arraylist*/
         public ArrayList getListaLexema()
         {
             return listaLexemas;
