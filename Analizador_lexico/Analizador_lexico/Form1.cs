@@ -333,13 +333,13 @@ namespace Analizador_lexico
                     areaTexto.AppendText(lexema.getLexema());
                 }
                 //Si es una palabra reservada lo pinta de verde
-                 else if (lexema.getLexema().Equals("SI")|| lexema.getLexema().Equals("SINO")|| lexema.getLexema().Equals("SINO_SI")|| lexema.getLexema().Equals("MIENTRAS") || lexema.getLexema().Equals("HACER") || lexema.getLexema().Equals("DESDE") || lexema.getLexema().Equals("HASTA") || lexema.getLexema().Equals("INCREMENTO"))
+                 else if (lexema.getTipo().Equals("Reservada"))
                 {
                     areaTexto.SelectionColor = Color.DarkGreen;
                     areaTexto.AppendText(lexema.getLexema());
                 }
                 //Si es un error pero no es una de las palabras reservadas de los tipos de datos los pinta de amarillo y los agrega a area de errores
-                else if (lexema.getTipo().Equals("Error")&& !(lexema.getLexema().Equals("entero") || lexema.getLexema().Equals("decimal") || lexema.getLexema().Equals("cadena") || lexema.getLexema().Equals("booleano") || lexema.getLexema().Equals("caracter")))
+                else if (lexema.getTipo().Equals("Error"))
                 {
                     areaTexto.SelectionColor = Color.Yellow;
                     areaTexto.AppendText(lexema.getLexema());

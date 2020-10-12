@@ -1352,8 +1352,38 @@ namespace Analizador_lexico.Clases
                     listaLexemas.Add(nuevoToken);
                     break;
                 case 66:
-                    nuevoToken = new Lexema(token, "Negro", "Error");
-                    listaLexemas.Add(nuevoToken);
+                    if (token.Equals("entero")) {
+                        nuevoToken = new Lexema(token, "Verde", "Reservada");
+                        listaLexemas.Add(nuevoToken);
+                    }
+                    else if (token.Equals("cadena")) {
+                        nuevoToken = new Lexema(token, "Verde", "Reservada");
+                        listaLexemas.Add(nuevoToken);
+                    }
+                    else if (token.Equals("caracter")){
+                        nuevoToken = new Lexema(token, "Verde", "Reservada");
+                        listaLexemas.Add(nuevoToken);
+                    }
+                    else if (token.Equals("booleano")) {
+                        nuevoToken = new Lexema(token, "Verde", "Reservada");
+                        listaLexemas.Add(nuevoToken);
+
+                    } 
+                    else if(token.Equals("decimal")){
+                        nuevoToken = new Lexema(token, "Verde", "Reservada");
+                        listaLexemas.Add(nuevoToken);
+                    }
+                    else if (token.Equals("SI") || token.Equals("SINO") || token.Equals("SINO_SI") || token.Equals("MIENTRAS") || token.Equals("HACER") || token.Equals("DESDE") || token.Equals("HASTA") || token.Equals("INCREMENTO") || token.Equals("principal") || token.Equals("escribir") || token.Equals("leer"))
+                    {
+                        nuevoToken = new Lexema(token, "Verde", "Reservada");
+                        listaLexemas.Add(nuevoToken);
+                    }
+                    else
+                    {
+                        nuevoToken = new Lexema(token, "Negro", "Error");
+                        listaLexemas.Add(nuevoToken);
+                    }
+                       
                     break;
                 case 67:
                     nuevoToken = new Lexema(token, "Nulo", "Enter");
