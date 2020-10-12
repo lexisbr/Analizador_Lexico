@@ -333,9 +333,15 @@ namespace Analizador_lexico
                     areaTexto.AppendText(lexema.getLexema());
                 }
                 //Si es una palabra reservada lo pinta de verde
-                 else if (lexema.getTipo().Equals("Reservada"))
+                else if (lexema.getTipo().Equals("Reservada"))
                 {
                     areaTexto.SelectionColor = Color.DarkGreen;
+                    areaTexto.AppendText(lexema.getLexema());
+                }
+                //Si es in ID lo deja en negro
+                else if (lexema.getTipo().Equals("ID"))
+                {
+                    areaTexto.SelectionColor = Color.Black;
                     areaTexto.AppendText(lexema.getLexema());
                 }
                 //Si es un error pero no es una de las palabras reservadas de los tipos de datos los pinta de amarillo y los agrega a area de errores

@@ -113,6 +113,10 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(22);
                                     break;
+                                case '_':
+                                    tempToken += caracter;
+                                    setEstadoActual(30);
+                                    break;
                                 default:
                                     tempToken += caracter;
                                     setEstadoActual(16);
@@ -1153,7 +1157,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
-                    /*Estado para comentario // */
+                    /*Estado para comentario simple */
                     case 27:
                         {
                             switch (caracter)
@@ -1219,6 +1223,85 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
+                    /*Estado para ID ejemplo: _id*/
+                    case 30:
+                        {
+                            switch (caracter)
+                            {
+                                case ' ':
+                                case '\r':
+                                case '\t':
+                                case '\n':
+                                case '\b':
+                                case '\f':
+                                    insertarLexema(tempToken, 66);
+                                    tempToken = "";
+                                    setEstadoActual(0);
+                                    break;
+                                case '+':
+                                case '-':
+                                case '*':
+                                case '/':
+                                case '!':
+                                case '>':
+                                case '<':
+                                case '=':
+                                case '(':
+                                case ')':
+                                case ';':
+                                case '"':
+                                    insertarLexema(tempToken,66);
+                                    tempToken = "";
+                                    estadoInicial = estadoInicial - 1;
+                                    setEstadoActual(0);
+                                    break;
+                                default:
+                                    tempToken += caracter;
+                                    setEstadoActual(31);
+                                    break;
+                            }
+                            break;
+                        }
+                    /*Estado de aceptacion para ID ejemplo: _id*/
+                    case 31:
+                        {
+                            switch (caracter)
+                            {
+                                case ' ':
+                                case '\r':
+                                case '\t':
+                                case '\n':
+                                case '\b':
+                                case '\f':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    setEstadoActual(0);
+                                    break;
+                                case '+':
+                                case '-':
+                                case '*':
+                                case '/':
+                                case '!':
+                                case '>':
+                                case '<':
+                                case '=':
+                                case '(':
+                                case ')':
+                                case ';':
+                                case '"':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    estadoInicial = estadoInicial - 1;
+                                    setEstadoActual(0);
+                                    break;
+                                default:
+                                    tempToken += caracter;
+                                    setEstadoActual(31);
+                                    break;
+                            }
+                            break;
+                        }
+
                     /*Estado final para booleano*/
                     case 65:
                         {
@@ -1414,6 +1497,10 @@ namespace Analizador_lexico.Clases
                 case 27:
                 case 29:
                     nuevoToken = new Lexema(token, "Rojo", "Comentario");
+                    listaLexemas.Add(nuevoToken);
+                    break;
+                case 31:
+                    nuevoToken = new Lexema(token, "Negro", "ID");
                     listaLexemas.Add(nuevoToken);
                     break;
             }
