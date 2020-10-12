@@ -268,7 +268,10 @@ namespace Analizador_lexico
             {
                 MessageBox.Show("Hay errores lexicos.");
             }
-            
+
+            Parser parser = new Parser(tokens);
+            parser.automataPila();
+
         }
         
         /* Muestra y pinta los tokens */
@@ -338,6 +341,12 @@ namespace Analizador_lexico
                     areaTexto.SelectionColor = Color.DarkGreen;
                     areaTexto.AppendText(lexema.getLexema());
                 }
+                // Si es un tipo de dato lo pinta de verde
+                else if (lexema.getTipo().Equals("Variable"))
+                {
+                    areaTexto.SelectionColor = Color.DarkGreen;
+                    areaTexto.AppendText(lexema.getLexema());
+                }
                 //Si es in ID lo deja en negro
                 else if (lexema.getTipo().Equals("ID"))
                 {
@@ -371,6 +380,8 @@ namespace Analizador_lexico
                 }
                 //Regresa a color original
                 areaTexto.SelectionColor = Color.Black;
+
+                
 
 
             }

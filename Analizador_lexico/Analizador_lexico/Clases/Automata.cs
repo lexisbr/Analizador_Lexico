@@ -1436,24 +1436,24 @@ namespace Analizador_lexico.Clases
                     break;
                 case 66:
                     if (token.Equals("entero")) {
-                        nuevoToken = new Lexema(token, "Verde", "Reservada");
+                        nuevoToken = new Lexema(token, "Verde", "Variable");
                         listaLexemas.Add(nuevoToken);
                     }
                     else if (token.Equals("cadena")) {
-                        nuevoToken = new Lexema(token, "Verde", "Reservada");
+                        nuevoToken = new Lexema(token, "Verde", "Variable");
                         listaLexemas.Add(nuevoToken);
                     }
                     else if (token.Equals("caracter")){
-                        nuevoToken = new Lexema(token, "Verde", "Reservada");
+                        nuevoToken = new Lexema(token, "Verde", "Variable");
                         listaLexemas.Add(nuevoToken);
                     }
                     else if (token.Equals("booleano")) {
-                        nuevoToken = new Lexema(token, "Verde", "Reservada");
+                        nuevoToken = new Lexema(token, "Verde", "Variable");
                         listaLexemas.Add(nuevoToken);
 
                     } 
                     else if(token.Equals("decimal")){
-                        nuevoToken = new Lexema(token, "Verde", "Reservada");
+                        nuevoToken = new Lexema(token, "Verde", "Variable");
                         listaLexemas.Add(nuevoToken);
                     }
                     else if (token.Equals("SI") || token.Equals("SINO") || token.Equals("SINO_SI") || token.Equals("MIENTRAS") || token.Equals("HACER") || token.Equals("DESDE") || token.Equals("HASTA") || token.Equals("INCREMENTO") || token.Equals("principal") || token.Equals("escribir") || token.Equals("leer"))
