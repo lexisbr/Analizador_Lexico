@@ -358,7 +358,7 @@ namespace Analizador_lexico
                 {
                     areaTexto.SelectionColor = Color.Yellow;
                     areaTexto.AppendText(lexema.getLexema());
-                    areaErrores.AppendText(contErrores+") "+lexema.getLexema());
+                    areaErrores.AppendText(contErrores+") "+lexema.getLexema()+"   >>>>>>>> Linea:"+lexema.getFila()+" Columna:"+lexema.getColumna());
                     contErrores++;
                     areaErrores.AppendText("\n");
                 }

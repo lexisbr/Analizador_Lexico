@@ -15,6 +15,10 @@ namespace Analizador_lexico.Clases
         private string color;
         //Tipo de token
         private string tipo;
+        //Atributo para columna
+        private int columna;
+        //Atributo para fila
+        private int fila;
 
         /*Metodo constructor*/
         public Lexema(string lexema, string color, string tipo){
@@ -23,8 +27,19 @@ namespace Analizador_lexico.Clases
             this.tipo = tipo;
         }
 
+        /*Metodo constructor*/
+        public Lexema(string lexema, string color, string tipo, int fila, int columna)
+        {
+            this.lexema = lexema;
+            this.color = color;
+            this.tipo = tipo;
+            this.columna = columna;
+            this.fila = fila;
+        }
+
+
         /*Regresa el lexema*/
-       public string getLexema()
+        public string getLexema()
         {
             return lexema;
         }
@@ -39,6 +54,18 @@ namespace Analizador_lexico.Clases
         public string getTipo()
         {
             return tipo;
+        }
+
+        /*Regresa la fila*/
+        public int getFila()
+        {
+            return fila;
+        }
+
+        /*Regresa la columna*/
+        public int getColumna()
+        {
+            return columna;
         }
     }
 }

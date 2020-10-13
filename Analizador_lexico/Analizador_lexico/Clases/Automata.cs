@@ -16,6 +16,13 @@ namespace Analizador_lexico.Clases
         private ArrayList listaLexemas = new ArrayList();
         //Para que no tome el enter entre comillas
         private Boolean enterComillas = false;
+        //Contador columna
+        private int columna = 0;
+        private int columna_aux = 0;
+        //Contador fila
+        private int fila = 1;
+
+
 
         /*Metodo constructor*/
         public Automata()
@@ -25,6 +32,7 @@ namespace Analizador_lexico.Clases
         }
         public void analizadorAutomata(String cadena)
         {
+           
             //Variable temporal para concatenar caracteres
             String tempToken = "";
             //Se agrega espacio vacio al final de la cadena para que guarde ultima palabra
@@ -32,8 +40,10 @@ namespace Analizador_lexico.Clases
             //For para recorrer cadena
             for(estadoInicial=0; estadoInicial < cadena.Length; estadoInicial++)
             {
+                columna_aux++;
+                sumarColumna();
                 // se obtiene caracter en la cadena
-                caracter = cadena[estadoInicial];                
+                caracter = cadena[estadoInicial];
                 switch (estadoActual)
                 {
                     /* Estado inicial */
@@ -167,12 +177,10 @@ namespace Analizador_lexico.Clases
                                 case '=':
                                 case '|':
                                 case '&':
-                                case '(':
+                                case '(':  
                                 case ')':
                                 case ';':
                                 case '"':
-                                case 'f':
-                                case 'v':
                                     insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -262,8 +270,6 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
-                                case 'f':
-                                case 'v':
                                     insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -328,7 +334,7 @@ namespace Analizador_lexico.Clases
                                     setEstadoActual(6);
                                     break;
                                 case '+':
-                                case '-':
+                                case '-':  
                                 case '*':
                                 case '/':
                                 case '!':
@@ -1386,6 +1392,13 @@ namespace Analizador_lexico.Clases
                 }
 
 
+                if (caracter.Equals('\n')){
+                    reiniciarColumna();
+                    columna_aux = 0;
+                    sumarFila();
+                }
+
+
                 /*Guarda los enters*/
                 if (caracter.Equals('\n')&&(!enterComillas))
                 {
@@ -1395,6 +1408,7 @@ namespace Analizador_lexico.Clases
                 {
                     enterComillas = false;
                 }
+
             }
         }
 
@@ -1463,8 +1477,9 @@ namespace Analizador_lexico.Clases
                     }
                     else
                     {
-                        nuevoToken = new Lexema(token, "Negro", "Error");
+                        nuevoToken = new Lexema(token, "Negro", "Error",getFila(), columna_aux-getColumna());
                         listaLexemas.Add(nuevoToken);
+                       
                     }
                        
                     break;
@@ -1504,7 +1519,8 @@ namespace Analizador_lexico.Clases
                     listaLexemas.Add(nuevoToken);
                     break;
             }
-          
+            reiniciarColumna();
+
         }
 
 
@@ -1524,7 +1540,30 @@ namespace Analizador_lexico.Clases
             return listaLexemas;
         }
 
+        public void sumarFila()
+        {
+            this.fila++;
+        }
 
+        public int getFila()
+        {
+            return fila;
+        }
+
+        public void sumarColumna()
+        {
+            this.columna++;
+        }
+
+        public void reiniciarColumna()
+        {
+            this.columna=0;
+        }
+
+        public int getColumna()
+        {
+            return columna;
+        }
 
 
 

@@ -24,7 +24,7 @@ namespace Analizador_lexico.Clases
             for (int i = 0; i < tokens.Count; i++)
             {
                 Lexema lexema = (Lexema)tokens[i];
-                System.Windows.Forms.MessageBox.Show("Lexema "+lexema.getTipo());
+                System.Windows.Forms.MessageBox.Show("Lexema " + lexema.getTipo());
             }
         }
 
@@ -36,10 +36,11 @@ namespace Analizador_lexico.Clases
                 Lexema lexema = (Lexema)tokens[i];
                 string peek = (string)pila.Peek();
                 MessageBox.Show(lexema.getLexema() + "<TIPO  PEEK>" + peek);
+
                 switch (peek)
                 {
                     case "$":
-                       
+
                         break;
                     case "E":
                         switch (lexema.getTipo())
@@ -68,33 +69,59 @@ namespace Analizador_lexico.Clases
                         }
                         break;
                     case "I":
-                        switch (lexema.getTipo())
+                       
+                        if (lexema.getTipo().Equals("ID")|| lexema.getLexema().Equals(",")|| lexema.getLexema().Equals("="))
                         {
-                            case "ID":
-                                {
-                                    pila.Pop();
-                                    pila.Push("I'");
-                                    pila.Push("ID");
-                                    i--;
-                                    break;
-                                }
+                            pila.Pop();
+                            pila.Push("I'");
+                            pila.Push("ID");
+                            i--;
+                        }else if (lexema.getTipo().Equals(";"))
+                        {
+                            pila.Pop();
+                            pila.Pop();
                         }
                         break;
                     case "I'":
-                        switch (lexema.getLexema())
+                        if (lexema.getLexema().Equals("="))
                         {
-                            case ";":
-                                {
-                                    pila.Pop();
-                                    pila.Pop();
-                                    break;
-                                }
+                            pila.Pop();
+                            pila.Push("L");
+                            pila.Push("=");
+                            i--;
+                        }
+                        else if (lexema.getLexema().Equals(";"))
+                        {
+                            pila.Pop();
+                            pila.Pop();
+                        }
+                        else if (lexema.getLexema().Equals(","))
+                        {
+                            pila.Pop();
+                            pila.Push(",");
+                            pila.Push("I");
+                            i--;
                         }
                         break;
                     case "L":
+                        switch (lexema.getTipo())
+                        {
+                            case "Cadena":
+                                {
+                                    pila.Pop();
+                                    pila.Push("Cadena");
+                                    i--;
+                                    break;
+                                }
+
+                        }
                         break;
                     default:
                         if (peek.Equals(lexema.getTipo()))
+                        {
+                            pila.Pop();
+                        }
+                        else if (peek.Equals(lexema.getLexema()))
                         {
                             pila.Pop();
                         }
@@ -112,8 +139,9 @@ namespace Analizador_lexico.Clases
             }
 
         }
+
     }
-            
+
 }
 
 
