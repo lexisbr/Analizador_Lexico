@@ -67,5 +67,11 @@ namespace Analizador_lexico.Clases
         {
             return columna;
         }
+
+        /*Establece el tipo*/
+        public void setTipo(string tipo)
+        {
+            this.tipo = tipo;
+        }
     }
 }

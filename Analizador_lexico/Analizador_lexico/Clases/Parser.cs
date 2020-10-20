@@ -11,24 +11,79 @@ namespace Analizador_lexico.Clases
     class Parser
     {
         private Stack pila;
-        private ArrayList tokens;
 
-        public Parser(ArrayList tokens)
+        public Parser()
         {
-            this.tokens = (ArrayList)tokens.Clone();
             this.pila = new Stack();
+            this.pila.Push("A");
         }
 
-        public void imprimirLista()
+
+        public Boolean analizador(Lexema token)
         {
-            for (int i = 0; i < tokens.Count; i++)
+            string peek = (string)pila.Peek();
+
+            switch (peek)
             {
-                Lexema lexema = (Lexema)tokens[i];
-                System.Windows.Forms.MessageBox.Show("Lexema " + lexema.getTipo());
+                case "A":
+                    {
+                        if (token.getLexema().Equals("principal"))
+                        {
+                            pila.Pop();
+                            pila.Push("B");
+                            pila.Push("{");
+                            pila.Push("principal");
+                            return true;
+                        }
+                        break;
+                    }
+                case "B":
+                    {
+                        if (token.getTipo().Equals("Variable") || token.getLexema().Equals("SI") || token.getLexema().Equals("MIENTRAS") || token.getLexema().Equals("HACER")|| token.getLexema().Equals("DESDE")||token.getLexema().Equals("ID") || token.getLexema().Equals("leer") || token.getLexema().Equals("imprimir"))
+                        {
+                            pila.Pop();
+                            pila.Push("}");
+                            pila.Push("L");
+                            return true;
+                        }
+                        break;
+                    }
+                case "L":
+                    {
+                        if (token.getTipo().Equals("Variable"))
+                        {
+                            pila.Pop();
+                            pila.Push("L");
+                            pila.Push("D");
+                        }
+                        else if (token.getTipo().Equals("Funcionalidad"))
+                        {
+                            pila.Pop();
+                            pila.Push("L");
+                            pila.Push("G");
+                        }
+                        else if (token.getLexema().Equals("SI") || token.getLexema().Equals("MIENTRAS") || token.getLexema().Equals("HACER") || token.getLexema().Equals("DESDE"))
+                        {
+                            pila.Pop();
+                            pila.Push("L");
+                            pila.Push("F");
+                        }
+                        break;
+                    }
+
+
             }
+            return false;
         }
 
-        public void automataPila()
+
+
+
+
+
+
+
+      /*  public void automataPila()
         {
             pila.Push("E");
             for (int i = 0; i < tokens.Count; i++)
@@ -138,7 +193,7 @@ namespace Analizador_lexico.Clases
                 MessageBox.Show("Cadena rechazada");
             }
 
-        }
+        }*/
 
     }
 

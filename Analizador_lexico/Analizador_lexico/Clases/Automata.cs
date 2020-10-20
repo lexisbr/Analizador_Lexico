@@ -22,6 +22,7 @@ namespace Analizador_lexico.Clases
         //Contador fila
         private int fila = 1;
 
+        Parser parser = new Parser();
 
 
         /*Metodo constructor*/
@@ -29,6 +30,7 @@ namespace Analizador_lexico.Clases
         {
             estadoInicial = 0;
             estadoActual = 0;
+           
         }
         public void analizadorAutomata(String cadena)
         {
@@ -1378,6 +1380,8 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -1473,11 +1477,20 @@ namespace Analizador_lexico.Clases
                     else if (token.Equals("SI") || token.Equals("SINO") || token.Equals("SINO_SI") || token.Equals("MIENTRAS") || token.Equals("HACER") || token.Equals("DESDE") || token.Equals("HASTA") || token.Equals("INCREMENTO") || token.Equals("principal") || token.Equals("escribir") || token.Equals("leer"))
                     {
                         nuevoToken = new Lexema(token, "Verde", "Reservada");
+                        if (!parser.analizador(nuevoToken))
+                        {
+                            nuevoToken.setTipo("Error");
+                        }
+                        listaLexemas.Add(nuevoToken);
+                    }
+                    else if (token.Equals("leer")||token.Equals("imprimir"))
+                    {
+                        nuevoToken = new Lexema(token, "Verde", "Funcionalidad");
                         listaLexemas.Add(nuevoToken);
                     }
                     else
                     {
-                        nuevoToken = new Lexema(token, "Negro", "Error",getFila(), columna_aux-getColumna());
+                        nuevoToken = new Lexema(token, "Amarillo", "Error",getFila(), columna_aux-getColumna());
                         listaLexemas.Add(nuevoToken);
                        
                     }

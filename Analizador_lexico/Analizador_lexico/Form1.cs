@@ -269,8 +269,8 @@ namespace Analizador_lexico
                 MessageBox.Show("Hay errores lexicos.");
             }
 
-            Parser parser = new Parser(tokens);
-            parser.automataPila();
+            Parser parser = new Parser();
+           /* parser.automataPila();*/
 
         }
         
@@ -353,6 +353,11 @@ namespace Analizador_lexico
                     areaTexto.SelectionColor = Color.Black;
                     areaTexto.AppendText(lexema.getLexema());
                 }
+                else if (lexema.getTipo().Equals("Funcionalidad"))
+                {
+                    areaTexto.SelectionColor = Color.DarkGreen;
+                    areaTexto.AppendText(lexema.getLexema());
+                }
                 //Si es un error pero no es una de las palabras reservadas de los tipos de datos los pinta de amarillo y los agrega a area de errores
                 else if (lexema.getTipo().Equals("Error"))
                 {
@@ -362,13 +367,7 @@ namespace Analizador_lexico
                     contErrores++;
                     areaErrores.AppendText("\n");
                 }
-                //Inserta palabras reservadas
-                else if(!lexema.getTipo().Equals("Enter"))
-                {
-                    areaTexto.SelectionColor = Color.Black;
-                    areaTexto.AppendText(lexema.getLexema());             
-                }
-
+              
                 //Inserta enters o espacios
                 if (lexema.getTipo().Equals("Enter"))
                 {
