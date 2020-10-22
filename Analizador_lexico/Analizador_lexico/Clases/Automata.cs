@@ -1438,40 +1438,76 @@ namespace Analizador_lexico.Clases
                 //Estado de aceptacion define el tipo de token segun el caso
                 case 1:
                     nuevoToken = new Lexema(token, "Morado", "Entero");
+                    if (!parser.analizador(nuevoToken))
+                    {
+                        nuevoToken.setTipo("Error");
+                    }
                     listaLexemas.Add(nuevoToken);
                     break;
                 case 3:
                     nuevoToken = new Lexema(token, "Celeste", "Decimal");
+                    if (!parser.analizador(nuevoToken))
+                    {
+                        nuevoToken.setTipo("Error");
+                    }
                     listaLexemas.Add(nuevoToken);
                     break;
                 case 4:
                     nuevoToken = new Lexema(token, "Gris", "Cadena");
+                    if (!parser.analizador(nuevoToken))
+                    {
+                        nuevoToken.setTipo("Error");
+                    }
                     listaLexemas.Add(nuevoToken);
                     break;
                 case 65:
                     nuevoToken = new Lexema(token, "Naranja", "Booleano");
+                    if (!parser.analizador(nuevoToken))
+                    {
+                        nuevoToken.setTipo("Error");
+                    }
                     listaLexemas.Add(nuevoToken);
                     break;
                 case 66:
                     if (token.Equals("entero")) {
                         nuevoToken = new Lexema(token, "Verde", "Variable");
+                        if (!parser.analizador(nuevoToken))
+                        {
+                            nuevoToken.setTipo("Error");
+                        }
                         listaLexemas.Add(nuevoToken);
                     }
                     else if (token.Equals("cadena")) {
                         nuevoToken = new Lexema(token, "Verde", "Variable");
+                        if (!parser.analizador(nuevoToken))
+                        {
+                            nuevoToken.setTipo("Error");
+                        }
                         listaLexemas.Add(nuevoToken);
                     }
                     else if (token.Equals("caracter")){
                         nuevoToken = new Lexema(token, "Verde", "Variable");
+                        if (!parser.analizador(nuevoToken))
+                        {
+                            nuevoToken.setTipo("Error");
+                        }
                         listaLexemas.Add(nuevoToken);
                     }
                     else if (token.Equals("booleano")) {
                         nuevoToken = new Lexema(token, "Verde", "Variable");
+                        if (!parser.analizador(nuevoToken))
+                        {
+                            nuevoToken.setTipo("Error");
+                        }
                         listaLexemas.Add(nuevoToken);
 
                     } 
                     else if(token.Equals("decimal")){
                         nuevoToken = new Lexema(token, "Verde", "Variable");
+                        if (!parser.analizador(nuevoToken))
+                        {
+                            nuevoToken.setTipo("Error");
+                        }
                         listaLexemas.Add(nuevoToken);
                     }
                     else if (token.Equals("SI") || token.Equals("SINO") || token.Equals("SINO_SI") || token.Equals("MIENTRAS") || token.Equals("HACER") || token.Equals("DESDE") || token.Equals("HASTA") || token.Equals("INCREMENTO") || token.Equals("principal") || token.Equals("escribir") || token.Equals("leer"))
@@ -1503,8 +1539,24 @@ namespace Analizador_lexico.Clases
                 case 16:
                 case 5:
                 case 13:
-                    nuevoToken = new Lexema(token, "Cafe", "Caracter");
-                    listaLexemas.Add(nuevoToken);
+                    if(token.Equals("{")|| token.Equals("}") || token.Equals(","))
+                    {
+                        nuevoToken = new Lexema(token, "Verde", "Reservada");
+                        if (!parser.analizador(nuevoToken))
+                        {
+                            nuevoToken.setTipo("Error");
+                        }
+                        listaLexemas.Add(nuevoToken);
+                    }
+                    else
+                    {
+                        nuevoToken = new Lexema(token, "Cafe", "Caracter");
+                        if (!parser.analizador(nuevoToken))
+                        {
+                            nuevoToken.setTipo("Error");
+                        }
+                        listaLexemas.Add(nuevoToken);
+                    }
                     break;
                 case 18:
                 case 19:
@@ -1515,11 +1567,19 @@ namespace Analizador_lexico.Clases
                 case 22:
                 case 68:
                     nuevoToken = new Lexema(token, "Azul", "Operador");
+                    if (!parser.analizador(nuevoToken))
+                    {
+                        nuevoToken.setTipo("Error");
+                    }
                     listaLexemas.Add(nuevoToken);
                     break;
                 case 25:
                 case 26:
                     nuevoToken = new Lexema(token, "Rosado", "Asignacion");
+                    if (!parser.analizador(nuevoToken))
+                    {
+                        nuevoToken.setTipo("Error");
+                    }
                     listaLexemas.Add(nuevoToken);
                     break;
                 case 27:
@@ -1529,6 +1589,10 @@ namespace Analizador_lexico.Clases
                     break;
                 case 31:
                     nuevoToken = new Lexema(token, "Negro", "ID");
+                    if (!parser.analizador(nuevoToken))
+                    {
+                        nuevoToken.setTipo("Error");
+                    }
                     listaLexemas.Add(nuevoToken);
                     break;
             }
