@@ -28,6 +28,7 @@ namespace Analizador_lexico.Clases
                 Console.WriteLine("Token: " + token.getLexema() + " Tipo: " + token.getTipo() + " Peek: " + peek);
                 switch (peek)
                 {
+                    /*Caso para principal*/
                     case "A":
                         {
                             if (token.getLexema().Equals("principal"))
@@ -39,10 +40,13 @@ namespace Analizador_lexico.Clases
                             }
                             else
                             {
+                                pila.Push("B");
+                                pila.Push("{");
                                 return false;
                             }
                             break;
                         }
+                    /*Caso para bloque de codigo*/
                     case "B":
                         {
                             if (token.getTipo().Equals("Variable") || token.getLexema().Equals("SI") || token.getLexema().Equals("MIENTRAS") || token.getLexema().Equals("HACER") || token.getLexema().Equals("DESDE") || token.getTipo().Equals("ID") || token.getLexema().Equals("leer") || token.getLexema().Equals("imprimir"))
@@ -57,6 +61,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
+                    /*Caso para lineas de codigo*/
                     case "L":
                         {
                             if (token.getTipo().Equals("Variable"))
@@ -93,6 +98,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
+                    /*Caso para la asignacion de valores a ID*/
                     case "Z":
                         {
                             if (token.getTipo().Equals("ID"))
@@ -101,7 +107,6 @@ namespace Analizador_lexico.Clases
                                 pila.Push(";");
                                 pila.Push("J");
                                 pila.Push("ID");
-
                             }
                             else
                             {
@@ -109,6 +114,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
+                    /*Caso para operadores en ID*/
                     case "J":
                         {
                             if (token.getLexema().Equals("="))
@@ -129,10 +135,12 @@ namespace Analizador_lexico.Clases
                             }
                             else
                             {
+                                pila.Pop();
                                 return false;
                             }
                             break;
                         }
+                    /*Caso para asignar valor a ID*/
                     case "Z'":
                         {
                             if (token.getTipo().Equals("ID") || token.getTipo().Equals("Entero") || token.getTipo().Equals("Decimal") || token.getLexema().Equals("("))
@@ -140,7 +148,7 @@ namespace Analizador_lexico.Clases
                                 pila.Pop();
                                 pila.Push("O");
                             }
-                            else if (token.getTipo().Equals("Booleano")|| token.getTipo().Equals("Caracter"))
+                            else if (token.getTipo().Equals("Booleano") || token.getTipo().Equals("Caracter"))
                             {
                                 pila.Pop();
                                 pila.Push(token.getTipo());
@@ -157,6 +165,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
+                    /*Caso para*/
                     case "O":
                         {
                             if (token.getTipo().Equals("ID"))
@@ -540,7 +549,8 @@ namespace Analizador_lexico.Clases
                                 pila.Pop();
                                 pila.Push("I");
                                 pila.Push(",");
-                            }else if (token.getLexema().Equals(";"))
+                            }
+                            else if (token.getLexema().Equals(";"))
                             {
                                 pila.Pop();
                             }
@@ -554,13 +564,12 @@ namespace Analizador_lexico.Clases
                         {
                             if (peek.Equals(token.getLexema()) || peek.Equals(token.getTipo()))
                             {
-                                Console.WriteLine("Sale>>> " + peek+"\n");
+                                Console.WriteLine("Sale>>> " + peek + "\n");
                                 pila.Pop();
                                 return true;
                             }
                             else
                             {
-                                pila.Pop();
                                 return false;
                             }
                         }

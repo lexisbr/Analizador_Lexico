@@ -361,9 +361,10 @@ namespace Analizador_lexico
                 //Si es un error pero no es una de las palabras reservadas de los tipos de datos los pinta de amarillo y los agrega a area de errores
                 else if (lexema.getTipo().Equals("Error"))
                 {
-                    areaTexto.SelectionColor = Color.Yellow;
+                    areaTexto.SelectionFont = new Font (areaTexto.SelectionFont, FontStyle.Underline);
+                    areaTexto.SelectionColor = Color.Firebrick;
                     areaTexto.AppendText(lexema.getLexema());
-                    areaErrores.AppendText(contErrores+") "+lexema.getLexema()+"   >>>>>>>> Linea:"+lexema.getFila()+" Columna:"+lexema.getColumna());
+                    areaErrores.AppendText(contErrores+") "+lexema.getLexema()+"   >>> Linea:"+lexema.getFila()+" Columna:"+lexema.getColumna()+" <<<");
                     contErrores++;
                     areaErrores.AppendText("\n");
                 }
@@ -379,8 +380,9 @@ namespace Analizador_lexico
                 }
                 //Regresa a color original
                 areaTexto.SelectionColor = Color.Black;
+                areaTexto.SelectionFont = new Font(areaTexto.SelectionFont, FontStyle.Regular);
 
-                
+
 
 
             }
