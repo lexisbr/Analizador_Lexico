@@ -265,6 +265,8 @@ namespace Analizador_lexico.Clases
                             }
                             else
                             {
+                                pila.Pop();
+                                pila.Push("O'");
                                 return false;
                             }
                             break;
@@ -438,6 +440,8 @@ namespace Analizador_lexico.Clases
                             }
                             else
                             {
+                                pila.Pop();
+                                pila.Push("Q'");
                                 return false;
                             }
                             break;
@@ -550,7 +554,7 @@ namespace Analizador_lexico.Clases
                         {
                             if (peek.Equals(token.getLexema()) || peek.Equals(token.getTipo()))
                             {
-                                Console.WriteLine("Sale>>> " + peek);
+                                Console.WriteLine("Sale>>> " + peek+"\n");
                                 pila.Pop();
                                 return true;
                             }

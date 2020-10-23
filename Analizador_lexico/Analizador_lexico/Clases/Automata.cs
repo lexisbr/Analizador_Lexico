@@ -30,17 +30,17 @@ namespace Analizador_lexico.Clases
         {
             estadoInicial = 0;
             estadoActual = 0;
-           
+
         }
         public void analizadorAutomata(String cadena)
         {
-           
+
             //Variable temporal para concatenar caracteres
             String tempToken = "";
             //Se agrega espacio vacio al final de la cadena para que guarde ultima palabra
             cadena = cadena + " ";
             //For para recorrer cadena
-            for(estadoInicial=0; estadoInicial < cadena.Length; estadoInicial++)
+            for (estadoInicial = 0; estadoInicial < cadena.Length; estadoInicial++)
             {
                 columna_aux++;
                 sumarColumna();
@@ -103,7 +103,7 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(13);
                                     break;
-                                case '>':                             
+                                case '>':
                                 case '<':
                                 case '!':
                                     tempToken += caracter;
@@ -135,9 +135,9 @@ namespace Analizador_lexico.Clases
                                     break;
                             }
                             break;
-                            
+
                         }
-                        /*Estado para numeros*/
+                    /*Estado para numeros*/
                     case 1:
                         {
                             switch (caracter)
@@ -148,7 +148,7 @@ namespace Analizador_lexico.Clases
                                 case '\t':
                                 case '\b':
                                 case '\f':
-                                    insertarLexema(tempToken,getEstadoActual());
+                                    insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     setEstadoActual(0);
                                     break;
@@ -179,7 +179,7 @@ namespace Analizador_lexico.Clases
                                 case '=':
                                 case '|':
                                 case '&':
-                                case '(':  
+                                case '(':
                                 case ')':
                                 case ';':
                                 case '"':
@@ -195,12 +195,12 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
-                        /*Estado para transicion cuando viene un punto"*/
+                    /*Estado para transicion cuando viene un punto"*/
                     case 2:
                         {
                             switch (caracter)
                             {
-                                case '\n':                   
+                                case '\n':
                                 case ' ':
                                 case '\r':
                                 case '\t':
@@ -227,15 +227,15 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(66);
                                     break;
-                            }             
+                            }
                             break;
                         }
-                        /*Estado para numeros decimales*/
+                    /*Estado para numeros decimales*/
                     case 3:
                         {
                             switch (caracter)
                             {
-                                case '\n':                     
+                                case '\n':
                                 case ' ':
                                 case '\r':
                                 case '\t':
@@ -284,7 +284,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
-                        /*Estado para cadena con comillas*/
+                    /*Estado para cadena con comillas*/
                     case 4:
                         {
                             switch (caracter)
@@ -301,7 +301,7 @@ namespace Analizador_lexico.Clases
                                     enterComillas = true;
                                     break;
                                 default:
-                                    if ((estadoInicial+1) == cadena.Length)
+                                    if ((estadoInicial + 1) == cadena.Length)
                                     {
                                         insertarLexema(tempToken, 66);
                                         tempToken = "";
@@ -316,7 +316,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
-                        /* Estado para cuando viene un verdadero*/
+                    /* Estado para cuando viene un verdadero*/
                     case 5:
                         {
                             switch (caracter)
@@ -331,12 +331,12 @@ namespace Analizador_lexico.Clases
                                     tempToken = "";
                                     setEstadoActual(0);
                                     break;
-                                case 'e':     
+                                case 'e':
                                     tempToken += caracter;
                                     setEstadoActual(6);
                                     break;
                                 case '+':
-                                case '-':  
+                                case '-':
                                 case '*':
                                 case '/':
                                 case '!':
@@ -348,7 +348,7 @@ namespace Analizador_lexico.Clases
                                 case '(':
                                 case ')':
                                 case ';':
-                                case '"':         
+                                case '"':
                                     insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -436,7 +436,7 @@ namespace Analizador_lexico.Clases
                                 case '(':
                                 case ')':
                                 case ';':
-                                case '"':    
+                                case '"':
                                     insertarLexema(tempToken, 66);
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -625,7 +625,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
-                        /*Estado final para falso y verdadero*/
+                    /*Estado final para falso y verdadero*/
                     case 12:
                         {
                             switch (caracter)
@@ -670,7 +670,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
-                        /* Estados para falso*/
+                    /* Estados para falso*/
                     case 13:
                         {
                             switch (caracter)
@@ -703,7 +703,7 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
-                                    insertarLexema(tempToken,getEstadoActual());
+                                    insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
                                     setEstadoActual(0);
@@ -803,10 +803,10 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
-                        /*Estado para caracter*/
+                    /*Estado para caracter*/
                     case 16:
                         {
-                           
+
                             switch (caracter)
                             {
                                 case '\n':
@@ -833,7 +833,7 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
-                                    insertarLexema(tempToken,getEstadoActual());
+                                    insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
                                     setEstadoActual(0);
@@ -845,8 +845,8 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
-                        /*Estado para cuando viene un -*/
-                   case 18:
+                    /*Estado para cuando viene un -*/
+                    case 18:
                         {
                             switch (caracter)
                             {
@@ -886,7 +886,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
-                        /*Estado cuando viene un +*/
+                    /*Estado cuando viene un +*/
                     case 19:
                         {
                             switch (caracter)
@@ -914,7 +914,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
-                        /* Estado final para cuando viene un ++ o -- o multiplicacion o parentesis */
+                    /* Estado final para cuando viene un ++ o -- o multiplicacion o parentesis */
                     case 20:
                         {
                             switch (caracter)
@@ -938,7 +938,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
-                        /* Para division */
+                    /* Para division */
                     case 68:
                         {
                             switch (caracter)
@@ -981,7 +981,7 @@ namespace Analizador_lexico.Clases
                                 case '\n':
                                 case '\b':
                                 case '\f':
-                                    insertarLexema(tempToken,66);
+                                    insertarLexema(tempToken, 66);
                                     tempToken = "";
                                     setEstadoActual(0);
                                     break;
@@ -1004,7 +1004,7 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
-                                    insertarLexema(tempToken,66);
+                                    insertarLexema(tempToken, 66);
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
                                     setEstadoActual(0);
@@ -1089,7 +1089,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
-                        /* Estado por si viene un = despues */
+                    /* Estado por si viene un = despues */
                     case 24:
                         {
                             switch (caracter)
@@ -1113,7 +1113,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
-                        /*Estado para = */
+                    /*Estado para = */
                     case 25:
                         {
                             switch (caracter)
@@ -1258,7 +1258,7 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
-                                    insertarLexema(tempToken,66);
+                                    insertarLexema(tempToken, 66);
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
                                     setEstadoActual(0);
@@ -1351,7 +1351,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
-                        /*Estado para errores*/
+                    /*Estado para errores*/
                     case 66:
                         {
                             switch (caracter)
@@ -1396,7 +1396,8 @@ namespace Analizador_lexico.Clases
                 }
 
 
-                if (caracter.Equals('\n')){
+                if (caracter.Equals('\n'))
+                {
                     reiniciarColumna();
                     columna_aux = 0;
                     sumarFila();
@@ -1404,7 +1405,7 @@ namespace Analizador_lexico.Clases
 
 
                 /*Guarda los enters*/
-                if (caracter.Equals('\n')&&(!enterComillas))
+                if (caracter.Equals('\n') && (!enterComillas))
                 {
                     insertarLexema(caracter.ToString(), 67);
                 }
@@ -1441,6 +1442,8 @@ namespace Analizador_lexico.Clases
                     if (!parser.analizador(nuevoToken))
                     {
                         nuevoToken.setTipo("Error");
+                        nuevoToken.setFila(getFila());
+                        nuevoToken.setColumna(columna_aux - getColumna());
                     }
                     listaLexemas.Add(nuevoToken);
                     break;
@@ -1449,6 +1452,8 @@ namespace Analizador_lexico.Clases
                     if (!parser.analizador(nuevoToken))
                     {
                         nuevoToken.setTipo("Error");
+                        nuevoToken.setFila(getFila());
+                        nuevoToken.setColumna(columna_aux - getColumna());
                     }
                     listaLexemas.Add(nuevoToken);
                     break;
@@ -1457,6 +1462,8 @@ namespace Analizador_lexico.Clases
                     if (!parser.analizador(nuevoToken))
                     {
                         nuevoToken.setTipo("Error");
+                        nuevoToken.setFila(getFila());
+                        nuevoToken.setColumna(columna_aux - getColumna());
                     }
                     listaLexemas.Add(nuevoToken);
                     break;
@@ -1465,35 +1472,47 @@ namespace Analizador_lexico.Clases
                     if (!parser.analizador(nuevoToken))
                     {
                         nuevoToken.setTipo("Error");
+                        nuevoToken.setFila(getFila());
+                        nuevoToken.setColumna(columna_aux - getColumna());
                     }
                     listaLexemas.Add(nuevoToken);
                     break;
                 case 66:
-                    if (token.Equals("entero")) {
+                    if (token.Equals("entero"))
+                    {
                         nuevoToken = new Lexema(token, "Verde", "Variable");
                         if (!parser.analizador(nuevoToken))
                         {
                             nuevoToken.setTipo("Error");
+                            nuevoToken.setFila(getFila());
+                            nuevoToken.setColumna(columna_aux - getColumna());
                         }
                         listaLexemas.Add(nuevoToken);
                     }
-                    else if (token.Equals("cadena")) {
+                    else if (token.Equals("cadena"))
+                    {
                         nuevoToken = new Lexema(token, "Verde", "Variable");
                         if (!parser.analizador(nuevoToken))
                         {
                             nuevoToken.setTipo("Error");
+                            nuevoToken.setFila(getFila());
+                            nuevoToken.setColumna(columna_aux - getColumna());
                         }
                         listaLexemas.Add(nuevoToken);
                     }
-                    else if (token.Equals("caracter")){
+                    else if (token.Equals("caracter"))
+                    {
                         nuevoToken = new Lexema(token, "Verde", "Variable");
                         if (!parser.analizador(nuevoToken))
                         {
                             nuevoToken.setTipo("Error");
+                            nuevoToken.setFila(getFila());
+                            nuevoToken.setColumna(columna_aux - getColumna());
                         }
                         listaLexemas.Add(nuevoToken);
                     }
-                    else if (token.Equals("booleano")) {
+                    else if (token.Equals("booleano"))
+                    {
                         nuevoToken = new Lexema(token, "Verde", "Variable");
                         if (!parser.analizador(nuevoToken))
                         {
@@ -1501,8 +1520,9 @@ namespace Analizador_lexico.Clases
                         }
                         listaLexemas.Add(nuevoToken);
 
-                    } 
-                    else if(token.Equals("decimal")){
+                    }
+                    else if (token.Equals("decimal"))
+                    {
                         nuevoToken = new Lexema(token, "Verde", "Variable");
                         if (!parser.analizador(nuevoToken))
                         {
@@ -1519,18 +1539,19 @@ namespace Analizador_lexico.Clases
                         }
                         listaLexemas.Add(nuevoToken);
                     }
-                    else if (token.Equals("leer")||token.Equals("imprimir"))
+                    else if (token.Equals("leer") || token.Equals("imprimir"))
                     {
                         nuevoToken = new Lexema(token, "Verde", "Funcionalidad");
                         listaLexemas.Add(nuevoToken);
                     }
                     else
                     {
-                        nuevoToken = new Lexema(token, "Amarillo", "Error",getFila(), columna_aux-getColumna());
+                        nuevoToken = new Lexema(token, "Amarillo", "Error", getFila(), columna_aux - getColumna());
+                        parser.analizador(nuevoToken);
                         listaLexemas.Add(nuevoToken);
-                       
+
                     }
-                       
+
                     break;
                 case 67:
                     nuevoToken = new Lexema(token, "Nulo", "Enter");
@@ -1539,7 +1560,7 @@ namespace Analizador_lexico.Clases
                 case 16:
                 case 5:
                 case 13:
-                    if(token.Equals("{")|| token.Equals("}") || token.Equals(","))
+                    if (token.Equals("{") || token.Equals("}") || token.Equals(","))
                     {
                         nuevoToken = new Lexema(token, "Verde", "Reservada");
                         if (!parser.analizador(nuevoToken))
@@ -1634,7 +1655,7 @@ namespace Analizador_lexico.Clases
 
         public void reiniciarColumna()
         {
-            this.columna=0;
+            this.columna = 0;
         }
 
         public int getColumna()

@@ -73,5 +73,17 @@ namespace Analizador_lexico.Clases
         {
             this.tipo = tipo;
         }
+
+        /*Establece fila*/
+        public void setFila(int fila)
+        {
+            this.fila = fila;
+        }
+
+        /*Establece columna*/
+        public void setColumna(int columna)
+        {
+            this.columna = columna;
+        }
     }
 }
