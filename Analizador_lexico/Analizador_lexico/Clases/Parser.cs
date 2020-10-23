@@ -165,7 +165,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
-                    /*Caso para*/
+                    /*Caso para realizar operaciones matematicas*/
                     case "O":
                         {
                             if (token.getTipo().Equals("ID"))
@@ -196,6 +196,8 @@ namespace Analizador_lexico.Clases
                             }
                             else
                             {
+                                pila.Pop();
+                                pila.Push("N");
                                 return false;
                             }
                             break;
@@ -236,6 +238,8 @@ namespace Analizador_lexico.Clases
                             }
                             else
                             {
+                                pila.Pop();
+                                pila.Push("O");
                                 return false;
                             }
                             break;
@@ -553,6 +557,271 @@ namespace Analizador_lexico.Clases
                             else if (token.getLexema().Equals(";"))
                             {
                                 pila.Pop();
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                            break;
+                        }
+                    case "G":
+                        {
+                            if (token.getLexema().Equals("imprimir"))
+                            {
+                                pila.Pop();
+                                pila.Push("C");
+                                pila.Push("(");
+                                pila.Push("imprimir");
+                            }
+                            else if (token.getLexema().Equals("leer"))
+                            {
+                                pila.Pop();
+                                pila.Push(";");
+                                pila.Push(")");
+                                pila.Push("ID");
+                                pila.Push("(");
+                                pila.Push("leer");
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                            break;
+                        }
+                    case "C":
+                        {
+                            if (token.getTipo().Equals("ID")|| token.getTipo().Equals("Entero")|| token.getTipo().Equals("Decimal")|| token.getTipo().Equals("Cadena"))
+                            {
+                                pila.Pop();
+                                pila.Push(";");
+                                pila.Push(")");
+                                pila.Push("M");
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                            break;
+                        }
+                    case "M":
+                        {
+                            if (token.getTipo().Equals("ID") || token.getTipo().Equals("Entero") || token.getTipo().Equals("Decimal") || token.getTipo().Equals("Cadena"))
+                            {
+                                pila.Pop();
+                                pila.Push("M'");
+                                pila.Push(token.getTipo());
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                            break;
+                        }
+                    case "M'":
+                        {
+                            if (token.getLexema().Equals("+"))
+                            {
+                                pila.Pop();
+                                pila.Push("M");
+                                pila.Push("+");
+                            }
+                            else if (token.getLexema().Equals(")"))
+                            {
+                                pila.Pop();
+                            }
+                            else if (token.getLexema().Equals(";"))
+                            {
+                                pila.Pop();
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                            break;
+                        }
+                    case "F":
+                        {
+                            if (token.getLexema().Equals("SI"))
+                            {
+                                pila.Pop();
+                                pila.Push("E'");
+                                pila.Push("E");
+                                pila.Push("S'");
+                                pila.Push(")");
+                                pila.Push("V");
+                                pila.Push("(");
+                                pila.Push("SI");
+                            }
+                            else if (token.getLexema().Equals("MIENTRAS"))
+                            {
+                                pila.Pop();
+                                pila.Push("S'");
+                                pila.Push(")");
+                                pila.Push("V");
+                                pila.Push("(");
+                                pila.Push("MIENTRAS");
+                            }
+                            else if(token.getLexema().Equals("HACER"))
+                            {
+                                pila.Pop();
+                                pila.Push(")");
+                                pila.Push("V");
+                                pila.Push("(");
+                                pila.Push("MIENTRAS");
+                                pila.Push("S'");
+                                pila.Push("HACER");
+                            }
+                            else if (token.getLexema().Equals("DESDE"))
+                            {
+                                pila.Pop();
+                                pila.Push("S'");
+                                pila.Push("Entero");
+                                pila.Push("INCREMENTO");
+                                pila.Push("Entero");
+                                pila.Push("S''");
+                                pila.Push("ID");
+                                pila.Push("HASTA");
+                                pila.Push("Entero");
+                                pila.Push("=");
+                                pila.Push("ID");
+                                pila.Push("DESDE");
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                            break;
+                        }
+                    case "V":
+                        {
+                            if (token.getTipo().Equals("ID") || token.getTipo().Equals("Entero") || token.getTipo().Equals("Decimal") || token.getTipo().Equals("Cadena") || token.getTipo().Equals("Booleano"))
+                            {
+                                pila.Pop();
+                                pila.Push("V'");
+                                pila.Push("X");
+                                pila.Push("V'");
+                            }
+                            else if (token.getLexema().Equals("("))
+                            {
+                                pila.Pop();
+                                pila.Push("Q'''");
+                                pila.Push(")");
+                                pila.Push("V'");
+                                pila.Push("X");
+                                pila.Push("V'");
+                                pila.Push("(");
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                            break;
+                        }
+                    case "V'":
+                        {
+                            if (token.getTipo().Equals("ID") || token.getTipo().Equals("Entero") || token.getTipo().Equals("Decimal") || token.getTipo().Equals("Cadena") || token.getTipo().Equals("Booleano"))
+                            {
+                                pila.Pop();
+                                pila.Push(token.getTipo());
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                            break;
+                        }
+                    case "X":
+                        {
+                            if (token.getLexema().Equals(">")|| token.getLexema().Equals("<")|| token.getLexema().Equals("==")|| token.getLexema().Equals("<=")|| token.getLexema().Equals(">=")|| token.getLexema().Equals("!="))
+                            {
+                                pila.Pop();
+                                pila.Push(token.getLexema());
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                            break;
+                        }
+                    case "Q'''":
+                        {
+                            if (token.getLexema().Equals("&&") || token.getLexema().Equals("||"))
+                            {
+                                pila.Pop();
+                                pila.Push("V");
+                                pila.Push(token.getLexema());
+                            }
+                            else if (token.getLexema().Equals(")"))
+                            {
+                                pila.Pop();
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                            break;
+                        }
+                    case "S'":
+                        {
+                            if (token.getLexema().Equals("{"))
+                            {
+                                pila.Pop();
+                                pila.Push("}");
+                                pila.Push("L");
+                                pila.Push("{");
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                            break;
+                        }
+                    case "S''":
+                        {
+                            if (token.getLexema().Equals("=") || token.getLexema().Equals(">") || token.getLexema().Equals("<") || token.getLexema().Equals("<=") || token.getLexema().Equals(">="))
+                            {
+                                pila.Pop();
+                                pila.Push(token.getLexema());
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                            break;
+                        }
+                    case "E":
+                        {
+                            if (token.getTipo().Equals("Variable") || token.getTipo().Equals("Funcionalidad") || token.getLexema().Equals("MIENTRAS") || token.getLexema().Equals("HACER") || token.getLexema().Equals("SI") || token.getLexema().Equals("SINO") || token.getLexema().Equals("DESDE") || token.getTipo().Equals("ID"))
+                            {
+                                pila.Pop();
+                            }
+                            else if (token.getLexema().Equals("SINO_SI"))
+                            {
+                                pila.Pop();
+                                pila.Push("E");
+                                pila.Push("S'");
+                                pila.Push(")");
+                                pila.Push("V");
+                                pila.Push("(");
+                                pila.Push("SINO_SI");
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                            break;
+                        }
+                    case "E'":
+                        {
+                            if (token.getTipo().Equals("Variable") || token.getTipo().Equals("Funcionalidad") || token.getLexema().Equals("MIENTRAS") || token.getLexema().Equals("HACER") || token.getLexema().Equals("SI") || token.getLexema().Equals("DESDE") || token.getTipo().Equals("ID"))
+                            {
+                                pila.Pop();
+                            }
+                            else if (token.getLexema().Equals("SINO"))
+                            {
+                                pila.Pop();
+                                pila.Push("S'");
+                                pila.Push("SINO");
                             }
                             else
                             {

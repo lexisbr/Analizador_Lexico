@@ -183,6 +183,8 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -1480,7 +1482,7 @@ namespace Analizador_lexico.Clases
                         nuevoToken = new Lexema(token, "Verde", "Variable");
                         asignarToken(nuevoToken);
                     }
-                    else if (token.Equals("SI") || token.Equals("SINO") || token.Equals("SINO_SI") || token.Equals("MIENTRAS") || token.Equals("HACER") || token.Equals("DESDE") || token.Equals("HASTA") || token.Equals("INCREMENTO") || token.Equals("principal") || token.Equals("escribir") || token.Equals("leer"))
+                    else if (token.Equals("SI") || token.Equals("SINO") || token.Equals("SINO_SI") || token.Equals("MIENTRAS") || token.Equals("HACER") || token.Equals("DESDE") || token.Equals("HASTA") || token.Equals("INCREMENTO") || token.Equals("principal"))
                     {
                         nuevoToken = new Lexema(token, "Verde", "Reservada");
                         asignarToken(nuevoToken);
