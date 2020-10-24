@@ -274,6 +274,8 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -351,6 +353,8 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -395,6 +399,8 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, 66);
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -439,6 +445,8 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, 66);
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -483,6 +491,8 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, 66);
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -527,6 +537,8 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, 66);
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -571,6 +583,8 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, 66);
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -615,6 +629,8 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, 66);
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -660,6 +676,8 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, 66);
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -705,6 +723,8 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -749,6 +769,8 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, 66);
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -793,6 +815,8 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, 66);
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -835,6 +859,8 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -1006,6 +1032,8 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, 66);
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -1051,6 +1079,8 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, 66);
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -1260,6 +1290,8 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, 66);
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -1299,10 +1331,18 @@ namespace Analizador_lexico.Clases
                                 case ')':
                                 case ';':
                                 case '"':
+                                case '{':
+                                case '}':
                                     insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
                                     setEstadoActual(0);
+                                    break;
+                                case ',':
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    insertarLexema(caracter.ToString(), getEstadoActual());
+                                    setEstadoActual(30);
                                     break;
                                 default:
                                     tempToken += caracter;

@@ -194,6 +194,10 @@ namespace Analizador_lexico.Clases
                                 pila.Push("O");
                                 pila.Push("(");
                             }
+                            else if (token.getLexema().Equals(";"))
+                            {
+                                pila.Pop();
+                            }
                             else
                             {
                                 pila.Pop();
@@ -236,6 +240,16 @@ namespace Analizador_lexico.Clases
                             {
                                 pila.Pop();
                             }
+                            else if (token.getTipo().Equals("Entero")||token.getTipo().Equals("Decimal"))
+                            {
+                                pila.Pop();
+                                pila.Push("O");
+                            }
+                            else if (token.getLexema().Equals("("))
+                            {
+                                pila.Pop();
+                                pila.Push("O");
+                            }
                             else
                             {
                                 pila.Pop();
@@ -275,6 +289,11 @@ namespace Analizador_lexico.Clases
                                 pila.Pop();
                                 pila.Push("O'");
                                 pila.Push("Cadena");
+                            }
+                            else if (token.getLexema().Equals(";"))
+                            {
+                                pila.Pop();
+                                pila.Push("O'");
                             }
                             else
                             {
@@ -423,8 +442,20 @@ namespace Analizador_lexico.Clases
                             {
                                 pila.Pop();
                             }
+                            else if (token.getLexema().Equals("("))
+                            {
+                                pila.Pop();
+                                pila.Push("Q''");
+                            }
+                            else if (token.getTipo().Equals("Entero"))
+                            {
+                                pila.Pop();
+                                pila.Push("Q''");
+                            }
                             else
                             {
+                                pila.Pop();
+                                pila.Push("Q''");
                                 return false;
                             }
                             break;
@@ -450,6 +481,11 @@ namespace Analizador_lexico.Clases
                                 pila.Push(")");
                                 pila.Push("Q''");
                                 pila.Push("(");
+                            }
+                            else if (token.getLexema().Equals(";"))
+                            {
+                                pila.Pop();
+                                pila.Push("Q'");
                             }
                             else
                             {
@@ -826,6 +862,14 @@ namespace Analizador_lexico.Clases
                             else
                             {
                                 return false;
+                            }
+                            break;
+                        }
+                    case "WC":
+                        {
+                            if (token.getLexema().Equals("+"))
+                            {
+
                             }
                             break;
                         }
