@@ -348,7 +348,7 @@ namespace Analizador_lexico
                     areaTexto.AppendText(lexema.getLexema());
                 }
                 //Si es in ID lo deja en negro
-                else if (lexema.getTipo().Equals("ID"))
+                else if (lexema.getTipo().Equals("ID")|| lexema.getTipo().Equals("Coma"))
                 {
                     areaTexto.SelectionColor = Color.Black;
                     areaTexto.AppendText(lexema.getLexema());
@@ -361,7 +361,7 @@ namespace Analizador_lexico
                 //Si es un error pero no es una de las palabras reservadas de los tipos de datos los pinta de amarillo y los agrega a area de errores
                 else if (lexema.getTipo().Equals("Error"))
                 {
-                    areaTexto.SelectionFont = new Font (areaTexto.SelectionFont, FontStyle.Underline);
+                    //areaTexto.SelectionFont = new Font (areaTexto.SelectionFont, FontStyle.Underline);
                     areaTexto.SelectionColor = Color.Firebrick;
                     areaTexto.AppendText(lexema.getLexema());
                     areaErrores.AppendText(contErrores+") "+lexema.getLexema()+"   >>> Linea:"+lexema.getFila()+" Columna:"+lexema.getColumna()+" <<<");

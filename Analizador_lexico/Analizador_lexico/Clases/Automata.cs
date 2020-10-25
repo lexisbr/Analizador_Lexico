@@ -129,6 +129,10 @@ namespace Analizador_lexico.Clases
                                     tempToken += caracter;
                                     setEstadoActual(30);
                                     break;
+                                case ',':
+                                    tempToken += caracter;
+                                    setEstadoActual(32);
+                                    break;
                                 default:
                                     tempToken += caracter;
                                     setEstadoActual(16);
@@ -1333,16 +1337,11 @@ namespace Analizador_lexico.Clases
                                 case '"':
                                 case '{':
                                 case '}':
+                                case ',':
                                     insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
                                     setEstadoActual(0);
-                                    break;
-                                case ',':
-                                    insertarLexema(tempToken, getEstadoActual());
-                                    tempToken = "";
-                                    insertarLexema(caracter.ToString(), getEstadoActual());
-                                    setEstadoActual(30);
                                     break;
                                 default:
                                     tempToken += caracter;
@@ -1351,7 +1350,19 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
-
+                    case 32:
+                        {
+                            switch (caracter)
+                            {
+                                default:
+                                    insertarLexema(tempToken, getEstadoActual());
+                                    tempToken = "";
+                                    estadoInicial = estadoInicial - 1;
+                                    setEstadoActual(0);
+                                    break;
+                            }
+                            break;
+                        }
                     /*Estado final para booleano*/
                     case 65:
                         {
@@ -1424,6 +1435,7 @@ namespace Analizador_lexico.Clases
                                 case '"':
                                 case '{':
                                 case '}':
+                                case ',':
                                     insertarLexema(tempToken, getEstadoActual());
                                     tempToken = "";
                                     estadoInicial = estadoInicial - 1;
@@ -1547,7 +1559,7 @@ namespace Analizador_lexico.Clases
                 case 16:
                 case 5:
                 case 13:
-                    if (token.Equals("{") || token.Equals("}") || token.Equals(","))
+                    if (token.Equals("{") || token.Equals("}"))
                     {
                         nuevoToken = new Lexema(token, "Verde", "Reservada");
                         asignarToken(nuevoToken);
@@ -1583,9 +1595,13 @@ namespace Analizador_lexico.Clases
                     nuevoToken = new Lexema(token, "Negro", "ID");
                     asignarToken(nuevoToken);
                     break;
+                case 32:
+                    nuevoToken = new Lexema(token, "Negro", "Coma");
+                    asignarToken(nuevoToken);
+                    break;
             }
             reiniciarColumna();
-
+           
         }
 
         /*Metodo que envia token a analizador sintactico y luego lo agrega a la lista*/

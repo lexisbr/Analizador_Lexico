@@ -22,7 +22,7 @@ namespace Analizador_lexico.Clases
         public Boolean analizador(Lexema token)
         {
             string peek;
-            while (true)
+            while (pila.Count!=0)
             {
                 peek = (string)pila.Peek();
                 Console.WriteLine("Token: " + token.getLexema() + " Tipo: " + token.getTipo() + " Peek: " + peek);
@@ -57,6 +57,9 @@ namespace Analizador_lexico.Clases
                             }
                             else
                             {
+                                pila.Pop();
+                                pila.Push("}");
+                                pila.Push("L");
                                 return false;
                             }
                             break;
@@ -94,6 +97,8 @@ namespace Analizador_lexico.Clases
                             }
                             else
                             {
+                                pila.Pop();
+                                pila.Push("L");
                                 return false;
                             }
                             break;
@@ -575,9 +580,16 @@ namespace Analizador_lexico.Clases
                                 pila.Pop();
                                 pila.Push("I'");
                                 pila.Push("ID");
+                            } 
+                            else if (token.getLexema().Equals(";"))
+                            {
+                                pila.Pop();
+                                pila.Push("I'");
                             }
                             else
                             {
+                                pila.Pop();
+                                pila.Push("I'");
                                 return false;
                             }
                             break;
@@ -649,6 +661,8 @@ namespace Analizador_lexico.Clases
                             }
                             else
                             {
+                                pila.Pop();
+                                pila.Push("M'");
                                 return false;
                             }
                             break;
@@ -675,6 +689,7 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
+                    /*Estado para ciclos y condicional*/
                     case "F":
                         {
                             if (token.getLexema().Equals("SI"))
@@ -865,14 +880,6 @@ namespace Analizador_lexico.Clases
                             }
                             break;
                         }
-                    case "WC":
-                        {
-                            if (token.getLexema().Equals("+"))
-                            {
-
-                            }
-                            break;
-                        }
                     default:
                         {
                             if (peek.Equals(token.getLexema()) || peek.Equals(token.getTipo()))
@@ -882,7 +889,8 @@ namespace Analizador_lexico.Clases
                                 return true;
                             }
                             else
-                            {
+                            { 
+                                
                                 return false;
                             }
                         }
@@ -890,129 +898,9 @@ namespace Analizador_lexico.Clases
 
                 }
             }
+            return true;
         }
-
-
-
-
-
-
-
-
-        /*  public void automataPila()
-          {
-              pila.Push("E");
-              for (int i = 0; i < tokens.Count; i++)
-              {
-                  Lexema lexema = (Lexema)tokens[i];
-                  string peek = (string)pila.Peek();
-                  MessageBox.Show(lexema.getLexema() + "<TIPO  PEEK>" + peek);
-
-                  switch (peek)
-                  {
-                      case "$":
-
-                          break;
-                      case "E":
-                          switch (lexema.getTipo())
-                          {
-                              case "Variable":
-                                  {
-                                      pila.Pop();
-                                      pila.Push(";");
-                                      pila.Push("I");
-                                      pila.Push("E'");
-                                      i--;
-                                      break;
-                                  }
-                          }
-                          break;
-                      case "E'":
-                          switch (lexema.getTipo())
-                          {
-                              case "Variable":
-                                  {
-                                      pila.Pop();
-                                      pila.Push("Variable");
-                                      i--;
-                                      break;
-                                  }
-                          }
-                          break;
-                      case "I":
-
-                          if (lexema.getTipo().Equals("ID")|| lexema.getLexema().Equals(",")|| lexema.getLexema().Equals("="))
-                          {
-                              pila.Pop();
-                              pila.Push("I'");
-                              pila.Push("ID");
-                              i--;
-                          }else if (lexema.getTipo().Equals(";"))
-                          {
-                              pila.Pop();
-                              pila.Pop();
-                          }
-                          break;
-                      case "I'":
-                          if (lexema.getLexema().Equals("="))
-                          {
-                              pila.Pop();
-                              pila.Push("L");
-                              pila.Push("=");
-                              i--;
-                          }
-                          else if (lexema.getLexema().Equals(";"))
-                          {
-                              pila.Pop();
-                              pila.Pop();
-                          }
-                          else if (lexema.getLexema().Equals(","))
-                          {
-                              pila.Pop();
-                              pila.Push(",");
-                              pila.Push("I");
-                              i--;
-                          }
-                          break;
-                      case "L":
-                          switch (lexema.getTipo())
-                          {
-                              case "Cadena":
-                                  {
-                                      pila.Pop();
-                                      pila.Push("Cadena");
-                                      i--;
-                                      break;
-                                  }
-
-                          }
-                          break;
-                      default:
-                          if (peek.Equals(lexema.getTipo()))
-                          {
-                              pila.Pop();
-                          }
-                          else if (peek.Equals(lexema.getLexema()))
-                          {
-                              pila.Pop();
-                          }
-                          break;
-                  }
-              }
-
-              if (pila.Count == 0)
-              {
-                  MessageBox.Show("Cadena aceptada");
-              }
-              else
-              {
-                  MessageBox.Show("Cadena rechazada");
-              }
-
-          }*/
-
     }
-
 }
 
 

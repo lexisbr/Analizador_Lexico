@@ -2,10 +2,10 @@ principal {
 cadena _fdf = sd + "dfdf" + dfd + _dfd + "dd" + 55 ; 
 entero _dd = ( 55 + 55 ) + ; 
 entero _dd = ( 655 + 77 ) * ( 555 + 5 ) + "dfD" ; 
-decimal _d = 533.25 + 53.55 ; 
+decimal D_d = 533.25 + 53.55 ; 
 decimal _d = 55 + 55 ; 
 decimal _d = ( 5.5 + 8.9 ) * 8.8 + _ID + "sdfs" ; 
-booleano _a = verdadero ; 
+boDoleano D_a = verdadero ; 
 caracter _a = a ; 
 _DDF = "asdsa" + "dfd" + 55 ; 
 _ddd = 55 + 55 ; 
@@ -14,10 +14,11 @@ _fd = ( 5.5 + 8.8 + 8 ) / 8 ;
 _dd ++ ; 
 _dd -- ; 
 
-cadena _dd,_dd,_Dd ; 
-entero _asa,as_,asd_ ; 
+cadena _dd , _dd , _Dd ; 
+entero _DF , dd , _asa , as_ , asd_ , ; 
 
 } 
+
 
 
 

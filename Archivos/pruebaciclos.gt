@@ -1,0 +1,40 @@
+principal { 
+
+MIENTRAS ( _id > 10 ) { 
+_c = 5 ; 
+_a = 159.01 ; 
+imprimir ( "datos" ) ; 
+entero _vari = 15 ; 
+} 
+
+SI ( _a == 5 ) { 
+_a = 770 ; 
+} 
+SINO_SI ( ( _c > _b ) && ( _dd == verdadero ) ) { 
+_b = 50 ; 
+} 
+SINO_SI ( _as == verdadero ) { 
+//sentencias      
+} 
+SINO { 
+//sentencias      
+} 
+
+HACER { 
+_c = 5 ; 
+_a = 159.01 ; 
+imprimir ( "datos" ) ; 
+entero _var = 15 ; 
+} 
+MIENTRAS ( _datos == 2 ) 
+
+} 
+
+
+
+
+
+
+
+
+
