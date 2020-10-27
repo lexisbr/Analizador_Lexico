@@ -266,11 +266,18 @@ namespace Analizador_lexico
             }
             else
             {
-                MessageBox.Show("Hay errores lexicos.");
+                MessageBox.Show("Error al compilar, revise su codigo.");
             }
 
             Parser parser = new Parser();
-           /* parser.automataPila();*/
+            for (int i = 0; i < TablaDeSimbolos.tabla.Count; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    System.Windows.Forms.MessageBox.Show("Tabla " + TablaDeSimbolos.tabla[i][j].ToString());
+                }
+            }
+            /* parser.automataPila();*/
 
         }
         
@@ -314,7 +321,7 @@ namespace Analizador_lexico
                 //Si es caracter lo pinta de caracter
                 else if (lexema.getTipo().Equals("Caracter"))
                 {
-                    areaTexto.SelectionColor = Color.Brown;
+                    areaTexto.SelectionColor = Color.Peru;
                     areaTexto.AppendText(lexema.getLexema());
                 }
                 //Si es un operador lo pinta de azul

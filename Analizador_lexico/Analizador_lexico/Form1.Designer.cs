@@ -45,11 +45,11 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblProyectoActual = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lblColumna = new System.Windows.Forms.Label();
+            this.lblLinea = new System.Windows.Forms.Label();
             this.areaErrores = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.lblLinea = new System.Windows.Forms.Label();
-            this.lblColumna = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -237,60 +237,10 @@
             this.panel2.Controls.Add(this.lblColumna);
             this.panel2.Controls.Add(this.lblLinea);
             this.panel2.Controls.Add(this.areaTexto);
-            this.panel2.Location = new System.Drawing.Point(12, 94);
+            this.panel2.Location = new System.Drawing.Point(12, 87);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(949, 465);
             this.panel2.TabIndex = 4;
-            // 
-            // areaErrores
-            // 
-            this.areaErrores.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.areaErrores.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.areaErrores.Location = new System.Drawing.Point(130, 610);
-            this.areaErrores.Name = "areaErrores";
-            this.areaErrores.ReadOnly = true;
-            this.areaErrores.Size = new System.Drawing.Size(711, 171);
-            this.areaErrores.TabIndex = 5;
-            this.areaErrores.Text = "";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Open Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(173, 573);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(153, 26);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Errores Lexicos:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.BackgroundImage = global::Analizador_lexico.Properties.Resources.kisspng_computer_icons_error_download_triangle_icon_5b41d8cf40b6e3_1645135015310419992651__1_;
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox2.Location = new System.Drawing.Point(130, 565);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(44, 42);
-            this.pictureBox2.TabIndex = 7;
-            this.pictureBox2.TabStop = false;
-            // 
-            // lblLinea
-            // 
-            this.lblLinea.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.lblLinea.AutoSize = true;
-            this.lblLinea.BackColor = System.Drawing.Color.Transparent;
-            this.lblLinea.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLinea.ForeColor = System.Drawing.Color.Black;
-            this.lblLinea.Location = new System.Drawing.Point(28, 437);
-            this.lblLinea.Name = "lblLinea";
-            this.lblLinea.Size = new System.Drawing.Size(48, 18);
-            this.lblLinea.TabIndex = 3;
-            this.lblLinea.Text = "Linea:";
             // 
             // lblColumna
             // 
@@ -305,6 +255,58 @@
             this.lblColumna.TabIndex = 4;
             this.lblColumna.Text = "Columna:";
             // 
+            // lblLinea
+            // 
+            this.lblLinea.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblLinea.AutoSize = true;
+            this.lblLinea.BackColor = System.Drawing.Color.Transparent;
+            this.lblLinea.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLinea.ForeColor = System.Drawing.Color.Black;
+            this.lblLinea.Location = new System.Drawing.Point(28, 437);
+            this.lblLinea.Name = "lblLinea";
+            this.lblLinea.Size = new System.Drawing.Size(48, 18);
+            this.lblLinea.TabIndex = 3;
+            this.lblLinea.Text = "Linea:";
+            // 
+            // areaErrores
+            // 
+            this.areaErrores.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.areaErrores.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.areaErrores.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.areaErrores.ForeColor = System.Drawing.Color.DarkRed;
+            this.areaErrores.Location = new System.Drawing.Point(130, 614);
+            this.areaErrores.Name = "areaErrores";
+            this.areaErrores.ReadOnly = true;
+            this.areaErrores.Size = new System.Drawing.Size(711, 134);
+            this.areaErrores.TabIndex = 5;
+            this.areaErrores.Text = "";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Open Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(174, 582);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(83, 26);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Errores:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.BackgroundImage = global::Analizador_lexico.Properties.Resources.kisspng_computer_icons_error_download_triangle_icon_5b41d8cf40b6e3_1645135015310419992651__1_;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox2.Location = new System.Drawing.Point(130, 575);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(38, 33);
+            this.pictureBox2.TabIndex = 7;
+            this.pictureBox2.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -312,7 +314,7 @@
             this.BackColor = System.Drawing.Color.Goldenrod;
             this.BackgroundImage = global::Analizador_lexico.Properties.Resources.fondo1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(973, 799);
+            this.ClientSize = new System.Drawing.Size(973, 785);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.areaErrores);

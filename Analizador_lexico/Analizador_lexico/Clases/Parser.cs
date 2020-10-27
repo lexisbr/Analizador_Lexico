@@ -11,6 +11,8 @@ namespace Analizador_lexico.Clases
     class Parser
     {
         private Stack pila;
+        private string[] lineaTabla = new string[3];
+        TablaDeSimbolos tabla = new TablaDeSimbolos();
 
         public Parser()
         {
@@ -295,11 +297,6 @@ namespace Analizador_lexico.Clases
                                 pila.Push("O'");
                                 pila.Push("Cadena");
                             }
-                            else if (token.getLexema().Equals(";"))
-                            {
-                                pila.Pop();
-                                pila.Push("O'");
-                            }
                             else
                             {
                                 pila.Pop();
@@ -351,6 +348,7 @@ namespace Analizador_lexico.Clases
                                 pila.Push("S");
                                 pila.Push("ID");
                                 pila.Push("cadena");
+                                lineaTabla[0] = token.getLexema();
                             }
                             else if (token.getLexema().Equals("caracter"))
                             {
@@ -486,11 +484,6 @@ namespace Analizador_lexico.Clases
                                 pila.Push(")");
                                 pila.Push("Q''");
                                 pila.Push("(");
-                            }
-                            else if (token.getLexema().Equals(";"))
-                            {
-                                pila.Pop();
-                                pila.Push("Q'");
                             }
                             else
                             {
@@ -884,6 +877,22 @@ namespace Analizador_lexico.Clases
                         {
                             if (peek.Equals(token.getLexema()) || peek.Equals(token.getTipo()))
                             {
+                                if (lineaTabla[0] != null && token.getTipo().Equals("ID"))
+                                {
+                                    lineaTabla[1] = token.getLexema();
+                                }
+                                if (lineaTabla[1] != null && token.getTipo().Equals("Cadena"))
+                                {
+                                    lineaTabla[2] = lineaTabla[2]+token.getLexema();
+                                }
+                                if (lineaTabla[2] != null && token.getLexema().Equals(";"))
+                                {
+                                    tabla.agregarItem(lineaTabla[0], lineaTabla[1], lineaTabla[2]);
+                                    lineaTabla[0] = "";
+                                    lineaTabla[1] = "";
+                                    lineaTabla[2] = "";
+                                   
+                                }
                                 Console.WriteLine("Sale>>> " + peek + "\n");
                                 pila.Pop();
                                 return true;
@@ -897,6 +906,7 @@ namespace Analizador_lexico.Clases
 
 
                 }
+
             }
             return true;
         }
