@@ -28,5 +28,14 @@ namespace Analizador_lexico
         {
             return tipo;
         }
+
+        public string getIdentificador()
+        {
+            return identificador;
+        }
+        public string getValor()
+        {
+            return valor;
+        }
     }
 }

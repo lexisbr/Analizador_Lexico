@@ -19,6 +19,8 @@ namespace Analizador_lexico
         Archivo archivo = new Archivo();
         /*Lista para los tokens generados para automatas*/
         private ArrayList tokens = new ArrayList();
+
+        public static ArrayList simbolos = new ArrayList();
         
         public Form1()
         {
@@ -269,15 +271,12 @@ namespace Analizador_lexico
                 MessageBox.Show("Error al compilar, revise su codigo.");
             }
 
-            Parser parser = new Parser();
-           /* for (int i = 0; i < TablaDeSimbolos.tabla.Count; i++)
+            for (int i = 0; i < simbolos.Count; i++)
             {
-                for (int j = 0; j < 3; j++)
-                {
-                    System.Windows.Forms.MessageBox.Show("Tabla " + TablaDeSimbolos.tabla[i][j].ToString());
-                }
-            }*/
-            /* parser.automataPila();*/
+                Simbolo linea = (Simbolo)simbolos[i];
+
+                MessageBox.Show("Tipo: "+linea.getTipo()+" ID: "+linea.getIdentificador()+" Valor: "+linea.getValor());
+            }
 
         }
         
@@ -497,6 +496,11 @@ namespace Analizador_lexico
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
             areaTexto.SelectionColor = Color.Black;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

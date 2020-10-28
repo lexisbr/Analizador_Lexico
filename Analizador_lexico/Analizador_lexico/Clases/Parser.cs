@@ -12,7 +12,7 @@ namespace Analizador_lexico.Clases
     {
         private Stack pila;
         private string[] lineaTabla = new string[3];
-        TablaDeSimbolos tabla = new TablaDeSimbolos();
+        Simbolo simbolo;
         Boolean control = false;
 
         public Parser()
@@ -25,7 +25,7 @@ namespace Analizador_lexico.Clases
         public Boolean analizador(Lexema token)
         {
             string peek;
-            while (pila.Count!=0)
+            while (pila.Count != 0)
             {
                 peek = (string)pila.Peek();
                 Console.WriteLine("Token: " + token.getLexema() + " Tipo: " + token.getTipo() + " Peek: " + peek);
@@ -43,6 +43,7 @@ namespace Analizador_lexico.Clases
                             }
                             else
                             {
+                                pila.Pop();
                                 pila.Push("B");
                                 pila.Push("{");
                                 return false;
@@ -94,7 +95,7 @@ namespace Analizador_lexico.Clases
                                 pila.Push("L");
                                 pila.Push("Z");
                             }
-                            else if (token.getLexema().Equals("}")&&!control)
+                            else if (token.getLexema().Equals("}") && !control)
                             {
                                 pila.Pop();
                             }
@@ -102,7 +103,6 @@ namespace Analizador_lexico.Clases
                             {
                                 pila.Pop();
                                 pila.Push("L");
-                                control = false;
                                 return false;
                             }
                             break;
@@ -249,7 +249,7 @@ namespace Analizador_lexico.Clases
                             {
                                 pila.Pop();
                             }
-                            else if (token.getTipo().Equals("Entero")||token.getTipo().Equals("Decimal"))
+                            else if (token.getTipo().Equals("Entero") || token.getTipo().Equals("Decimal"))
                             {
                                 pila.Pop();
                                 pila.Push("O");
@@ -350,7 +350,6 @@ namespace Analizador_lexico.Clases
                                 pila.Push("S");
                                 pila.Push("ID");
                                 pila.Push("cadena");
-                                lineaTabla[0] = token.getLexema();
                             }
                             else if (token.getLexema().Equals("caracter"))
                             {
@@ -575,7 +574,7 @@ namespace Analizador_lexico.Clases
                                 pila.Pop();
                                 pila.Push("I'");
                                 pila.Push("ID");
-                            } 
+                            }
                             else if (token.getLexema().Equals(";"))
                             {
                                 pila.Pop();
@@ -633,7 +632,7 @@ namespace Analizador_lexico.Clases
                         }
                     case "C":
                         {
-                            if (token.getTipo().Equals("ID")|| token.getTipo().Equals("Entero")|| token.getTipo().Equals("Decimal")|| token.getTipo().Equals("Cadena"))
+                            if (token.getTipo().Equals("ID") || token.getTipo().Equals("Entero") || token.getTipo().Equals("Decimal") || token.getTipo().Equals("Cadena"))
                             {
                                 pila.Pop();
                                 pila.Push(";");
@@ -707,7 +706,7 @@ namespace Analizador_lexico.Clases
                                 pila.Push("(");
                                 pila.Push("MIENTRAS");
                             }
-                            else if(token.getLexema().Equals("HACER"))
+                            else if (token.getLexema().Equals("HACER"))
                             {
                                 pila.Pop();
                                 pila.Push(")");
@@ -778,7 +777,7 @@ namespace Analizador_lexico.Clases
                         }
                     case "X":
                         {
-                            if (token.getLexema().Equals(">")|| token.getLexema().Equals("<")|| token.getLexema().Equals("==")|| token.getLexema().Equals("<=")|| token.getLexema().Equals(">=")|| token.getLexema().Equals("!="))
+                            if (token.getLexema().Equals(">") || token.getLexema().Equals("<") || token.getLexema().Equals("==") || token.getLexema().Equals("<=") || token.getLexema().Equals(">=") || token.getLexema().Equals("!="))
                             {
                                 pila.Pop();
                                 pila.Push(token.getLexema());
@@ -879,32 +878,18 @@ namespace Analizador_lexico.Clases
                         {
                             if (peek.Equals(token.getLexema()) || peek.Equals(token.getTipo()))
                             {
-                                if (lineaTabla[0] != null && token.getTipo().Equals("ID"))
-                                {
-                                    lineaTabla[1] = token.getLexema();
-                                }
-                                if (lineaTabla[1] != null && token.getTipo().Equals("Cadena"))
-                                {
-                                    lineaTabla[2] = lineaTabla[2]+token.getLexema();
-                                }
-                                if (lineaTabla[2] != null && token.getLexema().Equals(";"))
-                                {
-                                    tabla.agregarItem(lineaTabla[0], lineaTabla[1], lineaTabla[2]);
-                                    lineaTabla[0] = "";
-                                    lineaTabla[1] = "";
-                                    lineaTabla[2] = "";
-                                   
-                                }
+                               // generarSimbolo(token);
                                 Console.WriteLine("Sale>>> " + peek + "\n");
                                 pila.Pop();
                                 return true;
                             }
                             else
                             {
-                                if (token.getLexema().Equals("{")){
+                                if (token.getLexema().Equals("{"))
+                                {
                                     control = true;
                                 }
-                                
+                                pila.Pop();
                                 return false;
                             }
                         }
@@ -914,6 +899,106 @@ namespace Analizador_lexico.Clases
 
             }
             return true;
+        }
+
+        public void generarSimbolo(Lexema token)
+        {
+            MessageBox.Show("0:  " + lineaTabla[2]+" token: "+token.getLexema());
+            if (token.getTipo().Equals("Variable"))
+            {
+                MessageBox.Show("1: entra " + token.getLexema());
+                lineaTabla[0] = token.getLexema();
+            }
+            else if (lineaTabla[0] != null && token.getTipo().Equals("ID"))
+            {
+                MessageBox.Show("2: entra " + token.getLexema());
+                lineaTabla[1] = token.getLexema();
+            }
+            else if (lineaTabla[1] != null && !token.getLexema().Equals(";"))
+            {
+                MessageBox.Show("-> 3: entra " + lineaTabla[2]);
+                switch (lineaTabla[0])
+                {
+                    case "entero":
+                        if (token.getTipo().Equals("Entero"))
+                        {
+                            lineaTabla[2] = lineaTabla[2] + token.getLexema();
+                            MessageBox.Show("3: entra " + lineaTabla[2]);
+                        }
+                        else
+                        {
+                            lineaTabla[2] = "error";
+                        }
+                        break;
+                    case "decimal":
+                        if (token.getTipo().Equals("Decimal"))
+                        {
+                            lineaTabla[2] = lineaTabla[2] + token.getLexema();
+                            MessageBox.Show("3: entra " + lineaTabla[2]);
+                        }
+                        else
+                        {
+                            lineaTabla[2] = "error";
+                        }
+                        break;
+                    case "cadena":
+                        if (token.getTipo().Equals("Cadena"))
+                        {
+                            lineaTabla[2] = lineaTabla[2] + token.getLexema();
+                            MessageBox.Show("3: entra " + lineaTabla[2]);
+                        }
+                        else
+                        {
+                            lineaTabla[2] = "error";
+                        }
+                        break;
+                    case "caracter":
+                        if (token.getTipo().Equals("Caracter"))
+                        {
+                            lineaTabla[2] = lineaTabla[2] + token.getLexema();
+                            MessageBox.Show("3: entra " + lineaTabla[2]);
+                        }
+                        else
+                        {
+                            lineaTabla[2] = "error";
+                        }
+                        break;
+                    case "booleano":
+                        if (token.getTipo().Equals("Booleano"))
+                        {
+                            lineaTabla[2] = lineaTabla[2] + token.getLexema();
+                            MessageBox.Show("3: entra " + lineaTabla[2]);
+                        }
+                        else
+                        {
+                            lineaTabla[2] = "error";
+                        }
+                        break;
+                    default:
+                        MessageBox.Show("3: entra " + lineaTabla[2]);
+                        break;
+                }
+
+            }
+            else if (lineaTabla[2] != null && token.getLexema().Equals(";"))
+            {
+                MessageBox.Show("4: entra " + token.getLexema());
+                simbolo = new Simbolo(lineaTabla[0], lineaTabla[1], lineaTabla[2]);
+                Form1.simbolos.Add(simbolo);
+                lineaTabla[0] = "";
+                lineaTabla[1] = "";
+                lineaTabla[2] = "";
+
+            }
+            else if (lineaTabla[0]!=null && lineaTabla[1] != null && lineaTabla[2].Equals("error") && token.getLexema().Equals(";"))
+            {
+                simbolo = new Simbolo(lineaTabla[0], lineaTabla[1], "null");
+                Form1.simbolos.Add(simbolo);
+                lineaTabla[0] = "";
+                lineaTabla[1] = "";
+                lineaTabla[2] = "";
+            }
+
         }
     }
 }

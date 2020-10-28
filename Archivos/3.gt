@@ -1,9 +1,13 @@
 principal { 
 
-entero _dd = + 55 + 55 + ; 
-decimal _d = + 533.25 + 53.55 ; 
-
+entero _dd = 55 ; 
+cadena _dfd = "dfd" ; 
+caracter _d = a ; 
+booleano _d = verdadero ; 
+decimal _Dfd = 55.22 ; 
 } 
+
+
 
 
 
