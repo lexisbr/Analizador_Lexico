@@ -13,6 +13,7 @@ namespace Analizador_lexico.Clases
         private Stack pila;
         private string[] lineaTabla = new string[3];
         TablaDeSimbolos tabla = new TablaDeSimbolos();
+        Boolean control = false;
 
         public Parser()
         {
@@ -93,7 +94,7 @@ namespace Analizador_lexico.Clases
                                 pila.Push("L");
                                 pila.Push("Z");
                             }
-                            else if (token.getLexema().Equals("}"))
+                            else if (token.getLexema().Equals("}")&&!control)
                             {
                                 pila.Pop();
                             }
@@ -101,6 +102,7 @@ namespace Analizador_lexico.Clases
                             {
                                 pila.Pop();
                                 pila.Push("L");
+                                control = false;
                                 return false;
                             }
                             break;
@@ -898,7 +900,10 @@ namespace Analizador_lexico.Clases
                                 return true;
                             }
                             else
-                            { 
+                            {
+                                if (token.getLexema().Equals("{")){
+                                    control = true;
+                                }
                                 
                                 return false;
                             }

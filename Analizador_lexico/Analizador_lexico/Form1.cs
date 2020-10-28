@@ -270,13 +270,13 @@ namespace Analizador_lexico
             }
 
             Parser parser = new Parser();
-            for (int i = 0; i < TablaDeSimbolos.tabla.Count; i++)
+           /* for (int i = 0; i < TablaDeSimbolos.tabla.Count; i++)
             {
                 for (int j = 0; j < 3; j++)
                 {
                     System.Windows.Forms.MessageBox.Show("Tabla " + TablaDeSimbolos.tabla[i][j].ToString());
                 }
-            }
+            }*/
             /* parser.automataPila();*/
 
         }

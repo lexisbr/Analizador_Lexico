@@ -20,28 +20,28 @@ entero _asa , as_ , asd_ ;
 leer ( _fdf ) ; 
 imprimir ( _FDdf + 55 ) ; 
 
-MIENTfRAS ( _id > 10 ) { 
+MIENTRAS ( _id > 10 ) { 
 _c = 5 ; 
 _a = 159.01 ; 
 imfprimir ( "datos" ) ; 
 entero _vari = 15 ; 
 } 
 
-SI ( _fa == 5 ) { 
-_a = kl770 ; 
-cadena ; 
+dSI ( _fa == 5 ) { 
+_a = 770 ; 
+cadena _D ; 
 } 
-SINO3_SI ( ( _c > _b ) && ( _dd == verdadero ) ) { 
+SINO_SI ( ( _c > _b ) && ( _dd == verdadero ) ) { 
 _b = 50 + "Dd" ; 
 } 
 SINO_SI ( _as == verdadero ) { 
-//sentencias                     
+//sentencias                            
 } 
 SINO { 
-//sentencias                     
+//sentencias                            
 } 
 
-HACgER { 
+HACER { 
 _c = 5 ; 
 _a = 159.01 ; 
 impri4mir ( "datos" ) ; 
