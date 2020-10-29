@@ -13,7 +13,7 @@ namespace Analizador_lexico.Clases
         private Stack pila;
         private string[] lineaTabla = new string[3];
         Simbolo simbolo;
-        Boolean control = false;
+        int control = 0;
 
         public Parser()
         {
@@ -95,15 +95,31 @@ namespace Analizador_lexico.Clases
                                 pila.Push("L");
                                 pila.Push("Z");
                             }
-                            else if (token.getLexema().Equals("}") && !control)
+                            else if (token.getLexema().Equals("}") && control==0)
                             {
                                 pila.Pop();
                             }
-                            else
+                            else if (token.getLexema().Equals("}") && control != 0)
                             {
                                 pila.Pop();
                                 pila.Push("L");
-                                return false;
+                                pila.Push("}");
+                                control--;
+                            }
+                            else
+                            {
+                                if (token.getLexema().Equals("{"))
+                                {
+                                    pila.Push("}");
+                                    pila.Push("L");
+                                    pila.Push("{");
+                                }
+                                else
+                                {
+                                    pila.Pop();
+                                    pila.Push("L");
+                                    return false;
+                                }
                             }
                             break;
                         }
@@ -887,7 +903,7 @@ namespace Analizador_lexico.Clases
                             {
                                 if (token.getLexema().Equals("{"))
                                 {
-                                    control = true;
+                                    control++;
                                 }
                                 pila.Pop();
                                 return false;

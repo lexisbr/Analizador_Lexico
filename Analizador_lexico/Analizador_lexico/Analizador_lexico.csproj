@@ -46,8 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\ArbolSintactico.cs" />
     <Compile Include="Clases\Archivo.cs" />
     <Compile Include="Clases\Automata.cs" />
+    <Compile Include="Clases\Graphviz.cs" />
     <Compile Include="Clases\Lexema.cs" />
     <Compile Include="Clases\Parser.cs" />
     <Compile Include="Consola.cs">
