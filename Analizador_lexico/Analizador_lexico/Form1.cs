@@ -26,7 +26,7 @@ namespace Analizador_lexico
         {
             InitializeComponent();
             lblProyectoActual.Text = "Proyecto actual: "+"SinTitulo";
-           // ArbolSintactico.generarArbol();
+            ArbolSintactico.generarArbol();
         
         }
 

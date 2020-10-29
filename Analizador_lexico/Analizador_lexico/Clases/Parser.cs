@@ -901,6 +901,8 @@ namespace Analizador_lexico.Clases
                             }
                             else
                             {
+                                
+                               
                                 if (token.getLexema().Equals("{"))
                                 {
                                     control++;
