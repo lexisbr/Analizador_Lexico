@@ -15,28 +15,39 @@ namespace Analizador_lexico.Clases
     {
         const string GENERAR_ARBOL = "dot.exe -Tjpg -O ";
         ArrayList nodos = new ArrayList();
-
+        ArrayList nodos_ordenados = new ArrayList();
         public ArbolSintactico(ArrayList nodos)
         {
             this.nodos = (ArrayList)nodos.Clone();
         }
 
 
-        public void generarDot()
+
+        public void ordenarArbol()
         {
-            int nivel = 0;
-            string codigoDot="";
+            Nodo nodoNuevo;
             for (int i = 0; i < nodos.Count; i++)
             {
-                Nodo nodo = (Nodo)nodos[i];
-                for (int j = 0; j < nodo.getHijos().Count; j++)
+                Nodo nodoPadre = (Nodo)nodos[i];
+                System.Windows.Forms.MessageBox.Show("Padre: " + nodoPadre.getNombre());
+                for (int j = 0; j < nodoPadre.getHijos().Count; j++)
                 {
-                    Nodo hijo = (Nodo)nodo.getHijos()[j];
-
-
-                    codigoDot += "\"" + nodo.getNombre() + "_" + nivel + "\" -> \"" + nodo.getHijos()[j] + "_" + (nivel + 1) + "\";\n";
+                    System.Windows.Forms.MessageBox.Show("Nodo hijo: " + nodoPadre.getHijos()[j]);
+                    nodoNuevo = new Nodo(nodoPadre.getHijos()[j].ToString() + (i + 1), nodoPadre.getNombre() + i);
+                    nodos_ordenados.Add(nodoNuevo);
                 }
-                nivel++;
+            }
+        }
+
+
+        public void generarDot()
+        {
+            ordenarArbol();
+            string codigoDot = "";
+            for (int i = 0; i < nodos_ordenados.Count; i++)
+            {
+                Nodo nodo = (Nodo)nodos_ordenados[i];
+                codigoDot += "\"" + nodo.getPadre() + "\" -> \"" + nodo.getNombre() + "\";\n";
             }
             Console.WriteLine(codigoDot);
             generarArbol(codigoDot);
@@ -62,10 +73,10 @@ namespace Analizador_lexico.Clases
             var imagen = new Bitmap(bm);
             bm.Dispose();
             Image image = (Image)imagen;
-            imagen.Save(@"..\Arboles\prueba1.jpeg",ImageFormat.Jpeg);
+            imagen.Save(@"..\Arboles\prueba1.jpeg", ImageFormat.Jpeg);
 
         }
 
-        
+
     }
 }

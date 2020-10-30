@@ -44,7 +44,7 @@ namespace Analizador_lexico.Clases
                                 pila.Push("B");
                                 pila.Push("{");
                                 pila.Push("principal");
-                                nodo.agregarHijos(new Nodo("principal"));
+                                nodo.agregarHijos("principal");
                                 nodo.agregarHijos("{");
                                 nodo.agregarHijos("B");
                                 nodos.Add(nodo);
@@ -564,8 +564,8 @@ namespace Analizador_lexico.Clases
                                 pila.Pop();
                                 pila.Push("Q''");
                                 pila.Push("+");
-                                nodo.agregarHijos("Q''");
                                 nodo.agregarHijos("+");
+                                nodo.agregarHijos("Q''");
                                 nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("-"))
@@ -573,8 +573,8 @@ namespace Analizador_lexico.Clases
                                 pila.Pop();
                                 pila.Push("Q''");
                                 pila.Push("-");
-                                nodo.agregarHijos("Q''");
                                 nodo.agregarHijos("-");
+                                nodo.agregarHijos("Q''");
                                 nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("*"))
@@ -582,8 +582,8 @@ namespace Analizador_lexico.Clases
                                 pila.Pop();
                                 pila.Push("Q''");
                                 pila.Push("*");
-                                nodo.agregarHijos("Q''");
                                 nodo.agregarHijos("*");
+                                nodo.agregarHijos("Q''");
                                 nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("/"))
@@ -591,8 +591,8 @@ namespace Analizador_lexico.Clases
                                 pila.Pop();
                                 pila.Push("Q''");
                                 pila.Push("/");
-                                nodo.agregarHijos("Q''");
                                 nodo.agregarHijos("/");
+                                nodo.agregarHijos("Q''");
                                 nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals(")"))

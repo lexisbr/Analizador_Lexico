@@ -9,6 +9,7 @@ namespace Analizador_lexico.Clases
 {
     class Nodo
     {
+        private string nodo_padre;
         private string nombre;
         private ArrayList hijos = new ArrayList();
 
@@ -17,7 +18,14 @@ namespace Analizador_lexico.Clases
             this.nombre = nombre;
         }
 
-        public void agregarHijos(Nodo hijo)
+
+        public Nodo(string nombre, string nodo_padre)
+        {
+            this.nombre = nombre;
+            this.nodo_padre = nodo_padre;
+        }
+
+        public void agregarHijos(string hijo)
         {
             hijos.Add(hijo);
         }
@@ -30,6 +38,11 @@ namespace Analizador_lexico.Clases
         public ArrayList getHijos()
         {
             return hijos;
+        }
+
+        public string getPadre()
+        {
+            return nodo_padre;
         }
     }
 }
