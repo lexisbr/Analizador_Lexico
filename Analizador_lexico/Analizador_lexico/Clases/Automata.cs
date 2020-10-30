@@ -1627,6 +1627,11 @@ namespace Analizador_lexico.Clases
             }
         }
 
+        public ArrayList getParserNodos()
+        {
+            return parser.getNodos();
+        }
+
 
         /*Devuelve arraylist*/
         public ArrayList getListaLexema()

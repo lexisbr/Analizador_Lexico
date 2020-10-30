@@ -1,0 +1,51 @@
+principal { 
+cadena _fdf = "dfdf" + _dfd + "dd" ; 
+entero _dd = ( 55 + 55 ) ; 
+entero _dd = ( 655 + 77 ) * ( 555 + 5 ) ; 
+decimal _d = 533.25 + 53.55 ; 
+decimal _d = 55 + 55 ; 
+decimal _d = ( 5.5 + 8.9 ) * 8.8 + _ID ; 
+booleano _a = verdadero ; 
+caracter _a = a ; 
+_DDF = "asdsa" + "dfd" ; 
+_ddd = 55 + 55 ; 
+_fd = ( 5.5 + 8.8 + 8 ) / 8 ; 
+
+_dd ++ ; 
+_dd -- ; 
+
+cadena _dd , _dd , _Dd ; 
+entero _asa ; 
+
+leer ( _fdf ) ; 
+imprimir ( _FDdf + 55 ) ; 
+
+MIENTRAS ( _id > 10 ) { 
+_c = 5 ; 
+_a = 159.01 ; 
+imprimir ( "datos" ) ; 
+entero _vari = 15 ; 
+} 
+
+SI ( _fa == 5 ) { 
+_a = 770 ; 
+} 
+SINO_SI ( ( _c > _b ) && ( _dd == verdadero ) ) { 
+_b = 50 ; 
+} 
+SINO_SI ( _as == verdadero ) { 
+//sentencias
+} 
+SINO { 
+//sentencias
+} 
+
+HACER { 
+_c = 5 ; 
+_a = 159.01 ; 
+imprimir ( "datos" ) ; 
+entero _var = 15 ; 
+} 
+MIENTRAS ( _datos == 2 ) 
+
+}

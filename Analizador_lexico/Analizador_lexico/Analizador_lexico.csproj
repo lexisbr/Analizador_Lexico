@@ -51,6 +51,7 @@
     <Compile Include="Clases\Automata.cs" />
     <Compile Include="Clases\Graphviz.cs" />
     <Compile Include="Clases\Lexema.cs" />
+    <Compile Include="Clases\Nodo.cs" />
     <Compile Include="Clases\Parser.cs" />
     <Compile Include="Consola.cs">
       <SubType>Form</SubType>

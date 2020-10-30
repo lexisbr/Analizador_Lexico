@@ -14,11 +14,14 @@ namespace Analizador_lexico.Clases
         private string[] lineaTabla = new string[3];
         Simbolo simbolo;
         int control = 0;
+        Nodo nodo;
+        ArrayList nodos = new ArrayList();
 
         public Parser()
         {
             this.pila = new Stack();
             this.pila.Push("A");
+           
         }
 
 
@@ -34,12 +37,17 @@ namespace Analizador_lexico.Clases
                     /*Caso para principal*/
                     case "A":
                         {
+                            nodo = new Nodo("A");
                             if (token.getLexema().Equals("principal"))
                             {
                                 pila.Pop();
                                 pila.Push("B");
                                 pila.Push("{");
                                 pila.Push("principal");
+                                nodo.agregarHijos(new Nodo("principal"));
+                                nodo.agregarHijos("{");
+                                nodo.agregarHijos("B");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -53,11 +61,15 @@ namespace Analizador_lexico.Clases
                     /*Caso para bloque de codigo*/
                     case "B":
                         {
+                            nodo = new Nodo("B");
                             if (token.getTipo().Equals("Variable") || token.getLexema().Equals("SI") || token.getLexema().Equals("MIENTRAS") || token.getLexema().Equals("HACER") || token.getLexema().Equals("DESDE") || token.getTipo().Equals("ID") || token.getLexema().Equals("leer") || token.getLexema().Equals("imprimir"))
                             {
                                 pila.Pop();
                                 pila.Push("}");
                                 pila.Push("L");
+                                nodo.agregarHijos("L");
+                                nodo.agregarHijos("}");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -71,29 +83,42 @@ namespace Analizador_lexico.Clases
                     /*Caso para lineas de codigo*/
                     case "L":
                         {
+                            nodo = new Nodo("L");
                             if (token.getTipo().Equals("Variable"))
                             {
                                 pila.Pop();
                                 pila.Push("L");
                                 pila.Push("D");
+                                nodo.agregarHijos("D");
+                                nodo.agregarHijos("L");
+                                nodos.Add(nodo);
                             }
                             else if (token.getTipo().Equals("Funcionalidad"))
                             {
                                 pila.Pop();
                                 pila.Push("L");
                                 pila.Push("G");
+                                nodo.agregarHijos("G");
+                                nodo.agregarHijos("L");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("SI") || token.getLexema().Equals("MIENTRAS") || token.getLexema().Equals("HACER") || token.getLexema().Equals("DESDE"))
                             {
                                 pila.Pop();
                                 pila.Push("L");
                                 pila.Push("F");
+                                nodo.agregarHijos("F");
+                                nodo.agregarHijos("L");
+                                nodos.Add(nodo);
                             }
                             else if (token.getTipo().Equals("ID"))
                             {
                                 pila.Pop();
                                 pila.Push("L");
                                 pila.Push("Z");
+                                nodo.agregarHijos("Z");
+                                nodo.agregarHijos("L");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("}") && control==0)
                             {
@@ -126,12 +151,17 @@ namespace Analizador_lexico.Clases
                     /*Caso para la asignacion de valores a ID*/
                     case "Z":
                         {
+                            nodo = new Nodo("Z");
                             if (token.getTipo().Equals("ID"))
                             {
                                 pila.Pop();
                                 pila.Push(";");
                                 pila.Push("J");
                                 pila.Push("ID");
+                                nodo.agregarHijos("ID");
+                                nodo.agregarHijos("J");
+                                nodo.agregarHijos(";");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -142,21 +172,29 @@ namespace Analizador_lexico.Clases
                     /*Caso para operadores en ID*/
                     case "J":
                         {
+                            nodo = new Nodo("J");
                             if (token.getLexema().Equals("="))
                             {
                                 pila.Pop();
                                 pila.Push("Z'");
                                 pila.Push("=");
+                                nodo.agregarHijos("=");
+                                nodo.agregarHijos("Z'");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("++"))
                             {
                                 pila.Pop();
                                 pila.Push("++");
+                                nodo.agregarHijos("++");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("--"))
                             {
                                 pila.Pop();
                                 pila.Push("--");
+                                nodo.agregarHijos("--");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -168,21 +206,29 @@ namespace Analizador_lexico.Clases
                     /*Caso para asignar valor a ID*/
                     case "Z'":
                         {
+                            nodo = new Nodo("Z'");
                             if (token.getTipo().Equals("ID") || token.getTipo().Equals("Entero") || token.getTipo().Equals("Decimal") || token.getLexema().Equals("("))
                             {
                                 pila.Pop();
                                 pila.Push("O");
+                                nodo.agregarHijos("O");
+                                nodos.Add(nodo);
                             }
                             else if (token.getTipo().Equals("Booleano") || token.getTipo().Equals("Caracter"))
                             {
                                 pila.Pop();
                                 pila.Push(token.getTipo());
+                                nodo.agregarHijos(token.getTipo());
+                                nodos.Add(nodo);
                             }
                             else if (token.getTipo().Equals("Cadena"))
                             {
                                 pila.Pop();
                                 pila.Push("O'");
                                 pila.Push("Cadena");
+                                nodo.agregarHijos("Cadena");
+                                nodo.agregarHijos("O'");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -193,23 +239,33 @@ namespace Analizador_lexico.Clases
                     /*Caso para realizar operaciones matematicas*/
                     case "O":
                         {
+                            nodo = new Nodo("O");
                             if (token.getTipo().Equals("ID"))
                             {
                                 pila.Pop();
                                 pila.Push("N");
                                 pila.Push("ID");
+                                nodo.agregarHijos("ID");
+                                nodo.agregarHijos("N");
+                                nodos.Add(nodo);
                             }
                             else if (token.getTipo().Equals("Entero"))
                             {
                                 pila.Pop();
                                 pila.Push("N");
                                 pila.Push("Entero");
+                                nodo.agregarHijos("Entero");
+                                nodo.agregarHijos("N");
+                                nodos.Add(nodo);
                             }
                             else if (token.getTipo().Equals("Decimal"))
                             {
                                 pila.Pop();
                                 pila.Push("N");
                                 pila.Push("Decimal");
+                                nodo.agregarHijos("Decimal");
+                                nodo.agregarHijos("N");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("("))
                             {
@@ -218,6 +274,11 @@ namespace Analizador_lexico.Clases
                                 pila.Push(")");
                                 pila.Push("O");
                                 pila.Push("(");
+                                nodo.agregarHijos("(");
+                                nodo.agregarHijos("O");
+                                nodo.agregarHijos(")");
+                                nodo.agregarHijos("N");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals(";"))
                             {
@@ -233,29 +294,42 @@ namespace Analizador_lexico.Clases
                         }
                     case "N":
                         {
+                            nodo = new Nodo("N");
                             if (token.getLexema().Equals("+"))
                             {
                                 pila.Pop();
                                 pila.Push("O");
                                 pila.Push("+");
+                                nodo.agregarHijos("+");
+                                nodo.agregarHijos("O");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("-"))
                             {
                                 pila.Pop();
                                 pila.Push("O");
                                 pila.Push("-");
+                                nodo.agregarHijos("-");
+                                nodo.agregarHijos("O");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("*"))
                             {
                                 pila.Pop();
                                 pila.Push("O");
                                 pila.Push("*");
+                                nodo.agregarHijos("*");
+                                nodo.agregarHijos("O");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("/"))
                             {
                                 pila.Pop();
                                 pila.Push("O");
                                 pila.Push("/");
+                                nodo.agregarHijos("/");
+                                nodo.agregarHijos("O");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals(")"))
                             {
@@ -269,11 +343,15 @@ namespace Analizador_lexico.Clases
                             {
                                 pila.Pop();
                                 pila.Push("O");
+                                nodo.agregarHijos("O");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("("))
                             {
                                 pila.Pop();
                                 pila.Push("O");
+                                nodo.agregarHijos("O");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -285,11 +363,15 @@ namespace Analizador_lexico.Clases
                         }
                     case "O'":
                         {
+                            nodo = new Nodo("O'");
                             if (token.getLexema().Equals("+"))
                             {
                                 pila.Pop();
                                 pila.Push("N'");
                                 pila.Push("+");
+                                nodo.agregarHijos("+");
+                                nodo.agregarHijos("N'");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals(";"))
                             {
@@ -303,17 +385,24 @@ namespace Analizador_lexico.Clases
                         }
                     case "N'":
                         {
+                            nodo = new Nodo("N'");
                             if (token.getTipo().Equals("ID"))
                             {
                                 pila.Pop();
                                 pila.Push("O'");
                                 pila.Push("ID");
+                                nodo.agregarHijos("ID");
+                                nodo.agregarHijos("O'");
+                                nodos.Add(nodo);
                             }
                             else if (token.getTipo().Equals("Cadena"))
                             {
                                 pila.Pop();
                                 pila.Push("O'");
                                 pila.Push("Cadena");
+                                nodo.agregarHijos("Cadena");
+                                nodo.agregarHijos("O'");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -325,11 +414,15 @@ namespace Analizador_lexico.Clases
                         }
                     case "D":
                         {
+                            nodo = new Nodo("D");
                             if (token.getTipo().Equals("Variable"))
                             {
                                 pila.Pop();
                                 pila.Push(";");
                                 pila.Push("D'");
+                                nodo.agregarHijos("D'");
+                                nodo.agregarHijos(";");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -339,12 +432,17 @@ namespace Analizador_lexico.Clases
                         }
                     case "D'":
                         {
+                            nodo = new Nodo("D'");
                             if (token.getLexema().Equals("decimal"))
                             {
                                 pila.Pop();
                                 pila.Push("P");
                                 pila.Push("ID");
                                 pila.Push("decimal");
+                                nodo.agregarHijos("decimal");
+                                nodo.agregarHijos("ID");
+                                nodo.agregarHijos("P");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("entero"))
                             {
@@ -352,6 +450,10 @@ namespace Analizador_lexico.Clases
                                 pila.Push("Q");
                                 pila.Push("ID");
                                 pila.Push("entero");
+                                nodo.agregarHijos("entero");
+                                nodo.agregarHijos("ID");
+                                nodo.agregarHijos("Q");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("booleano"))
                             {
@@ -359,6 +461,10 @@ namespace Analizador_lexico.Clases
                                 pila.Push("R");
                                 pila.Push("ID");
                                 pila.Push("booleano");
+                                nodo.agregarHijos("booleano");
+                                nodo.agregarHijos("ID");
+                                nodo.agregarHijos("R");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("cadena"))
                             {
@@ -366,6 +472,10 @@ namespace Analizador_lexico.Clases
                                 pila.Push("S");
                                 pila.Push("ID");
                                 pila.Push("cadena");
+                                nodo.agregarHijos("cadena");
+                                nodo.agregarHijos("ID");
+                                nodo.agregarHijos("S");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("caracter"))
                             {
@@ -373,6 +483,10 @@ namespace Analizador_lexico.Clases
                                 pila.Push("T");
                                 pila.Push("ID");
                                 pila.Push("caracter");
+                                nodo.agregarHijos("caracter");
+                                nodo.agregarHijos("ID");
+                                nodo.agregarHijos("T");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -382,17 +496,24 @@ namespace Analizador_lexico.Clases
                         }
                     case "P":
                         {
+                            nodo = new Nodo("P");
                             if (token.getLexema().Equals("="))
                             {
                                 pila.Pop();
                                 pila.Push("O");
                                 pila.Push("=");
+                                nodo.agregarHijos("=");
+                                nodo.agregarHijos("O");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals(","))
                             {
                                 pila.Pop();
                                 pila.Push("I");
                                 pila.Push(",");
+                                nodo.agregarHijos(",");
+                                nodo.agregarHijos("I");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals(";"))
                             {
@@ -406,17 +527,24 @@ namespace Analizador_lexico.Clases
                         }
                     case "Q":
                         {
+                            nodo = new Nodo("Q");
                             if (token.getLexema().Equals("="))
                             {
                                 pila.Pop();
                                 pila.Push("Q''");
                                 pila.Push("=");
+                                nodo.agregarHijos("=");
+                                nodo.agregarHijos("Q''");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals(","))
                             {
                                 pila.Pop();
                                 pila.Push("I");
                                 pila.Push(",");
+                                nodo.agregarHijos(",");
+                                nodo.agregarHijos("I");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals(";"))
                             {
@@ -430,29 +558,42 @@ namespace Analizador_lexico.Clases
                         }
                     case "Q'":
                         {
+                            nodo = new Nodo("Q'");
                             if (token.getLexema().Equals("+"))
                             {
                                 pila.Pop();
                                 pila.Push("Q''");
                                 pila.Push("+");
+                                nodo.agregarHijos("Q''");
+                                nodo.agregarHijos("+");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("-"))
                             {
                                 pila.Pop();
                                 pila.Push("Q''");
                                 pila.Push("-");
+                                nodo.agregarHijos("Q''");
+                                nodo.agregarHijos("-");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("*"))
                             {
                                 pila.Pop();
                                 pila.Push("Q''");
                                 pila.Push("*");
+                                nodo.agregarHijos("Q''");
+                                nodo.agregarHijos("*");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("/"))
                             {
                                 pila.Pop();
                                 pila.Push("Q''");
                                 pila.Push("/");
+                                nodo.agregarHijos("Q''");
+                                nodo.agregarHijos("/");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals(")"))
                             {
@@ -466,11 +607,15 @@ namespace Analizador_lexico.Clases
                             {
                                 pila.Pop();
                                 pila.Push("Q''");
+                                nodo.agregarHijos("Q''");
+                                nodos.Add(nodo);
                             }
                             else if (token.getTipo().Equals("Entero"))
                             {
                                 pila.Pop();
                                 pila.Push("Q''");
+                                nodo.agregarHijos("Q''");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -482,17 +627,24 @@ namespace Analizador_lexico.Clases
                         }
                     case "Q''":
                         {
+                            nodo = new Nodo("Q''");
                             if (token.getTipo().Equals("ID"))
                             {
                                 pila.Pop();
                                 pila.Push("Q'");
                                 pila.Push("ID");
+                                nodo.agregarHijos("ID");
+                                nodo.agregarHijos("Q'");
+                                nodos.Add(nodo);
                             }
                             else if (token.getTipo().Equals("Entero"))
                             {
                                 pila.Pop();
                                 pila.Push("Q'");
                                 pila.Push("Entero");
+                                nodo.agregarHijos("Entero");
+                                nodo.agregarHijos("Q'");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("("))
                             {
@@ -501,6 +653,11 @@ namespace Analizador_lexico.Clases
                                 pila.Push(")");
                                 pila.Push("Q''");
                                 pila.Push("(");
+                                nodo.agregarHijos("(");
+                                nodo.agregarHijos("Q''");
+                                nodo.agregarHijos(")");
+                                nodo.agregarHijos("Q'");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -512,17 +669,24 @@ namespace Analizador_lexico.Clases
                         }
                     case "R":
                         {
+                            nodo = new Nodo("R");
                             if (token.getLexema().Equals("="))
                             {
                                 pila.Pop();
                                 pila.Push("Booleano");
                                 pila.Push("=");
+                                nodo.agregarHijos("=");
+                                nodo.agregarHijos("Booleano");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals(","))
                             {
                                 pila.Pop();
                                 pila.Push("I");
                                 pila.Push(",");
+                                nodo.agregarHijos(",");
+                                nodo.agregarHijos("I");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals(";"))
                             {
@@ -536,18 +700,26 @@ namespace Analizador_lexico.Clases
                         }
                     case "S":
                         {
+                            nodo = new Nodo("S");
                             if (token.getLexema().Equals("="))
                             {
                                 pila.Pop();
                                 pila.Push("O'");
                                 pila.Push("Cadena");
                                 pila.Push("=");
+                                nodo.agregarHijos("=");
+                                nodo.agregarHijos("Cadena");
+                                nodo.agregarHijos("O'");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals(","))
                             {
                                 pila.Pop();
                                 pila.Push("I");
                                 pila.Push(",");
+                                nodo.agregarHijos(",");
+                                nodo.agregarHijos("I");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals(";"))
                             {
@@ -561,17 +733,24 @@ namespace Analizador_lexico.Clases
                         }
                     case "T":
                         {
+                            nodo = new Nodo("T");
                             if (token.getLexema().Equals("="))
                             {
                                 pila.Pop();
                                 pila.Push("Caracter");
                                 pila.Push("=");
+                                nodo.agregarHijos("=");
+                                nodo.agregarHijos("Caracter");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals(","))
                             {
                                 pila.Pop();
                                 pila.Push("I");
                                 pila.Push(",");
+                                nodo.agregarHijos(",");
+                                nodo.agregarHijos("I");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals(";"))
                             {
@@ -585,16 +764,23 @@ namespace Analizador_lexico.Clases
                         }
                     case "I":
                         {
+                            nodo = new Nodo("I");
                             if (token.getTipo().Equals("ID"))
                             {
                                 pila.Pop();
                                 pila.Push("I'");
                                 pila.Push("ID");
+                                nodo.agregarHijos("ID");
+                                nodo.agregarHijos("I'");
+                                nodos.Add(nodo);
+
                             }
                             else if (token.getLexema().Equals(";"))
                             {
                                 pila.Pop();
                                 pila.Push("I'");
+                                nodo.agregarHijos("I'");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -606,11 +792,15 @@ namespace Analizador_lexico.Clases
                         }
                     case "I'":
                         {
+                            nodo = new Nodo("I'");
                             if (token.getLexema().Equals(","))
                             {
                                 pila.Pop();
                                 pila.Push("I");
                                 pila.Push(",");
+                                nodo.agregarHijos("I");
+                                nodo.agregarHijos(",");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals(";"))
                             {
@@ -624,12 +814,17 @@ namespace Analizador_lexico.Clases
                         }
                     case "G":
                         {
+                            nodo = new Nodo("G");
                             if (token.getLexema().Equals("imprimir"))
                             {
                                 pila.Pop();
                                 pila.Push("C");
                                 pila.Push("(");
                                 pila.Push("imprimir");
+                                nodo.agregarHijos("imprimir");
+                                nodo.agregarHijos("(");
+                                nodo.agregarHijos("C");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("leer"))
                             {
@@ -639,6 +834,12 @@ namespace Analizador_lexico.Clases
                                 pila.Push("ID");
                                 pila.Push("(");
                                 pila.Push("leer");
+                                nodo.agregarHijos("leer");
+                                nodo.agregarHijos("(");
+                                nodo.agregarHijos("ID");
+                                nodo.agregarHijos(")");
+                                nodo.agregarHijos(";");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -648,12 +849,17 @@ namespace Analizador_lexico.Clases
                         }
                     case "C":
                         {
+                            nodo = new Nodo("C");
                             if (token.getTipo().Equals("ID") || token.getTipo().Equals("Entero") || token.getTipo().Equals("Decimal") || token.getTipo().Equals("Cadena"))
                             {
                                 pila.Pop();
                                 pila.Push(";");
                                 pila.Push(")");
                                 pila.Push("M");
+                                nodo.agregarHijos("M");
+                                nodo.agregarHijos(")");
+                                nodo.agregarHijos(";");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -663,11 +869,15 @@ namespace Analizador_lexico.Clases
                         }
                     case "M":
                         {
+                            nodo = new Nodo("M");
                             if (token.getTipo().Equals("ID") || token.getTipo().Equals("Entero") || token.getTipo().Equals("Decimal") || token.getTipo().Equals("Cadena"))
                             {
                                 pila.Pop();
                                 pila.Push("M'");
                                 pila.Push(token.getTipo());
+                                nodo.agregarHijos(token.getTipo());
+                                nodo.agregarHijos("M'");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -679,11 +889,15 @@ namespace Analizador_lexico.Clases
                         }
                     case "M'":
                         {
+                            nodo = new Nodo("M'");
                             if (token.getLexema().Equals("+"))
                             {
                                 pila.Pop();
                                 pila.Push("M");
                                 pila.Push("+");
+                                nodo.agregarHijos("+");
+                                nodo.agregarHijos("M");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals(")"))
                             {
@@ -702,6 +916,7 @@ namespace Analizador_lexico.Clases
                     /*Estado para ciclos y condicional*/
                     case "F":
                         {
+                            nodo = new Nodo("F");
                             if (token.getLexema().Equals("SI"))
                             {
                                 pila.Pop();
@@ -712,6 +927,14 @@ namespace Analizador_lexico.Clases
                                 pila.Push("V");
                                 pila.Push("(");
                                 pila.Push("SI");
+                                nodo.agregarHijos("SI");
+                                nodo.agregarHijos("(");
+                                nodo.agregarHijos("V");
+                                nodo.agregarHijos(")");
+                                nodo.agregarHijos("S'");
+                                nodo.agregarHijos("E");
+                                nodo.agregarHijos("E'");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("MIENTRAS"))
                             {
@@ -721,6 +944,12 @@ namespace Analizador_lexico.Clases
                                 pila.Push("V");
                                 pila.Push("(");
                                 pila.Push("MIENTRAS");
+                                nodo.agregarHijos("MIENTRAS");
+                                nodo.agregarHijos("(");
+                                nodo.agregarHijos("V");
+                                nodo.agregarHijos(")");
+                                nodo.agregarHijos("S'");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("HACER"))
                             {
@@ -731,6 +960,13 @@ namespace Analizador_lexico.Clases
                                 pila.Push("MIENTRAS");
                                 pila.Push("S'");
                                 pila.Push("HACER");
+                                nodo.agregarHijos("HACER");
+                                nodo.agregarHijos("S'");
+                                nodo.agregarHijos("MIENTRAS");
+                                nodo.agregarHijos("(");
+                                nodo.agregarHijos("V");
+                                nodo.agregarHijos(")");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("DESDE"))
                             {
@@ -746,6 +982,19 @@ namespace Analizador_lexico.Clases
                                 pila.Push("=");
                                 pila.Push("ID");
                                 pila.Push("DESDE");
+                                nodo.agregarHijos("DESDE");
+                                nodo.agregarHijos("ID");
+                                nodo.agregarHijos("=");
+                                nodo.agregarHijos("Entero");
+                                nodo.agregarHijos("HASTA");
+                                nodo.agregarHijos("ID");
+                                nodo.agregarHijos("S''");
+                                nodo.agregarHijos("Entero");
+                                nodo.agregarHijos("INCREMENTO");
+                                nodo.agregarHijos("Entero");
+                                nodo.agregarHijos("S'");
+                                nodos.Add(nodo);
+
                             }
                             else
                             {
@@ -755,12 +1004,17 @@ namespace Analizador_lexico.Clases
                         }
                     case "V":
                         {
+                            nodo = new Nodo("V");
                             if (token.getTipo().Equals("ID") || token.getTipo().Equals("Entero") || token.getTipo().Equals("Decimal") || token.getTipo().Equals("Cadena") || token.getTipo().Equals("Booleano"))
                             {
                                 pila.Pop();
                                 pila.Push("V'");
                                 pila.Push("X");
                                 pila.Push("V'");
+                                nodo.agregarHijos("V'");
+                                nodo.agregarHijos("X");
+                                nodo.agregarHijos("V'");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals("("))
                             {
@@ -771,6 +1025,13 @@ namespace Analizador_lexico.Clases
                                 pila.Push("X");
                                 pila.Push("V'");
                                 pila.Push("(");
+                                nodo.agregarHijos("(");
+                                nodo.agregarHijos("V'");
+                                nodo.agregarHijos("X");
+                                nodo.agregarHijos("V'");
+                                nodo.agregarHijos(")");
+                                nodo.agregarHijos("Q'''");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -780,10 +1041,13 @@ namespace Analizador_lexico.Clases
                         }
                     case "V'":
                         {
+                            nodo = new Nodo("V'");
                             if (token.getTipo().Equals("ID") || token.getTipo().Equals("Entero") || token.getTipo().Equals("Decimal") || token.getTipo().Equals("Cadena") || token.getTipo().Equals("Booleano"))
                             {
                                 pila.Pop();
                                 pila.Push(token.getTipo());
+                                nodo.agregarHijos(token.getTipo());
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -793,10 +1057,13 @@ namespace Analizador_lexico.Clases
                         }
                     case "X":
                         {
+                            nodo = new Nodo("X");
                             if (token.getLexema().Equals(">") || token.getLexema().Equals("<") || token.getLexema().Equals("==") || token.getLexema().Equals("<=") || token.getLexema().Equals(">=") || token.getLexema().Equals("!="))
                             {
                                 pila.Pop();
                                 pila.Push(token.getLexema());
+                                nodo.agregarHijos(token.getLexema());
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -806,11 +1073,15 @@ namespace Analizador_lexico.Clases
                         }
                     case "Q'''":
                         {
+                            nodo = new Nodo("Q'''");
                             if (token.getLexema().Equals("&&") || token.getLexema().Equals("||"))
                             {
                                 pila.Pop();
                                 pila.Push("V");
                                 pila.Push(token.getLexema());
+                                nodo.agregarHijos(token.getLexema());
+                                nodo.agregarHijos("V");
+                                nodos.Add(nodo);
                             }
                             else if (token.getLexema().Equals(")"))
                             {
@@ -824,12 +1095,17 @@ namespace Analizador_lexico.Clases
                         }
                     case "S'":
                         {
+                            nodo = new Nodo("S'");
                             if (token.getLexema().Equals("{"))
                             {
                                 pila.Pop();
                                 pila.Push("}");
                                 pila.Push("L");
                                 pila.Push("{");
+                                nodo.agregarHijos("{");
+                                nodo.agregarHijos("L");
+                                nodo.agregarHijos("}");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -839,10 +1115,13 @@ namespace Analizador_lexico.Clases
                         }
                     case "S''":
                         {
+                            nodo = new Nodo("S''");
                             if (token.getLexema().Equals("=") || token.getLexema().Equals(">") || token.getLexema().Equals("<") || token.getLexema().Equals("<=") || token.getLexema().Equals(">="))
                             {
                                 pila.Pop();
                                 pila.Push(token.getLexema());
+                                nodo.agregarHijos(token.getLexema());
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -852,6 +1131,7 @@ namespace Analizador_lexico.Clases
                         }
                     case "E":
                         {
+                            nodo = new Nodo("E");
                             if (token.getTipo().Equals("Variable") || token.getTipo().Equals("Funcionalidad") || token.getLexema().Equals("MIENTRAS") || token.getLexema().Equals("HACER") || token.getLexema().Equals("SI") || token.getLexema().Equals("SINO") || token.getLexema().Equals("DESDE") || token.getTipo().Equals("ID"))
                             {
                                 pila.Pop();
@@ -865,6 +1145,13 @@ namespace Analizador_lexico.Clases
                                 pila.Push("V");
                                 pila.Push("(");
                                 pila.Push("SINO_SI");
+                                nodo.agregarHijos("SINO_SI");
+                                nodo.agregarHijos("(");
+                                nodo.agregarHijos("V");
+                                nodo.agregarHijos(")");
+                                nodo.agregarHijos("S'");
+                                nodo.agregarHijos("E");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -874,6 +1161,7 @@ namespace Analizador_lexico.Clases
                         }
                     case "E'":
                         {
+                            nodo = new Nodo("E'");
                             if (token.getTipo().Equals("Variable") || token.getTipo().Equals("Funcionalidad") || token.getLexema().Equals("MIENTRAS") || token.getLexema().Equals("HACER") || token.getLexema().Equals("SI") || token.getLexema().Equals("DESDE") || token.getTipo().Equals("ID"))
                             {
                                 pila.Pop();
@@ -883,6 +1171,9 @@ namespace Analizador_lexico.Clases
                                 pila.Pop();
                                 pila.Push("S'");
                                 pila.Push("SINO");
+                                nodo.agregarHijos("SINO");
+                                nodo.agregarHijos("S'");
+                                nodos.Add(nodo);
                             }
                             else
                             {
@@ -917,6 +1208,11 @@ namespace Analizador_lexico.Clases
 
             }
             return true;
+        }
+
+        public ArrayList getNodos()
+        {
+            return nodos;
         }
 
         public void generarSimbolo(Lexema token)

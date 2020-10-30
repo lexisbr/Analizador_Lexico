@@ -26,8 +26,6 @@ namespace Analizador_lexico
         {
             InitializeComponent();
             lblProyectoActual.Text = "Proyecto actual: "+"SinTitulo";
-            ArbolSintactico.generarArbol();
-        
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -266,18 +264,23 @@ namespace Analizador_lexico
             if (verificarErrores())
             {
                 MessageBox.Show("Compilacion correcta.");
+                ArbolSintactico arbol =  new ArbolSintactico(analizador.getParserNodos());
+                arbol.generarDot();
             }
             else
             {
                 MessageBox.Show("Error al compilar, revise su codigo.");
             }
 
-            for (int i = 0; i < simbolos.Count; i++)
+
+
+
+            /*for (int i = 0; i < simbolos.Count; i++)
             {
                 Simbolo linea = (Simbolo)simbolos[i];
 
                 MessageBox.Show("Tipo: "+linea.getTipo()+" ID: "+linea.getIdentificador()+" Valor: "+linea.getValor());
-            }
+            }*/
 
         }
         

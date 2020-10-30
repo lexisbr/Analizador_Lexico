@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -13,78 +14,58 @@ namespace Analizador_lexico.Clases
     class ArbolSintactico
     {
         const string GENERAR_ARBOL = "dot.exe -Tjpg -O ";
+        ArrayList nodos = new ArrayList();
 
-        private string path;
-
-        public ArbolSintactico(string path)
+        public ArbolSintactico(ArrayList nodos)
         {
-            this.path = path;
+            this.nodos = (ArrayList)nodos.Clone();
         }
 
-        public static void generarArbol()
+
+        public void generarDot()
         {
-            string path1 = @"C:\Users\jalej\Documents\C# Projects\Analizador Lexico\Analizador_lexico\Analizador_lexico";
-            String inicia = "digraph G{";
-            string contenido1 = "1 -> 2;";
-            string contenido2 = "2 -> 3;";
-            string contenido3 = "2 -> 4;";
-            String final = "}";
-            string graphVizString = inicia + contenido1 + contenido2 + contenido3+ final;
-            Bitmap bm = new Bitmap(Graphviz.RenderImage(graphVizString, "jpg"));
-            var imagen = new Bitmap(bm);
-            bm.Dispose();
-            Image image = (Image)imagen;
-            imagen.Save(path1+@"\prueba.jpeg",ImageFormat.Jpeg);
-           
+            int nivel = 0;
+            string codigoDot="";
+            for (int i = 0; i < nodos.Count; i++)
+            {
+                Nodo nodo = (Nodo)nodos[i];
+                for (int j = 0; j < nodo.getHijos().Count; j++)
+                {
+                    Nodo hijo = (Nodo)nodo.getHijos()[j];
 
 
-            //Path de la carpeta
-            /*string path = @"..\Arboles";
-            //Path del archivo
-            string path2 = path + @"\Ejemplo.txt";
-            //Crear carpeta
+                    codigoDot += "\"" + nodo.getNombre() + "_" + nivel + "\" -> \"" + nodo.getHijos()[j] + "_" + (nivel + 1) + "\";\n";
+                }
+                nivel++;
+            }
+            Console.WriteLine(codigoDot);
+            generarArbol(codigoDot);
+        }
+
+        public static void generarArbol(string codigoDot)
+        {
+            string path = @"..\Arboles";
             if (!Directory.Exists(path))
             {
                 DirectoryInfo di = Directory.CreateDirectory(path);
             }
-            //Crear archivo
-            if (!File.Exists(path2))
-            {
-                //Crea el archivo
-                using (StreamWriter sw = File.CreateText(path2))
-                {
-                    sw.Close();
-                }
-                //Le agrega texto al archivo
-                using (StreamWriter sw = File.AppendText(path2))
-                {
-                    sw.WriteLine("Hola mundo");
-                    sw.Close();
-                }
-            }
-            using (StreamWriter sw = File.AppendText(path2))
-            {
-                sw.WriteLine("Hola mundo");
-                sw.Close();
-            }*/
+
+            String inicia = "digraph G {\n";
+            string contenido1 = "{\n" +
+               "node[shape=box, width=2];\n";
+            string contenido2 = codigoDot;
+            String final = "}\n" +
+                "}";
+            string graphVizString = inicia + contenido1 + contenido2 + final;
+            Console.WriteLine(graphVizString);
+            Bitmap bm = new Bitmap(Graphviz.RenderImage(graphVizString, "jpeg"));
+            var imagen = new Bitmap(bm);
+            bm.Dispose();
+            Image image = (Image)imagen;
+            imagen.Save(@"..\Arboles\prueba1.jpeg",ImageFormat.Jpeg);
 
         }
 
-        static void ExecuteCommand()
-        {
-            //Indicamos que deseamos inicializar el proceso cmd.exe junto a un comando de arranque. 
-            //(/C, le indicamos al proceso cmd que deseamos que cuando termine la tarea asignada se cierre el proceso).
-            //Para mas informacion consulte la ayuda de la consola con cmd.exe /? 
-            System.Diagnostics.ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo("cmd", "/c " + GENERAR_ARBOL);
-            // Indicamos que la salida del proceso se redireccione en un Stream
-            procStartInfo.RedirectStandardOutput = true;
-            procStartInfo.UseShellExecute = false;
-            //Indica que el proceso no despliegue una pantalla negra (El proceso se ejecuta en background)
-            procStartInfo.CreateNoWindow = false;
-            //Inicializa el proceso
-            System.Diagnostics.Process proc = new System.Diagnostics.Process();
-            proc.StartInfo = procStartInfo;
-            proc.Start();
-        }
+        
     }
 }
