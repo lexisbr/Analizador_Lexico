@@ -15,6 +15,7 @@ namespace Analizador_lexico.Clases
         Simbolo simbolo;
         int control = 0;
         Nodo nodo;
+        int contador=0;
         ArrayList nodos = new ArrayList();
 
         public Parser()

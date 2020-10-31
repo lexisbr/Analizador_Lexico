@@ -11,8 +11,8 @@ namespace Analizador_lexico.Clases
 {
     public static class Graphviz
     {
-        public const string LIB_GVC = @"..\external\gvc.dll";
-        public const string LIB_GRAPH = @"..\external\cgraph.dll";
+        public const string LIB_GVC = @"..\..\external\gvc.dll";
+        public const string LIB_GRAPH = @"..\..\external\cgraph.dll";
         public const int SUCCESS = 0;
 
         ///

@@ -9,7 +9,7 @@ namespace Analizador_lexico.Clases
 {
     class Nodo
     {
-        private string nodo_padre;
+        private Nodo nodo_padre;
         private string nombre;
         private int nivel;
         private ArrayList hijos = new ArrayList();
@@ -20,7 +20,7 @@ namespace Analizador_lexico.Clases
         }
 
 
-        public Nodo(string nombre, string nodo_padre, int nivel)
+        public Nodo(string nombre, Nodo nodo_padre, int nivel)
         {
             this.nombre = nombre;
             this.nodo_padre = nodo_padre;
@@ -42,7 +42,7 @@ namespace Analizador_lexico.Clases
             return hijos;
         }
 
-        public string getPadre()
+        public Nodo getPadre()
         {
             return nodo_padre;
         }
@@ -50,6 +50,11 @@ namespace Analizador_lexico.Clases
         public int getNivel()
         {
             return nivel;
+        }
+
+        public void setNivel(int nivel)
+        {
+            this.nivel = nivel;
         }
     }
 }

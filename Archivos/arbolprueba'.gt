@@ -1,8 +1,9 @@
 principal { 
 
 entero _dd = ( 55 + 55 ) ; 
-
+cadena _df ; 
 } 
+
 
 
 
