@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArbolForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ArbolForm.Designer.cs">
+      <DependentUpon>ArbolForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Clases\ArbolSintactico.cs" />
     <Compile Include="Clases\Archivo.cs" />
     <Compile Include="Clases\Automata.cs" />
@@ -69,6 +75,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Clases\Simbolo.cs" />
     <Compile Include="TablaDeSimbolos.cs" />
+    <EmbeddedResource Include="ArbolForm.resx">
+      <DependentUpon>ArbolForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Consola.resx">
       <DependentUpon>Consola.cs</DependentUpon>
     </EmbeddedResource>
@@ -154,6 +163,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\kisspng-computer-icons-error-download-triangle-icon-5b41d8cf40b6e3.1645135015310419992651 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arbol.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cerrar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\guardar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

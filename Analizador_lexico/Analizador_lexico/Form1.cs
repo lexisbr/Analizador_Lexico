@@ -264,24 +264,17 @@ namespace Analizador_lexico
             if (verificarErrores())
             {
                 MessageBox.Show("Compilacion correcta.");
+                areaErrores.SelectionColor = Color.Green;
+                areaErrores.AppendText("No hay errores. Compilacion Correcta");
+                generarArbol_bttn.Enabled = true;
                 ArbolSintactico arbol =  new ArbolSintactico(analizador.getParserNodos());
                 arbol.generarDot();
             }
             else
             {
+                generarArbol_bttn.Enabled = false;
                 MessageBox.Show("Error al compilar, revise su codigo.");
             }
-
-
-
-
-            /*for (int i = 0; i < simbolos.Count; i++)
-            {
-                Simbolo linea = (Simbolo)simbolos[i];
-
-                MessageBox.Show("Tipo: "+linea.getTipo()+" ID: "+linea.getIdentificador()+" Valor: "+linea.getValor());
-            }*/
-
         }
         
         /* Muestra y pinta los tokens */
@@ -473,6 +466,8 @@ namespace Analizador_lexico
         {
             getColumnaFila();
             areaTexto.SelectionColor = Color.Black;
+            generarArbol_bttn.Enabled = false;
+
         }
 
         private void areaTexto_KeyUp(object sender, KeyEventArgs e)
@@ -503,6 +498,22 @@ namespace Analizador_lexico
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ArbolForm arbol = new ArbolForm();
+            arbol.Show();
+        }
+
+        private void exportarButton_MouseHover(object sender, EventArgs e)
         {
 
         }

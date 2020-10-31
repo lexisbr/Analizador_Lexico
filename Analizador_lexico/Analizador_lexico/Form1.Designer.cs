@@ -44,6 +44,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblProyectoActual = new System.Windows.Forms.Label();
+            this.generarArbol_bttn = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblColumna = new System.Windows.Forms.Label();
             this.lblLinea = new System.Windows.Forms.Label();
@@ -174,7 +175,7 @@
             this.exportarButton.ForeColor = System.Drawing.Color.White;
             this.exportarButton.Image = global::Analizador_lexico.Properties.Resources.pngegg__2___1_;
             this.exportarButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.exportarButton.Location = new System.Drawing.Point(783, 9);
+            this.exportarButton.Location = new System.Drawing.Point(772, 9);
             this.exportarButton.Margin = new System.Windows.Forms.Padding(0);
             this.exportarButton.Name = "exportarButton";
             this.exportarButton.Size = new System.Drawing.Size(172, 43);
@@ -183,6 +184,7 @@
             this.exportarButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.exportarButton.UseVisualStyleBackColor = false;
             this.exportarButton.Click += new System.EventHandler(this.exportarButton_Click);
+            this.exportarButton.MouseHover += new System.EventHandler(this.exportarButton_MouseHover);
             // 
             // button1
             // 
@@ -196,7 +198,7 @@
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Image = global::Analizador_lexico.Properties.Resources.jugar__1___1_;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(657, 8);
+            this.button1.Location = new System.Drawing.Point(639, 9);
             this.button1.Margin = new System.Windows.Forms.Padding(0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(116, 43);
@@ -229,6 +231,28 @@
             this.lblProyectoActual.TabIndex = 0;
             this.lblProyectoActual.Text = "Proyecto actual:";
             this.lblProyectoActual.Click += new System.EventHandler(this.label1_Click_1);
+            // 
+            // generarArbol_bttn
+            // 
+            this.generarArbol_bttn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.generarArbol_bttn.BackColor = System.Drawing.Color.YellowGreen;
+            this.generarArbol_bttn.Enabled = false;
+            this.generarArbol_bttn.FlatAppearance.BorderSize = 0;
+            this.generarArbol_bttn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCoral;
+            this.generarArbol_bttn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.generarArbol_bttn.Font = new System.Drawing.Font("Open Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.generarArbol_bttn.ForeColor = System.Drawing.Color.Black;
+            this.generarArbol_bttn.Image = global::Analizador_lexico.Properties.Resources.arbol;
+            this.generarArbol_bttn.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.generarArbol_bttn.Location = new System.Drawing.Point(757, 651);
+            this.generarArbol_bttn.Margin = new System.Windows.Forms.Padding(0);
+            this.generarArbol_bttn.Name = "generarArbol_bttn";
+            this.generarArbol_bttn.Size = new System.Drawing.Size(204, 86);
+            this.generarArbol_bttn.TabIndex = 6;
+            this.generarArbol_bttn.Text = "Generar Arbol Sintactico";
+            this.generarArbol_bttn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.generarArbol_bttn.UseVisualStyleBackColor = false;
+            this.generarArbol_bttn.Click += new System.EventHandler(this.button2_Click);
             // 
             // panel2
             // 
@@ -275,7 +299,7 @@
             this.areaErrores.BackColor = System.Drawing.SystemColors.ControlDark;
             this.areaErrores.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.areaErrores.ForeColor = System.Drawing.Color.DarkRed;
-            this.areaErrores.Location = new System.Drawing.Point(130, 614);
+            this.areaErrores.Location = new System.Drawing.Point(27, 627);
             this.areaErrores.Name = "areaErrores";
             this.areaErrores.ReadOnly = true;
             this.areaErrores.Size = new System.Drawing.Size(711, 134);
@@ -289,7 +313,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Open Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(174, 582);
+            this.label2.Location = new System.Drawing.Point(71, 595);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 26);
             this.label2.TabIndex = 6;
@@ -302,11 +326,12 @@
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.BackgroundImage = global::Analizador_lexico.Properties.Resources.kisspng_computer_icons_error_download_triangle_icon_5b41d8cf40b6e3_1645135015310419992651__1_;
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox2.Location = new System.Drawing.Point(130, 575);
+            this.pictureBox2.Location = new System.Drawing.Point(27, 588);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(38, 33);
             this.pictureBox2.TabIndex = 7;
             this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // Form1
             // 
@@ -316,6 +341,7 @@
             this.BackgroundImage = global::Analizador_lexico.Properties.Resources.fondo1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(973, 785);
+            this.Controls.Add(this.generarArbol_bttn);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.areaErrores);
@@ -367,6 +393,7 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label lblColumna;
         private System.Windows.Forms.Label lblLinea;
+        private System.Windows.Forms.Button generarArbol_bttn;
     }
 }
 

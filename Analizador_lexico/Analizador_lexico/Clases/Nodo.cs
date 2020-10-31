@@ -19,7 +19,6 @@ namespace Analizador_lexico.Clases
             this.nombre = nombre;
         }
 
-
         public Nodo(string nombre, Nodo nodo_padre, int nivel)
         {
             this.nombre = nombre;
