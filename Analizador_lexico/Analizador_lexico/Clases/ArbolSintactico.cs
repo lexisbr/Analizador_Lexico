@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Analizador_lexico.Clases
 {
@@ -29,25 +30,47 @@ namespace Analizador_lexico.Clases
             for (int i = 0; i < nodos.Count; i++)
             {
                 Nodo nodoPadre = (Nodo)nodos[i];
-                System.Windows.Forms.MessageBox.Show("Padre: " + nodoPadre.getNombre());
+                //System.Windows.Forms.MessageBox.Show("Padre: " + nodoPadre.getNombre());
                 for (int j = 0; j < nodoPadre.getHijos().Count; j++)
                 {
-                    System.Windows.Forms.MessageBox.Show("Nodo hijo: " + nodoPadre.getHijos()[j]);
-                    nodoNuevo = new Nodo(nodoPadre.getHijos()[j].ToString() + (i + 1), nodoPadre.getNombre() + i);
+                   // System.Windows.Forms.MessageBox.Show("Nodo hijo: " + nodoPadre.getHijos()[j]);
+                    nodoNuevo = new Nodo(nodoPadre.getHijos()[j].ToString(), nodoPadre.getNombre(),i);
                     nodos_ordenados.Add(nodoNuevo);
                 }
             }
         }
 
+        public ArrayList obtenerNodosSinHijos()
+        {
+            ArrayList nodosSinHijos = new ArrayList();
+            for (int i = 0; i < nodos.Count; i++)
+            {
+                Nodo nodoPadre = (Nodo)nodos[i];
+                MessageBox.Show("entra 1"+nodoPadre.getNombre());
+                if (nodoPadre.getHijos().Count == 0)
+                {
+                    MessageBox.Show("entra 2");
+                    nodosSinHijos.Add(nodoPadre);
+                }
+            }
+            return nodosSinHijos;
+        }
 
         public void generarDot()
         {
+           
+
             ordenarArbol();
+            for (int i = 0; i < obtenerNodosSinHijos().Count; i++)
+            {
+                Nodo nodosSinHijios = (Nodo)obtenerNodosSinHijos()[i];
+                System.Windows.Forms.MessageBox.Show("SIN HIJOS: " + nodosSinHijios.getNombre());
+            }
             string codigoDot = "";
             for (int i = 0; i < nodos_ordenados.Count; i++)
             {
                 Nodo nodo = (Nodo)nodos_ordenados[i];
-                codigoDot += "\"" + nodo.getPadre() + "\" -> \"" + nodo.getNombre() + "\";\n";
+                codigoDot += "\"" + nodo.getPadre()+"_"+nodo.getNivel()+ "\" -> \"" + nodo.getNombre()+"_"+(nodo.getNivel()+1)+ "\";\n";
             }
             Console.WriteLine(codigoDot);
             generarArbol(codigoDot);
