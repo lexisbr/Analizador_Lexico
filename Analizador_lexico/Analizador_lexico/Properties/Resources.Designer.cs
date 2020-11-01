@@ -275,6 +275,16 @@ namespace Analizador_lexico.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap tabla__1_ {
+            get {
+                object obj = ResourceManager.GetObject("tabla__1_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap toppng_com_icono_guardar_todo_419x419 {
             get {
                 object obj = ResourceManager.GetObject("toppng_com_icono_guardar_todo_419x419", resourceCulture);

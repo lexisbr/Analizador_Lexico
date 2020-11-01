@@ -92,37 +92,53 @@ namespace Analizador_lexico.Clases
 
         public void generarDot()
         {
-            ordenarArbol();
-            string codigoDot = "";
-            for (int i = 0; i < nodos_ordenados.Count; i++)
+            try
             {
-                Nodo nodo = (Nodo)nodos_ordenados[i];
-                codigoDot += "\"" + nodo.getPadre().getNombre() + "_" + nodo.getPadre().getNivel() + "\" " +
-                    "-> \"" + nodo.getNombre() + "_" + nodo.getNivel() + "\";\n";
+                ordenarArbol();
+                string codigoDot = "";
+                for (int i = 0; i < nodos_ordenados.Count; i++)
+                {
+                    Nodo nodo = (Nodo)nodos_ordenados[i];
+                    codigoDot += "\"" + nodo.getPadre().getNombre() + "_" + nodo.getPadre().getNivel() + "\" " +
+                        "-> \"" + nodo.getNombre() + "_" + nodo.getNivel() + "\";\n";
+                }
+                generarArbol(codigoDot);
             }
-            generarArbol(codigoDot);
+            catch (Exception)
+            {
+                Console.WriteLine("Error al generar dot");
+            }
+            
         }
 
         public void generarArbol(string codigoDot)
         {
-            string path = @"..\..\Arboles";
-            if (!Directory.Exists(path))
+            try
             {
-                DirectoryInfo di = Directory.CreateDirectory(path);
-            }
+                string path = @"..\..\Arboles";
+                if (!Directory.Exists(path))
+                {
+                    DirectoryInfo di = Directory.CreateDirectory(path);
+                }
 
-            String inicia = "digraph G {\n";
-            string contenido1 = "{\n" +
-               "node[shape=box, width=2];\n";
-            string contenido2 = codigoDot;
-            String final = "}\n" +
-                "}";
-            string graphVizString = inicia + contenido1 + contenido2 + final;
-            Bitmap bm = new Bitmap(Graphviz.RenderImage(graphVizString, "jpeg"));
-            var imagen = new Bitmap(bm);
-            bm.Dispose();
-            Image image = (Image)imagen;
-            imagen.Save(path + @"\tempArbol.jpeg", ImageFormat.Jpeg);
+                String inicia = "digraph G {\n";
+                string contenido1 = "{\n" +
+                   "node[shape=box, width=2];\n";
+                string contenido2 = codigoDot;
+                String final = "}\n" +
+                    "}";
+                string graphVizString = inicia + contenido1 + contenido2 + final;
+                Bitmap bm = new Bitmap(Graphviz.RenderImage(graphVizString, "jpeg"));
+                var imagen = new Bitmap(bm);
+                bm.Dispose();
+                Image image = (Image)imagen;
+                imagen.Save(path + @"\tempArbol.jpeg", ImageFormat.Jpeg);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Error al generar arbol");
+            }
+           
         }
     }
 }

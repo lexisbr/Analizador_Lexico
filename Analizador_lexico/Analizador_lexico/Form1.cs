@@ -19,13 +19,15 @@ namespace Analizador_lexico
         Archivo archivo = new Archivo();
         /*Lista para los tokens generados para automatas*/
         private ArrayList tokens = new ArrayList();
+        Automata analizador;
+        //Lista de simbolos generados
+        private ArrayList simbolos;
 
-        public static ArrayList simbolos = new ArrayList();
-        
+
         public Form1()
         {
             InitializeComponent();
-            lblProyectoActual.Text = "Proyecto actual: "+"SinTitulo";
+            lblProyectoActual.Text = "Proyecto actual: " + "SinTitulo";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -58,7 +60,7 @@ namespace Analizador_lexico
             {
                 guardar();
             }
-            
+
         }
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -69,7 +71,8 @@ namespace Analizador_lexico
             {
                 String nombre = openFileDialog1.FileName;
                 /* Si el texto ha sido modificado pregunta si desea guardar antes abrir otro proyecto*/
-                if (archivo.getTextoCambiado()){
+                if (archivo.getTextoCambiado())
+                {
                     verificarGuardar();
                     areaTexto.Clear();
                     areaTexto.SelectionColor = Color.Black;
@@ -81,7 +84,7 @@ namespace Analizador_lexico
                     areaTexto.Text = archivo.abrirArchivo(nombre);
                     cargarTitulo();
                 }
-               
+
             }
 
         }
@@ -117,9 +120,9 @@ namespace Analizador_lexico
             String texto = areaTexto.Text;
             archivo.guardarArchivo(texto);
             cargarTitulo();
-          
+
         }
-         /*Metodo para vaciar richtextbox y borrar direccion actual*/
+        /*Metodo para vaciar richtextbox y borrar direccion actual*/
         public void vaciar()
         {
             areaTexto.Clear();
@@ -127,6 +130,8 @@ namespace Analizador_lexico
             lblProyectoActual.Text = "Proyecto actual: " + "SinTitulo";
             archivo.setDireccionActual("");
             archivo.setTextoCambiado(false);
+            generarArbol_bttn.Enabled = false;
+            btn_tabla.Enabled = false;
         }
 
         /*Para openFileDialog y que solo muestre archivos con extension .gt */
@@ -166,10 +171,11 @@ namespace Analizador_lexico
             areaTexto.SelectionColor = Color.Black;
             if (archivo.getDireccionActual().Equals(""))
             {
-                lblProyectoActual.Text = "Proyecto actual: " + "SinTitulo"+"*";            
+                lblProyectoActual.Text = "Proyecto actual: " + "SinTitulo" + "*";
             }
-            else {
-                lblProyectoActual.Text = "Proyecto actual: " + Path.GetFileName(archivo.getDireccionActual()) + "*"; 
+            else
+            {
+                lblProyectoActual.Text = "Proyecto actual: " + Path.GetFileName(archivo.getDireccionActual()) + "*";
             }
             archivo.setTextoCambiado(true);
 
@@ -214,10 +220,10 @@ namespace Analizador_lexico
                 }
                 else if (dialogResult == DialogResult.No)
                 {
-                    
+
                 }
             }
-            
+
         }
 
         /*Metodo para eliminar archivo*/
@@ -240,7 +246,7 @@ namespace Analizador_lexico
             {
                 MessageBox.Show("Error");
             }
-            
+
         }
 
         private void label1_Click_1(object sender, EventArgs e)
@@ -251,34 +257,43 @@ namespace Analizador_lexico
         /*Cuando se presiona compilar*/
         private void button1_Click(object sender, EventArgs e)
         {
-            //Instancio objeto de la clase automata
-            Automata analizador = new Automata();
-            //Se envia el texto a analizar
-            analizador.analizadorAutomata(areaTexto.Text);
-            //Clono el arraylist generado
-            tokens =(ArrayList)analizador.getListaLexema().Clone();
-            //Metodo para mostrar tokes
-            mostrarTokens();
-
-            //Verifica si existen errores
-            if (verificarErrores())
+            try
             {
-                MessageBox.Show("Compilacion correcta.");
-                areaErrores.SelectionColor = Color.Green;
-                areaErrores.AppendText("No hay errores. Compilacion Correcta");
-                generarArbol_bttn.Enabled = true;
-                ArbolSintactico arbol =  new ArbolSintactico(analizador.getParserNodos());
-                arbol.generarDot();
+                //Instancio objeto de la clase automata
+                analizador = new Automata();
+                //Se envia el texto a analizar
+                analizador.analizadorAutomata(areaTexto.Text);
+                //Clono el arraylist generado
+                tokens = (ArrayList)analizador.getListaLexema().Clone();
+                //Metodo para mostrar tokes
+                mostrarTokens();
+                //Generar obtener simbolos
+                simbolos = (ArrayList)analizador.getParserSimbolos().Clone();
+                //Verifica si existen errores
+                if (verificarErrores())
+                {
+                    MessageBox.Show("Compilacion correcta.");
+                    areaErrores.SelectionColor = Color.Green;
+                    areaErrores.AppendText("No hay errores. Compilacion Correcta");
+                    generarArbol_bttn.Enabled = true;
+                    btn_tabla.Enabled = true;
+                }
+                else
+                {
+                    generarArbol_bttn.Enabled = false;
+                    btn_tabla.Enabled = false;
+                    MessageBox.Show("Error al compilar, revise su codigo.");
+                }
             }
-            else
+            catch (Exception)
             {
-                generarArbol_bttn.Enabled = false;
-                MessageBox.Show("Error al compilar, revise su codigo.");
+                Console.WriteLine("Error al analizar");
             }
+           
         }
-        
+
         /* Muestra y pinta los tokens */
-      public void mostrarTokens()
+        public void mostrarTokens()
         {
             //Contador de errores
             int contErrores = 1;
@@ -351,7 +366,7 @@ namespace Analizador_lexico
                     areaTexto.AppendText(lexema.getLexema());
                 }
                 //Si es in ID lo deja en negro
-                else if (lexema.getTipo().Equals("ID")|| lexema.getTipo().Equals("Coma"))
+                else if (lexema.getTipo().Equals("ID") || lexema.getTipo().Equals("Coma"))
                 {
                     areaTexto.SelectionColor = Color.Black;
                     areaTexto.AppendText(lexema.getLexema());
@@ -367,11 +382,11 @@ namespace Analizador_lexico
                     //areaTexto.SelectionFont = new Font (areaTexto.SelectionFont, FontStyle.Underline);
                     areaTexto.SelectionColor = Color.Firebrick;
                     areaTexto.AppendText(lexema.getLexema());
-                    areaErrores.AppendText(contErrores+") "+lexema.getLexema()+"   >>> Linea:"+lexema.getFila()+" Columna:"+lexema.getColumna()+" <<<");
+                    areaErrores.AppendText(contErrores + ") " + lexema.getLexema() + "   >>> Linea:" + lexema.getFila() + " Columna:" + lexema.getColumna() + " <<<");
                     contErrores++;
                     areaErrores.AppendText("\n");
                 }
-              
+
                 //Inserta enters o espacios
                 if (lexema.getTipo().Equals("Enter"))
                 {
@@ -441,7 +456,6 @@ namespace Analizador_lexico
         {
             int index = areaTexto.SelectionStart;
             int line = areaTexto.GetLineFromCharIndex(index);
-
             int firstChar = areaTexto.GetFirstCharIndexFromLine(line);
             int column = index - firstChar;
             lblLinea.Text = Convert.ToString("Linea: " + (line + 1));
@@ -467,6 +481,7 @@ namespace Analizador_lexico
             getColumnaFila();
             areaTexto.SelectionColor = Color.Black;
             generarArbol_bttn.Enabled = false;
+            btn_tabla.Enabled = false;
 
         }
 
@@ -495,6 +510,8 @@ namespace Analizador_lexico
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
             areaTexto.SelectionColor = Color.Black;
+            generarArbol_bttn.Enabled = false;
+            btn_tabla.Enabled = false;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -509,13 +526,31 @@ namespace Analizador_lexico
 
         private void button2_Click(object sender, EventArgs e)
         {
-            ArbolForm arbol = new ArbolForm();
-            arbol.Show();
+            try
+            {
+                ArbolSintactico arbolDOT = new ArbolSintactico(analizador.getParserNodos());
+                arbolDOT.generarDot();
+
+                ArbolForm arbol = new ArbolForm();
+                arbol.Show();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
         private void exportarButton_MouseHover(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            TablaForm tabla = new TablaForm(simbolos);
+            tabla.Show();
         }
     }
 }

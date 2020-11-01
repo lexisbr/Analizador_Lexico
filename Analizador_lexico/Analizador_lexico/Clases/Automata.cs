@@ -1632,6 +1632,12 @@ namespace Analizador_lexico.Clases
             return parser.getNodos();
         }
 
+        public ArrayList getParserSimbolos()
+        {
+            return parser.getSimbolos();
+        }
+
+
 
         /*Devuelve arraylist*/
         public ArrayList getListaLexema()

@@ -51,6 +51,7 @@
             this.areaErrores = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.btn_tabla = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -66,7 +67,7 @@
             this.archivoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(973, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1785, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.menuStrip1_KeyPress);
@@ -134,7 +135,7 @@
             this.areaTexto.Location = new System.Drawing.Point(13, 17);
             this.areaTexto.Name = "areaTexto";
             this.areaTexto.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.areaTexto.Size = new System.Drawing.Size(918, 417);
+            this.areaTexto.Size = new System.Drawing.Size(1730, 417);
             this.areaTexto.TabIndex = 2;
             this.areaTexto.Text = "";
             this.areaTexto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.areaTexto_MouseClick);
@@ -160,7 +161,7 @@
             this.panel1.ForeColor = System.Drawing.Color.White;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(973, 64);
+            this.panel1.Size = new System.Drawing.Size(1785, 64);
             this.panel1.TabIndex = 3;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -175,7 +176,7 @@
             this.exportarButton.ForeColor = System.Drawing.Color.White;
             this.exportarButton.Image = global::Analizador_lexico.Properties.Resources.pngegg__2___1_;
             this.exportarButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.exportarButton.Location = new System.Drawing.Point(772, 9);
+            this.exportarButton.Location = new System.Drawing.Point(1584, 9);
             this.exportarButton.Margin = new System.Windows.Forms.Padding(0);
             this.exportarButton.Name = "exportarButton";
             this.exportarButton.Size = new System.Drawing.Size(172, 43);
@@ -198,7 +199,7 @@
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Image = global::Analizador_lexico.Properties.Resources.jugar__1___1_;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(639, 9);
+            this.button1.Location = new System.Drawing.Point(1451, 9);
             this.button1.Margin = new System.Windows.Forms.Padding(0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(116, 43);
@@ -244,7 +245,7 @@
             this.generarArbol_bttn.ForeColor = System.Drawing.Color.Black;
             this.generarArbol_bttn.Image = global::Analizador_lexico.Properties.Resources.arbol;
             this.generarArbol_bttn.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.generarArbol_bttn.Location = new System.Drawing.Point(757, 651);
+            this.generarArbol_bttn.Location = new System.Drawing.Point(1191, 651);
             this.generarArbol_bttn.Margin = new System.Windows.Forms.Padding(0);
             this.generarArbol_bttn.Name = "generarArbol_bttn";
             this.generarArbol_bttn.Size = new System.Drawing.Size(204, 86);
@@ -264,7 +265,7 @@
             this.panel2.Controls.Add(this.areaTexto);
             this.panel2.Location = new System.Drawing.Point(12, 87);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(949, 465);
+            this.panel2.Size = new System.Drawing.Size(1761, 465);
             this.panel2.TabIndex = 4;
             // 
             // lblColumna
@@ -299,7 +300,7 @@
             this.areaErrores.BackColor = System.Drawing.SystemColors.ControlDark;
             this.areaErrores.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.areaErrores.ForeColor = System.Drawing.Color.DarkRed;
-            this.areaErrores.Location = new System.Drawing.Point(27, 627);
+            this.areaErrores.Location = new System.Drawing.Point(433, 627);
             this.areaErrores.Name = "areaErrores";
             this.areaErrores.ReadOnly = true;
             this.areaErrores.Size = new System.Drawing.Size(711, 134);
@@ -313,7 +314,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Open Sans", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(71, 595);
+            this.label2.Location = new System.Drawing.Point(477, 595);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 26);
             this.label2.TabIndex = 6;
@@ -326,12 +327,34 @@
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.BackgroundImage = global::Analizador_lexico.Properties.Resources.kisspng_computer_icons_error_download_triangle_icon_5b41d8cf40b6e3_1645135015310419992651__1_;
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox2.Location = new System.Drawing.Point(27, 588);
+            this.pictureBox2.Location = new System.Drawing.Point(433, 588);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(38, 33);
             this.pictureBox2.TabIndex = 7;
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            // 
+            // btn_tabla
+            // 
+            this.btn_tabla.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btn_tabla.BackColor = System.Drawing.Color.YellowGreen;
+            this.btn_tabla.Enabled = false;
+            this.btn_tabla.FlatAppearance.BorderSize = 0;
+            this.btn_tabla.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightCoral;
+            this.btn_tabla.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_tabla.Font = new System.Drawing.Font("Open Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_tabla.ForeColor = System.Drawing.Color.Black;
+            this.btn_tabla.Image = global::Analizador_lexico.Properties.Resources.tabla__1_;
+            this.btn_tabla.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btn_tabla.Location = new System.Drawing.Point(1436, 651);
+            this.btn_tabla.Margin = new System.Windows.Forms.Padding(0);
+            this.btn_tabla.Name = "btn_tabla";
+            this.btn_tabla.Size = new System.Drawing.Size(232, 86);
+            this.btn_tabla.TabIndex = 8;
+            this.btn_tabla.Text = "Generar Tabla de Simbolos";
+            this.btn_tabla.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btn_tabla.UseVisualStyleBackColor = false;
+            this.btn_tabla.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // Form1
             // 
@@ -340,7 +363,8 @@
             this.BackColor = System.Drawing.Color.Goldenrod;
             this.BackgroundImage = global::Analizador_lexico.Properties.Resources.fondo1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(973, 785);
+            this.ClientSize = new System.Drawing.Size(1785, 785);
+            this.Controls.Add(this.btn_tabla);
             this.Controls.Add(this.generarArbol_bttn);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label2);
@@ -352,7 +376,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "IDE - Lexees";
+            this.Text = "-";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -394,6 +418,7 @@
         private System.Windows.Forms.Label lblColumna;
         private System.Windows.Forms.Label lblLinea;
         private System.Windows.Forms.Button generarArbol_bttn;
+        private System.Windows.Forms.Button btn_tabla;
     }
 }
 

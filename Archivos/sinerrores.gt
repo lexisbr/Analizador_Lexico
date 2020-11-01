@@ -34,10 +34,10 @@ SINO_SI ( ( _c > _b ) && ( _dd == verdadero ) ) {
 _b = 50 ; 
 } 
 SINO_SI ( _as == verdadero ) { 
-//sentencias
+//sentencias 
 } 
 SINO { 
-//sentencias
+//sentencias 
 } 
 
 HACER { 
@@ -48,4 +48,5 @@ entero _var = 15 ;
 } 
 MIENTRAS ( _datos == 2 ) 
 
-}
+} 
+
