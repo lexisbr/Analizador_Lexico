@@ -34,7 +34,6 @@ namespace Analizador_lexico.Clases
             while (pila.Count != 0)
             {
                 peek = (string)pila.Peek();
-                Console.WriteLine("Token: " + token.getLexema() + " Tipo: " + token.getTipo() + " Peek: " + peek);
                 switch (peek)
                 {
                     /*Caso para principal*/
@@ -1206,7 +1205,6 @@ namespace Analizador_lexico.Clases
                             if (peek.Equals(token.getLexema()) || peek.Equals(token.getTipo()))
                             {
                                 generarSimbolo(token);
-                                Console.WriteLine("Sale>>> " + peek + "\n");
                                 pila.Pop();
                                 return true;
                             }
